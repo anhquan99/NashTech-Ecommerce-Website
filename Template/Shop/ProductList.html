@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<body>
+
+  <div class="PageLayout">
+    <nav class="Header">
+      <div class="Header_HeaderContent ">
+        <div class="Header_StyleNav">
+          <div>
+            <div class="Nav_Hamburger" onclick="openNav('SlidingNav')">
+              <span class="Nav_HamburgerSlice"></span>
+              <span class="Nav_HamburgerSlice"></span>
+              <span class="Nav_HamburgerSlice"></span>
+            </div>
+            <!-- overlayer shadow -->
+            <div class="PrimaryNav_NavOverlay" id="ShadowLayer" onclick="closeNav('SlidingNav')">
+              <div class="PrimaryNav_TrackingCover"></div>
+            </div>
+          </div>
+
+          <nav class="Menu_SlidingNav" id="SlidingNav">
+            <ul class="UnorderedList">
+              <li class="MenuItem_ListItem">
+                <label class="Label">
+                  <span class="AnimatedUnderlineText"><a href="#" id="">Discover</a></span>
+                </label>
+              </li>
+              <li class="MenuItem_ListItem">
+                <label class="Label">
+                  <span class="AnimatedUnderlineText"><a href="#" id="">Shop All</a></span>
+                </label>
+              </li>
+              <!-- Nested item -->
+
+              <li class="MenuItem_ListItemNestedMenu">
+                <div><label class="Label " onclick="openNav('SlidingBrandNav')">Brands</label></div>
+                <nav class="Menu_SlidingNav" id="SlidingBrandNav">
+                  <ul class="UnorderedList">
+                    <li class="MenuItem_ListItem">
+                      <div><label class="Label MenuHeader_Label" onclick="closeNav('SlidingBrandNav')"><svg version="1.1"
+                            xlmns="http://www.w3.org/2000/svg" xlmnsxlink="http://www.w3.org/1999/xlink" class="MenuHeader_BackArrow"
+                            width="21px" height="18px" viewBox="0 0 23 16">
+                            <title>Left Arrow</title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g id="arrow" transform="translate(-1086.000000, -20.000000)" fill="#0B0B0B" fill-rule="nonzero"
+                                stroke="#0b0b0b" stroke-width="0.3">
+                                <polygon transform="translate(1096.500000, 29.000000) rotate(-180.000000) translate(-1096.500000, -29.000000) "
+                                  points="1098.1601 20 1096.96429 21.1933481 1103.79863 28.1518847 1086 28.1518847 1086 29.8481153 1103.79863 29.8481153 1096.96429 36.8056541 1098.1601 38 1107 29"></polygon>
+                              </g>
+                            </g>
+                          </svg>
+                          <h3 class="MenuHeader_Title">Brands</h3>
+                        </label></div>
+                    </li>
+                    <li class="MenuItem_ListItem Label">
+                      <div class="AnimatedUnderlineText "><a href="#"><label><span></span>Acne
+                            Studios</span></label></a></div>
+                    </li>
+                    <li class="MenuItem_ListItem Label">
+                      <div class="AnimatedUnderlineText "><a href="#"><label><span></span>Adidas</span></label></a></div>
+                    </li>
+              </li>
+            </ul>
+          </nav>
+          </li>
+
+          <li class="MenuItem_ListItem ">
+            <label class="Label">
+              <span class="AnimatedUnderlineText"><a href="#" id="">Style</a></span>
+            </label>
+          </li>
+          <li class="MenuItem_ListItem">
+            <label class="Label">
+              <span class="AnimatedUnderlineText"><a href="#" id="">Wants</a></span>
+            </label>
+          </li>
+
+          <!-- login -->
+          <li class="MenuItem_ListItem ">
+            <div class="Label Access">
+              <div class="UserLogin_Wrapper"><a data-qa="log_in" class="UserLogin_Link" href="#">Log In</a><a class="UserLogin_Link"
+                  href="#">Sign Up</a></div>
+
+            </div>
+
+            </ul>
+    </nav>
+
+  </div>
+  <a aria-label="GOAT logo" class="Header_LinkLogo" href="#">
+    <img src="/images/logo.png" alt=""></a>
+  <div class="Header_HeaderLink AnimatedUnderlineText">
+    <a href="#">Discover</a>
+  </div>
+  <div class="Header_HeaderLink AnimatedUnderlineText">
+    <a href="#" Shop>All</a>
+  </div>
+  <div class="Header_HeaderLink AnimatedUnderlineText">
+    <a href="#">Timeline</a>
+  </div>
+  <div class="Header_HeaderLink AnimatedUnderlineText">
+    <a href="#">Shop</a>
+  </div>
+  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 15 15" xml:space="preserve"
+    class="SearchIcon_TheSearchIcon" aria-label="search">
+    <g id="HOME-HERO-NEW">
+      <g transform="translate(-331.000000, -51.000000)">
+        <g id="Group" transform="translate(338.522463, 58.619673) rotate(-45.000000) translate(-338.522463, -58.619673) translate(330.022463, 48.619673)">
+          <g id="Group-3">
+            <path id="Path-4" d="M8.6,12.9v7" fill="none" stroke-width="1.5"></path>
+            <g id="search" transform="translate(8.532978, 8.188775) rotate(-315.000000) translate(-8.532978, -8.188775) translate(3.032978, 2.688775)">
+              <path id="Stroke-4" fill="none" stroke-width="1.5" stroke-linejoin="round" d="M5.2,10.3C2.3,10.3,0,8,0,5.2S2.3,0,5.2,0s5.2,2.3,5.2,5.2S8,10.3,5.2,10.3z"></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+
+  </div>
+
+
+  </div>
+  </nav>
+
+
+  <!-- body -->
+  <div class="PageLayout_PageAlignmentListProduct">
+
+    <div class="InfiniteScrollSearchGrid_Container">
+      <div class="InfiniteScrollSearchGrid_HeadingWrapper">
+        <div class="BrandLogo_LogoContainer" style="background-image: url('https://www.goat.com/public/images/brands/acnestudios.png'); height: 40px; width: 100%; margin: 16px 0px;"></div>
+        <p class="InfiniteScrollSearchGrid_BrandDescription">Art, architecture and contemporary
+          culture form the basis of Acne Studios' unconventional ethos. A creative collective born in 1996, the
+          Swedish fashion house came onto Vogue Paris' radar after co-founder Jonny Johansson designed 100 pairs of
+          raw denim <a href="#">jeans</a> with red stitching for friends and family.</p>
+      </div><input type="search" class="HiddenInstantSearchBox_Input" value="">
+      <div class="SneakerApparelToggle_Container"><a href="#" class="SneakerApparelToggle_Option">Sneakers</a><a href="#"
+          class="SneakerApparelToggle_Option">Apparel</a></div>
+      <div class="InfiniteScrollSearchGrid_GridAndFiltersContainer">
+        <div class="InfiniteScrollSearchGrid_Observer"></div>
+        <div class="InfiniteScrollSearchGrid_Filters"></div>
+        <div class="InfiniteScrollSearchGrid_FilterSummaryWrapper">
+          <div class="FilterSummaryRow_Wrapper">
+            <div class="FilterSummaryRow_NumOfResults">
+              <h1 class="SearchResultCountText_HitsText">Showing 21
+                results</h1>
+            </div>
+            <div class="FilterSummaryRow_StyledSortBy">
+              <div class="DropdownMenu_Dropdown"><button onlcick="openSelection('SortListSelection')" class="DropdownMenu_DropdownButton">
+                  <div class="DropdownMenu_Title">Sort By</div>
+                  <div class="DropdownMenu_Title DropdownMenu_Selection">
+                    Popular</div>
+                  <div class="DropdownMenu_ArrowWrapper"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer " style="transform: rotate(-180deg);">
+                      <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10"
+                        stroke-width="1.5"></polyline>
+                    </svg></div>
+                </button>
+                <ul class="DropdownMenu_DropdownList goat-scroll" id="SortListSelection">
+                  <li class="DropdownMenu_DropdownListItem"><button class="DropdownMenu_DropdownListItemButton">
+                      <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">popular</div>
+                      <div class="DropdownMenu_DropdownListItemButtonIcon"><svg width="14" height="14" viewBox="0 0 10 8"
+                          fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <line x1="1.06066" y1="3.91664" x2="3.33333" y2="6.18931" stroke="black" stroke-width="1.5"
+                            stroke-linecap="round"></line>
+                          <line x1="3.3335" y1="6.18934" x2="8.27284" y2="1.25" stroke="black" stroke-width="1.5"
+                            stroke-linecap="round"></line>
+                        </svg></div>
+                    </button></li>
+                  <li class="DropdownMenu_DropdownListItem"><button class="DropdownMenu_DropdownListItemButton">
+                      <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">new</div>
+                    </button></li>
+                  <li class="DropdownMenu_DropdownListItem"><button class="DropdownMenu_DropdownListItemButton">
+                      <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">upcoming</div>
+                    </button></li>
+                  <li class="DropdownMenu_DropdownListItem"><button class="DropdownMenu_DropdownListItemButton">
+                      <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">price
+                        (low-high)</div>
+                    </button></li>
+                  <li class="DropdownMenu_DropdownListItem"><button class="DropdownMenu_DropdownListItemButton">
+                      <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">price
+                        (high-low)</div>
+                    </button></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="max-width: 84%;">
+    <div class="row">
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      <div class="card col-4 ProductCard" style="width: 18rem;">
+        <a href="#">
+          <div class="card-body Wraper">
+            <div class="HeaderButton">
+              <div class="ReleaseDate">
+                <span>Jul 4 2021</span>
+              </div>
+              <button class="WantButton">
+                Want
+              </button>
+            </div>
+
+            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+              sizes="200px" class="ProductImage">
+            <div class="Detail">
+              <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+              <div class="ProductPriceDisplay">
+                <p class="ProductPrice">$200</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  <div class="align-center-justify-center full-width" style="height: 90px;">
+    <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">BACK
+      TO TOP</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer "
+      style="transform: rotate(0deg);">
+      <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10" stroke-width="1.5"></polyline>
+    </svg>
+  </div>
+  </div>
+
+  <footer>
+    <div class="Footer_MoblieApp"></div>
+    <div class="Footer_Newsletter">
+      <div class="Footer_NewsletterContent">
+        <h1 class="Footer_NewsletterContentHeader">
+          Sign up for early access to news, promotions, and more.
+        </h1>
+        <form action="" class="Footer_NewsletterForm">
+          <div class="Footer_NewsletterInput">
+            <div class="MaterialInput_Content">
+              <label for="" class="MaterialInput_Label">
+                <input type="text" class="MaterialInput_Input" name="email" type="email" label="Enter Email Address"
+                  aira-label="Enter email address">
+                <span class="MaterialInput_LabelCopy">
+                  Enter Email Address
+                </span>
+              </label>
+            </div>
+          </div>
+          <button class="Footer_NewsletterSubmitButton nash-button secondary align-center-justify-center" type="submit"
+            disabled>
+            <span>Sign up</span>
+          </button>
+        </form>
+        <div class="Footer_NewsletterDisclaimer">
+          <span>By signing up, you confirm you are over 16 years of age and you want to receive NASH emails.
+            Please
+            see our</span>
+          <a href="#" class="Footer_NewsletterDisclaimerLink">Terms & Conditions</a>
+          <span>and</span>
+          <a href="#" class="Footer_NewsletterDisclaimerLink">Privacy Policy</a>
+          <span>for more details.</span>
+        </div>
+      </div>
+    </div>
+    <div class="Footer_Sitemap">
+      <ul class="Footer_SitemapContent">
+        <li class="Footer_SitemapSection">
+          <span class="Footer_SitemapContentHeader">Buy</span>
+          <ul class="Footer_SitemapSectionLinks">
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Assurance of Authenticity</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a><a href="#">Buyer Protection Guarantee</a></a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Purchases & Returns</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Nash clean</a>
+              </span>
+            </li>
+          </ul>
+        </li>
+
+        <li class="Footer_SitemapSection">
+          <span class="Footer_SitemapContentHeader">Sell</span>
+          <ul class="Footer_SitemapSectionLinks">
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Selling on Nash</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Fee Policy</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Drop Off</a>
+              </span>
+            </li>
+          </ul>
+        </li>
+
+        <li class="Footer_SitemapSection">
+          <span class="Footer_SitemapContentHeader">Support</span>
+          <ul class="Footer_SitemapSectionLinks">
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Contact Us</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">FAQS</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Privacy</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Terms</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Cookie settings</a>
+              </span>
+            </li>
+          </ul>
+        </li>
+
+        <li class="Footer_SitemapSection">
+          <span class="Footer_SitemapContentHeader">About</span>
+          <ul class="Footer_SitemapSectionLinks">
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Careers</a>
+              </span>
+            </li>
+            <li class="Footer_SitemapSectionLink">
+              <span class="AnimatedUnderlineText">
+                <a href="#">Nash app</a>
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="Footer_Social_CopyRight">
+      <div class="Footer_SocialLinks">
+        <a target="_blank" href="#" aria-label="facebook link">
+          <svg class="Footer_FacebookIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-3 7h-1.924c-.615 0-1.076.252-1.076.889v1.111h3l-.238 3h-2.762v8h-3v-8h-2v-3h2v-1.923c0-2.022 1.064-3.077 3.461-3.077h2.539v3z"></path>
+          </svg></a>
+        <a target="_blank" href="#" aria-label="twitter link">
+          <svg class="Footer_FacebookIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 57 612 498">
+            <path d="M612 116.258a250.746 250.746 0 01-72.088 19.772c25.93-15.527 45.777-40.155 55.184-69.41-24.322 14.378-51.17 24.82-79.775 30.48-22.906-24.438-55.49-39.66-91.63-39.66-69.333 0-125.55 56.218-125.55 125.514 0 9.828 1.11 19.427 3.25 28.606-104.325-5.24-196.834-55.223-258.75-131.174-10.822 18.51-16.98 40.078-16.98 63.1 0 43.56 22.182 81.994 55.836 104.48A125.556 125.556 0 0124.63 232.21v1.568c0 60.806 43.29 111.554 100.692 123.104-10.517 2.83-21.607 4.398-33.08 4.398-8.107 0-15.947-.803-23.634-2.333 15.985 49.907 62.336 86.2 117.253 87.194-42.946 33.655-97.098 53.656-155.915 53.656-10.134 0-20.116-.612-29.944-1.72 55.568 35.68 121.537 56.484 192.44 56.484 230.947 0 357.187-191.29 357.187-357.188l-.42-16.253c24.661-17.595 46.001-39.7 62.791-64.863z"></path>
+          </svg></a>
+        <a href="#" aria-label="facebook-link">
+          <svg class="Footer_FacebookIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 170">
+            <path d="M122.406 0H46.654C20.93 0 0 20.93 0 46.655v75.752c0 25.726 20.93 46.655 46.654 46.655h75.752c25.727 0 46.656-20.93 46.656-46.655V46.655C169.062 20.93 148.132 0 122.406 0zm31.657 122.407c0 17.455-14.2 31.655-31.656 31.655H46.654C29.2 154.062 15 139.862 15 122.407V46.655C15 29.2 29.2 15 46.654 15h75.752c17.455 0 31.656 14.2 31.656 31.655v75.752z"></path>
+            <path d="M84.53 40.97c-24.02 0-43.562 19.542-43.562 43.563 0 24.02 19.542 43.56 43.563 43.56 24.022 0 43.564-19.54 43.564-43.56 0-24.02-19.542-43.563-43.563-43.563zm0 72.123c-15.748 0-28.562-12.812-28.562-28.56 0-15.75 12.813-28.564 28.563-28.564 15.75 0 28.564 12.812 28.564 28.562 0 15.75-12.814 28.56-28.563 28.56zm45.39-84.843c-2.89 0-5.728 1.17-7.77 3.22a11.057 11.057 0 00-3.23 7.78c0 2.892 1.18 5.73 3.23 7.78 2.04 2.04 4.88 3.22 7.77 3.22 2.9 0 5.73-1.18 7.78-3.22 2.05-2.05 3.22-4.89 3.22-7.78 0-2.9-1.17-5.74-3.22-7.78-2.04-2.05-4.88-3.22-7.78-3.22z"></path>
+          </svg>
+        </a>
+      </div>
+      <div class="Footer_Copyright">
+        <span>© 2021</span><span> Nash. All Rights Reserved</span>
+      </div>
+    </div>
+  </footer>
+  </div>
+</body>
+<script src="/js/function.js"></script>
+
+</html>

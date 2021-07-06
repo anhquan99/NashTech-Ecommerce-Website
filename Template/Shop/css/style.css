@@ -99,6 +99,9 @@ a{
 a, p a {
     color: #0b0b0b;
 }
+#SortListSelection{
+    display: none;
+}
 .nash-button:hover {
     text-decoration: underline;
     text-underline-position: under;
@@ -571,28 +574,6 @@ a, p a {
     overflow: auto;
     padding: 24px;
 }
-.ProductWantButton_Button{
-    -webkit-box-align: center;
-    align-items: center;
-    background: rgb(255, 255, 255);
-    border: 1px solid rgb(222, 222, 222);
-    border-radius: 4px;
-    color: rgb(0, 0, 0);
-    display: flex;
-    height: 25px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    -webkit-box-pack: center;
-    justify-content: center;
-    width: 56px;
-    padding: 0px;
-    z-index: 3;
-    font-size: 12px;
-    font-family: Plain;
-    line-height: 17px;
-    letter-spacing: 0px;
-}
 .ProductTitlePane_Title{
     font-size: 32px;
     font-family: Plain;
@@ -972,6 +953,529 @@ a .Fact_Details:hover {
     color: #0b0b0b;
     text-transform: uppercase;
 }
+.InfiniteScrollSearchGrid_Container{
+    padding: 0px 90px;
+    /* min-height: calc(100vh - 90px); */
+    width: 100%;
+}
+.InfiniteScrollSearchGrid_HeadingWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 102px 20px;
+}
+.BrandLogo_LogoContainer{
+    background-position: center center;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+.InfiniteScrollSearchGrid_BrandDescription{
+    color: rgb(129, 129, 129);
+    font-family: Plain;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 0px;
+    max-width: 525px;
+    text-align: center;
+}
+.InfiniteScrollSearchGrid_BrandDescription a{
+    text-decoration: underline;
+}
+.InfiniteScrollSearchGrid_BrandDescription a:hover{
+    color: initial;
+}
+.SneakerApparelToggle_Container{
+    display: flex;
+    max-width: 200px;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    border-top: none;
+}
+.SneakerApparelToggle_Option{
+    display: flex;
+    justify-content: left;
+    -webkit-box-align: center;
+    align-items: center;
+    border: 0px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Plain;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-decoration: underline;
+    height: 58px;
+    width: 50%;
+    background-color: rgb(255, 255, 255);
+}
+.InfiniteScrollSearchGrid_GridAndFiltersContainer{
+    position: relative;
+    display: grid;
+    grid-template-rows: 63px;
+    grid-template-columns: 312px 1fr;
+    grid-template-areas:
+        "filters sortby"
+        "grid grid";
+}
+.InfiniteScrollSearchGrid_Observer{
+    position: absolute;
+    top: -90px;
+}
+.InfiniteScrollSearchGrid_Filters{
+    grid-area: filters / filters / filters / filters;
+    position: relative;
+    top: 0px;
+    overflow-y: hidden;
+    height: auto;
+    width: auto;
+}
+.InfiniteScrollSearchGrid_FilterSummaryWrapper{
+    grid-area: sortby / sortby / sortby / sortby;
+    flex: 1 1 0%;
+}
+.FilterSummaryRow_Wrapper{
+    display: flex;
+    overflow: visible;
+    flex-direction: row;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    padding: 5px;
+}
+.FilterSummaryRow_NumOfResults{
+    flex: 1 1 0%;
+}
+.SearchResultCountText_HitsText{
+    color: rgb(129, 129, 129);
+    font-size: 12px;
+    font-family: Plain;
+    letter-spacing: 0px;
+    line-height: 14px;
+    text-align: center;
+    text-transform: capitalize;
+}
+.FilterSummaryRow_StyledSortBy{
+    position: relative;
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    width: 300px;
+    margin-bottom: 0px;
+}
+.DropdownMenu_Dropdown{
+    float: right;
+    position: relative;
+    border: 1px solid rgb(222, 222, 222);
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    max-width: 238px;
+    z-index: 60;
+}
+.DropdownMenu_DropdownButton{
+    border: none;
+    margin: 0px;
+    outline: none;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    text-align: left;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0px 10px 0px 18px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+.DropdownMenu_Title{
+    letter-spacing: 0px;
+    text-transform: capitalize;
+    font-family: Plain;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgb(129, 129, 129);
+}
+.DropdownMenu_Selection{
+    line-height: 17px;
+    margin-left: 24px;
+    color: rgb(11, 11, 11);
+}
+.DropdownMenu_ArrowWrapper{
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+.ProductTemplateGridCellImage_Image{
+    max-height: 50%;
+    min-height: 50%;
+    max-width: 60%;
+    object-fit: contain;
+    width: auto;
+}
+/* .InfiniteScrollSearchGrid_InfiniteHitsWrapper{
+    grid-area: grid / grid / grid / grid;
+} */
+.InfiniteHits_Wrapper{
+    width: 100%;
+    overflow-x: hidden;
+}
+.InfiniteHits_List{
+    margin-top: 0px;
+    padding: 0px;
+}
+.ProductCard{
+    border: 0;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    border-right: 1px solid rgb(222, 222, 222);
+    padding: 0%;
+    border-radius: 0%;
+}
+/* .ProductCard:nth-child(-n+3):first-child {
+    border-top-left-radius: 5px;
+} */
+.container .row{
+    margin: 0%;
+}
+.container > .row:nth-child(1) > .ProductCard {
+    border-top: 1px solid rgb(222, 222, 222);
+}
+.container > .row:nth-child(n) > .ProductCard:nth-child(1) {
+    border-left: 1px solid rgb(222, 222, 222);
+}
+.container > .row:nth-child(1) > .ProductCard:nth-child(1) {
+    border-top-left-radius: 5px;
+}
+.container > .row:nth-child(1) > .ProductCard:nth-child(3) {
+    border-top-right-radius: 5px;
+}
+.container > .row:last-child > .ProductCard:nth-child(1) {
+    border-bottom-left-radius: 5px;
+}
+.container > .row:last-child > .ProductCard:nth-child(3) {
+    border-bottom-right-radius: 5px;
+}
+
+.Wraper{
+    padding: 15px 22px;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.HeaderButton{
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    top: 25px;
+    left: 22px;
+}
+.ReleaseDate{
+    height: 15px;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 12px;
+    font-family: Plain;
+    line-height: 16px;
+    letter-spacing: 0px;
+}
+.WantButton{
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(222, 222, 222);
+    border-radius: 4px;
+    color: rgb(0, 0, 0);
+    display: flex;
+    height: 25px;
+    top: 20px;
+    right: 20px;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 56px;
+    padding: 0px;
+    z-index: 3;
+    font-size: 12px;
+    font-family: Plain;
+    line-height: 17px;
+    letter-spacing: 0px;
+}
+.ProductImage{
+    padding: 20px 0px;
+    max-height: 50%;
+    min-height: 50%;
+    max-width: 60%;
+    width: auto;
+    object-fit: contain;
+    margin: auto;
+}
+.Detail{
+    height: 120px;
+    width: 100%;
+}
+.ProductName{
+    text-align: center;
+    font-size: 14px;
+    font-family: Plain;
+    line-height: 18px;
+    letter-spacing: 0px;
+    margin-top: 24px;
+    padding: 0px 4%;
+    margin-bottom: 0px;
+    color: rgb(11, 11, 11);
+    min-height: 32px;
+    max-height: 32px;
+    text-transform: none;
+}
+.ProductPriceDisplay{
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 22px;
+    height: 18px;
+    margin-bottom: 4%;
+}
+.ProductPrice{
+    text-align: center;
+    margin: auto;
+    padding: 0px;
+    font-size: 14px;
+    font-family: Plain-Medium;
+    line-height: 1.5;
+    letter-spacing: 0px;
+}
+.ProductCard a:hover{
+    color: initial;
+}
+text-align: center;
+font-weight: 400;
+.Grid_Wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 33.33%);
+    border-radius: 5px;
+    border-left: 1px solid rgb(222, 222, 222);
+    overflow-x: hidden;
+}
+.Grid_CellWrapper{
+    position: relative;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    border-right: 1px solid rgb(222, 222, 222);
+}
+.Grid_CellWrapper:nth-child(-n+3):first-child {
+    border-top-left-radius: 5px;
+}
+.Grid_CellWrapper:nth-child(-n+3) {
+    border-top: 1px solid rgb(222, 222, 222);
+}
+.Grid_CellContent{
+    border-radius: 0%;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.ProductTemplateGridCell_GridCell{
+    padding: 15px 22px;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.DropdownMenu__DropdownList{
+    overflow: hidden scroll;
+    background-color: white;
+    border: 1px solid rgb(176, 176, 176);
+    border-radius: 5px;
+    max-height: 200px;
+    width: calc(100% + 2px);
+    margin: 0px 0px 0px -1px;
+    padding: 0px 3px;
+    z-index: 2;
+    position: absolute;
+    left: 0px;
+    list-style-type: none;
+}
+.DropdownMenu_DropdownListItem{
+    border-bottom: 1px solid rgb(222, 222, 222);
+    height: 40px;
+}
+.DropdownMenu_DropdownListItemButton{
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    outline: none;
+    background-color: white;
+    display: flex;
+    cursor: pointer;
+    text-align: left;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+}
+.DropdownMenu_DropdownListItemButtonLabel{
+    letter-spacing: 0px;
+    text-transform: capitalize;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgb(129, 129, 129);
+    font-family: Plain;
+    margin-left: 18px;
+}
+.DropdownMenu_DropdownListItemButtonIcon{
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    margin-right: 8px;
+}
+.DropdownMenu_DropdownList{
+    overflow: hidden scroll;
+    background-color: white;
+    border: 1px solid rgb(176, 176, 176);
+    border-radius: 5px;
+    max-height: 200px;
+    width: calc(100% + 2px);
+    margin: 0px 0px 0px -1px;
+    padding: 0px 3px;
+    z-index: 2;
+    position: absolute;
+    left: 0px;
+    list-style-type: none;
+}
+.grid-cell, .product-template-cell {
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 22px;
+}
+.ProductTemplateGridCellMetaDataRow_Wrapper{
+    color: rgb(129, 129, 129);
+    text-shadow: none;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 25px;
+    left: 22px;
+}
+.GridCellReleaseDateIndicator_Label{
+    height: 15px;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 12px;
+    font-family: Plain;
+    line-height: 16px;
+    letter-spacing: 0px;
+}
+.ProductTemplateGridCell_DataContainer{
+    height: 120px;
+    width: 100%;
+}
+.ProductTemplateGridCell_BaseText{
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: Plain;
+    line-height: 18px;
+    letter-spacing: 0px;
+    margin-top: 24px;
+    color: rgb(11, 11, 11);
+    min-height: 32px;
+    max-height: 32px;
+    margin-bottom: 0px;
+    text-transform: none;
+    padding: 0px 4%;
+}
+.ProductTemplatePriceDisplay_Wrapper{
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 22px;
+    height: 18px;
+    margin-bottom: 4%;
+}
+.ProductTemplatePriceDisplay_Price{
+    text-align: center;
+    margin: auto;
+    padding: 0px;
+    font-size: 14px;
+    font-family: Plain-Medium;
+    line-height: 1.5;
+    letter-spacing: 0px;
+}
+.ProductTemplatePriceDisplay_LowestPrice{
+    font-size: 14px;
+    font-family: Plain-Medium;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    text-align: center;
+    margin: auto;
+    padding: 0px;
+}
+.PageLayout_PageAlignmentListProduct{
+    display: flex;
+    flex-direction: column;
+    overflow-anchor: none;
+    max-width: 1920px;
+    margin: 0px auto;
+    background-color: white;
+    box-shadow: rgb(222 222 222) -1px 0px 0px 0px, rgb(222 222 222) 1px 0px 0px 0px;
+}
+.HiddenInstantSearchBox_Input{
+    visibility: hidden;
+}
+
+
 .align-center-justify-center, .align-center-justify-start, .nash-button {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1269,7 +1773,9 @@ a .Fact_Details:hover {
     text-decoration: underline;
     color: rgb(129, 129, 129);
 }
-
+.Footer_NewsletterDisclaimerLink:hover{
+    color: rgb(129, 129, 129);
+}
 .Footer_Social_CopyRight {
     display: flex;
     -webkit-box-align: center;

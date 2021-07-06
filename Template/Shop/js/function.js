@@ -40,3 +40,13 @@ function scrollXRight(carouselId){
 function backToTop(){
     document.documentElement.scrollTop = 0;
 }
+function openSelection(selectionID){
+    var selection = document.getElementById(selectionID);
+    if(selection.style.display == "block"){
+        selection.style.display = "none";
+    }
+    else{
+        selection.style.display = "block";
+    }
+  
+}
