@@ -12,23 +12,23 @@
 
 <body>
 
-  <div class="PageLayout">
+  <div class="PageLayout ">
     <nav class="Header">
       <div class="Header_HeaderContent ">
         <div class="Header_StyleNav">
           <div>
-            <div class="Nav_Hamburger" onclick="openNav()">
+            <div class="Nav_Hamburger" onclick="openNav('SlidingNav')">
               <span class="Nav_HamburgerSlice"></span>
               <span class="Nav_HamburgerSlice"></span>
               <span class="Nav_HamburgerSlice"></span>
             </div>
             <!-- overlayer shadow -->
-            <div class="PrimaryNav_NavOverlay" id="ShadowLayer" onclick="closeNav()">
+            <div class="PrimaryNav_NavOverlay" id="ShadowLayer" onclick="closeNav('SlidingNav')">
               <div class="PrimaryNav_TrackingCover"></div>
             </div>
           </div>
 
-          <nav class="Menu_SlidingNav" id="SlidingNav">
+          <nav class="Menu_SlidingNav hide-scroll" id="SlidingNav">
             <ul class="UnorderedList">
               <li class="MenuItem_ListItem">
                 <label class="Label">
@@ -43,13 +43,13 @@
               <!-- Nested item -->
 
               <li class="MenuItem_ListItemNestedMenu">
-                <div><label class="Label">Brands</label></div>
-                <nav class="Menu_SlidingNav">
+                <div><label class="Label " onclick="openNav('SlidingBrandNav')">Brands</label></div>
+                <nav class="Menu_SlidingNav" id="SlidingBrandNav">
                   <ul class="UnorderedList">
                     <li class="MenuItem_ListItem">
-                      <div><label class="Label MenuHeader_Label"><svg version="1.1" xlmns="http://www.w3.org/2000/svg"
-                            xlmnsxlink="http://www.w3.org/1999/xlink" class="MenuHeader__BackArrow" width="21px" height="18px"
-                            viewBox="0 0 23 16">
+                      <div><label class="Label MenuHeader_Label" onclick="closeNav('SlidingBrandNav')"><svg version="1.1"
+                            xlmns="http://www.w3.org/2000/svg" xlmnsxlink="http://www.w3.org/1999/xlink" class="MenuHeader__BackArrow"
+                            width="21px" height="18px" viewBox="0 0 23 16">
                             <title>Left Arrow</title>
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                               <g id="arrow" transform="translate(-1086.000000, -20.000000)" fill="#0B0B0B" fill-rule="nonzero"
@@ -59,21 +59,21 @@
                               </g>
                             </g>
                           </svg>
-                          <h3 class="MenuHeader__Title">Brands</h3>
+                          <h3 class="MenuHeader_Title">Brands</h3>
                         </label></div>
                     </li>
-                    <li class="MenuItem_ListItem">
-                      <div class="AnimatedUnderlineText"><a href="#"><label class="Label"><span></span>Acne Studios</span></label></a></div>
+                    <li class="MenuItem_ListItem Label">
+                      <div class="AnimatedUnderlineText "><a href="#"><label><span></span>Acne Studios</span></label></a></div>
                     </li>
-                    <li class="MenuItem_ListItem">
-                      <div class="AnimatedUnderlineText"><a href="#"><label class="Label"><span></span>Adidas</span></label></a></div>
+                    <li class="MenuItem_ListItem Label">
+                      <div class="AnimatedUnderlineText "><a href="#"><label><span></span>Adidas</span></label></a></div>
                     </li>
               </li>
             </ul>
           </nav>
           </li>
 
-          <li class="MenuItem_ListItem">
+          <li class="MenuItem_ListItem ">
             <label class="Label">
               <span class="AnimatedUnderlineText"><a href="#" id="">Style</a></span>
             </label>
@@ -89,7 +89,7 @@
             <div class="Label Access">
               <div class="UserLogin_Wrapper"><a data-qa="log_in" class="UserLogin_Link" href="#">Log In</a><a class="UserLogin_Link"
                   href="#">Sign Up</a></div>
-                  
+
             </div>
 
             </ul>
@@ -281,7 +281,7 @@
         </a>
       </div>
       <div class="Footer_Copyright">
-        <span>© 2021</span><span> Nash. All Rights Reserved</span>
+        <span>© 2021</span><span> From GOAT.<br>For educational purposes only.</span>
       </div>
     </div>
   </footer>

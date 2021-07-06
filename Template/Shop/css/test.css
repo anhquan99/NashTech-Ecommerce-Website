@@ -1,0 +1,57 @@
+.hide-scroll::-webkit-scrollbar {
+    width: 0;
+    overflow: overlay;
+    background: transparant
+}
+
+.hide-scroll::-webkit-resizer, .hide-scroll::-webkit-scrollbar-corner {
+    display: none
+}
+
+.hide-scroll::-webkit-resizer, .hide-scroll::-webkit-scrollbar-button, .hide-scroll::-webkit-scrollbar-corner {
+    display: none
+}
+
+.hide-scroll::-webkit-scrollbar-track-piece {
+    background: transparent
+}
+
+.hide-scroll::-webkit-scrollbar-thumb {
+    max-height: 0
+}
+
+.goat-scroll, .hide-x-scroll {
+    overflow-x: hidden
+}
+
+.goat-scroll {
+    overflow-y: scroll;
+    padding-left: 3px;
+    -webkit-overflow-scrolling: touch
+}
+
+.goat-scroll::-webkit-scrollbar {
+    width: 3px;
+    overflow: overlay;
+    background: transparant
+}
+
+.goat-scroll::-webkit-resizer, .goat-scroll::-webkit-scrollbar-corner {
+    display: none
+}
+
+.goat-scroll::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    box-shadow: inset 0 0 12px transparent;
+    max-height: 16;
+    color: #000;
+    background-color: #000
+}
+
+.goat-scroll::-webkit-scrollbar-track-piece {
+    background: transparent
+}
+
+.goat-scroll::-webkit-resizer, .goat-scroll::-webkit-scrollbar-button, .goat-scroll::-webkit-scrollbar-corner {
+    display: none
+}
