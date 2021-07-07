@@ -50,3 +50,10 @@ function openSelection(selectionID){
     }
   
 }
+function showForm(currentFormId, hiddenFormId){
+    var currentForm = document.getElementById(currentFormId);
+    var hiddenForm = document.getElementById(hiddenFormId);
+    currentForm.style.display = "none";
+    hiddenForm.style.display = "block";
+    console.log(1);
+}
