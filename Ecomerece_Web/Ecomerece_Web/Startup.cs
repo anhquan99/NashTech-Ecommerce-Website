@@ -64,6 +64,9 @@ namespace Ecomerece_Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "ultility",
+                //    pattern: "{controller=Utility}/{action=get}/{imageFile}");
                 endpoints.MapRazorPages();
             });
         }

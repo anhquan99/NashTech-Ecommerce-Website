@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Work\\NashTech\\Project\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj": {}
+    "E:\\Work\\NashTech\\Project\\NashTech-Ecommerce-Website\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj": {}
   },
   "projects": {
-    "E:\\Work\\NashTech\\Project\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj": {
+    "E:\\Work\\NashTech\\Project\\NashTech-Ecommerce-Website\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Work\\NashTech\\Project\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj",
+        "projectUniqueName": "E:\\Work\\NashTech\\Project\\NashTech-Ecommerce-Website\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj",
         "projectName": "Ecomerece_Web",
-        "projectPath": "E:\\Work\\NashTech\\Project\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj",
+        "projectPath": "E:\\Work\\NashTech\\Project\\NashTech-Ecommerce-Website\\Ecomerece_Web\\Ecomerece_Web\\Ecomerece_Web.csproj",
         "packagesPath": "C:\\Users\\anhquan\\.nuget\\packages\\",
-        "outputPath": "E:\\Work\\NashTech\\Project\\Ecomerece_Web\\Ecomerece_Web\\obj\\",
+        "outputPath": "E:\\Work\\NashTech\\Project\\NashTech-Ecommerce-Website\\Ecomerece_Web\\Ecomerece_Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -56,6 +56,10 @@
               "version": "[5.0.7, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[5.0.7, )"
             },
