@@ -8,9 +8,8 @@ namespace Ecomerece_Web.Data
 {
     public class Silhouette
     {
-        public int id { get; set; }
-        [Required]
-        public String name { set; get; }
+        [Key]
+        public String silhouetteNameID { get; set; }
         public List<Product> products { get; set; }
     }
 }

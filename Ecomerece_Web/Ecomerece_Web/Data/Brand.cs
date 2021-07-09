@@ -8,9 +8,8 @@ namespace Ecomerece_Web.Data
 {
     public class Brand
     {
-        public int Id { get; set; }
-        [Required]
-        public String name { get; set; }
+        [Key]
+        public String brandNameID { get; set; }
         public List<Product> products { get; set; }
     }
 }

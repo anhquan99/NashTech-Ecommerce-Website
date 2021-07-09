@@ -8,9 +8,8 @@ namespace Ecomerece_Web.Data
 {
     public class Category
     {
-        public int id { get; set; } 
-        [Required]
-        public String name { get; set; }
+        [Key]
+        public String categoryNameID { get; set; } 
         public List<Product> products { get; set; }
         
     }

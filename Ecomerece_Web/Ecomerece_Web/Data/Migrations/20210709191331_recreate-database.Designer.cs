@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecomerece_Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210708104819_add-image")]
-    partial class addimage
+    [Migration("20210709191331_recreate-database")]
+    partial class recreatedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,152 +23,119 @@ namespace Ecomerece_Web.Data.Migrations
 
             modelBuilder.Entity("Ecomerece_Web.Data.Brand", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("brandNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                    b.HasKey("brandNameID");
 
                     b.ToTable("brands");
                 });
 
             modelBuilder.Entity("Ecomerece_Web.Data.Category", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("categoryNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
+                    b.HasKey("categoryNameID");
 
                     b.ToTable("categories");
                 });
 
             modelBuilder.Entity("Ecomerece_Web.Data.Color", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("colorNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
+                    b.HasKey("colorNameID");
 
                     b.ToTable("colors");
                 });
 
             modelBuilder.Entity("Ecomerece_Web.Data.Image", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("imageNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("Productid")
-                        .HasColumnType("int");
+                    b.Property<string>("productNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("imageNameID");
 
-                    b.HasKey("id");
-
-                    b.HasIndex("Productid");
+                    b.HasIndex("productNameID");
 
                     b.ToTable("images");
                 });
 
             modelBuilder.Entity("Ecomerece_Web.Data.Product", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("productNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("brandId")
-                        .HasColumnType("int");
+                    b.Property<string>("brandNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("categoryid")
-                        .HasColumnType("int");
+                    b.Property<string>("categoryNameID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("colorNameID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("colorWay")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("colorid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("price")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("releaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("silhouetteid")
-                        .HasColumnType("int");
+                    b.Property<string>("silhouetteNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("typeid")
-                        .HasColumnType("int");
+                    b.Property<string>("story")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("typeNameID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("upperMaterial")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.Property<string>("wallpaper")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("brandId");
+                    b.HasKey("productNameID");
 
-                    b.HasIndex("categoryid");
+                    b.HasIndex("brandNameID");
 
-                    b.HasIndex("colorid");
+                    b.HasIndex("categoryNameID");
 
-                    b.HasIndex("silhouetteid");
+                    b.HasIndex("colorNameID");
 
-                    b.HasIndex("typeid");
+                    b.HasIndex("silhouetteNameID");
+
+                    b.HasIndex("typeNameID");
 
                     b.ToTable("products");
                 });
 
             modelBuilder.Entity("Ecomerece_Web.Data.Silhouette", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("silhouetteNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
+                    b.HasKey("silhouetteNameID");
 
                     b.ToTable("silhouettes");
                 });
 
             modelBuilder.Entity("Ecomerece_Web.Data.Type", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("typeNameID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
+                    b.HasKey("typeNameID");
 
                     b.ToTable("types");
                 });
@@ -380,31 +347,31 @@ namespace Ecomerece_Web.Data.Migrations
             modelBuilder.Entity("Ecomerece_Web.Data.Image", b =>
                 {
                     b.HasOne("Ecomerece_Web.Data.Product", null)
-                        .WithMany("image")
-                        .HasForeignKey("Productid");
+                        .WithMany("images")
+                        .HasForeignKey("productNameID");
                 });
 
             modelBuilder.Entity("Ecomerece_Web.Data.Product", b =>
                 {
                     b.HasOne("Ecomerece_Web.Data.Brand", "brand")
-                        .WithMany()
-                        .HasForeignKey("brandId");
+                        .WithMany("products")
+                        .HasForeignKey("brandNameID");
 
                     b.HasOne("Ecomerece_Web.Data.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("categoryid");
+                        .WithMany("products")
+                        .HasForeignKey("categoryNameID");
 
                     b.HasOne("Ecomerece_Web.Data.Color", "color")
-                        .WithMany()
-                        .HasForeignKey("colorid");
+                        .WithMany("products")
+                        .HasForeignKey("colorNameID");
 
                     b.HasOne("Ecomerece_Web.Data.Silhouette", "silhouette")
-                        .WithMany()
-                        .HasForeignKey("silhouetteid");
+                        .WithMany("products")
+                        .HasForeignKey("silhouetteNameID");
 
                     b.HasOne("Ecomerece_Web.Data.Type", "type")
-                        .WithMany()
-                        .HasForeignKey("typeid");
+                        .WithMany("products")
+                        .HasForeignKey("typeNameID");
 
                     b.Navigation("brand");
 
@@ -468,9 +435,34 @@ namespace Ecomerece_Web.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ecomerece_Web.Data.Brand", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("Ecomerece_Web.Data.Category", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("Ecomerece_Web.Data.Color", b =>
+                {
+                    b.Navigation("products");
+                });
+
             modelBuilder.Entity("Ecomerece_Web.Data.Product", b =>
                 {
-                    b.Navigation("image");
+                    b.Navigation("images");
+                });
+
+            modelBuilder.Entity("Ecomerece_Web.Data.Silhouette", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("Ecomerece_Web.Data.Type", b =>
+                {
+                    b.Navigation("products");
                 });
 #pragma warning restore 612, 618
         }

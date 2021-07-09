@@ -8,8 +8,7 @@ namespace Ecomerece_Web.Data
 {
     public class Image
     {
-        public int id { get; set; }
-        [Required]
-        public String name { get; set; }
+        [Key]
+        public String imageNameID { get; set; }
     }
 }

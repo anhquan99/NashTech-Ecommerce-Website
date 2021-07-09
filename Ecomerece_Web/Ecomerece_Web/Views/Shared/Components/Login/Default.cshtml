@@ -1,0 +1,40 @@
+﻿<!-- body -->
+<div class="PageLayout_PageAligment" onload="getLoginForm('LoginForm','RegisterForm')">
+    <div class="Hero_Wrapper LoginView_Hero">
+        <div class="Hero_FirstPane">
+            <div class="Hero_HeroPane">
+                <div class="Hero_HeroPaneContent LoginView_HeroPaneContent">
+                    <img alt="Red Jordan 1s" src="~/image/login.jpg"
+                         class="LoginView_Jordans">
+                </div>
+            </div>
+        </div>
+        <div class="Hero_SecondPane">
+            @await Component.InvokeAsync("AuthenticateForm", ViewBag.direction)
+            @await Component.InvokeAsync("AuthenticateForm", !ViewBag.direction)
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function (event) {
+            var loginForm = document.getElementById('LoginForm');
+            var registerForm = document.getElementById('RegisterForm');
+            var queryString = window.location.href;
+            var url = new URL(queryString);
+            var result = url.searchParams.get('Login');
+            @if (ViewBag.direction) {
+                <text>loginForm.style.display = "block";</text>
+            }
+            else 
+            {
+                <text>registerForm.style.display = "block";</text>
+            }
+            //if (result == null) {
+            //    loginForm.style.display = "block";
+            //}
+            //else {
+            //    registerForm.style.display = "block";
+            //}
+        })
+</script>

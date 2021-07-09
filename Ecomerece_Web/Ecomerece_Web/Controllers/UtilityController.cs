@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Controllers
-{
+{         
     public class UtilityController : Controller
     {
         public UtilityController()

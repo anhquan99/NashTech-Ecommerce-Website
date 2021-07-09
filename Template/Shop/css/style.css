@@ -597,7 +597,7 @@ a, p a {
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
-    overflow: auto;
+    overflow: hidden;
     padding: 24px;
 }
 
@@ -887,6 +887,7 @@ a, p a {
 }
 
 .ProductsYouMayLike_Wrapper {
+    width: 100%;
     max-width: 100%;
     padding-right: 90px;
     padding-bottom: 30px;
@@ -1958,7 +1959,7 @@ font-weight: 400;
 }
 
 .HomeHeroSection_Container {
-    height: 65vw;
+    height: 65vh;
     position: relative;
     /* max-width: 800px; */
     width: 100%;
