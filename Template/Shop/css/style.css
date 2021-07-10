@@ -2243,6 +2243,3 @@ font-weight: 400;
     border-top: 1px solid rgb(222, 222, 222);
     padding: 0px;
 }
-.RegisterForm_Form , .LoginForm{
-    display: none;
-}

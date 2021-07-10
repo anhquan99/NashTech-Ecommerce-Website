@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ecomerece_Web.Data;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace Ecomerece_Web.ViewComponents
     public class ProductCarouselViewComponent : ViewComponent
     {
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(List<Product> products, String name, String url = "")
         {
-            return View();
+            (List<Product>, String, String) data = (products, name, url);
+            return View(data);
         }
     }
 }

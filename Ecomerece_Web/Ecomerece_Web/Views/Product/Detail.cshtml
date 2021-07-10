@@ -3,61 +3,26 @@
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model (Ecomerece_Web.Data.Product product, List<Ecomerece_Web.Data.Product> listCarousel)
 <div class="PageLayout_PageAlignment">
     <div class="Hero_Wrapper ProductTemplatePage_Hero">
         <div class="Hero_FirstPane">
             <div class="ProductTemplatePage_ReleaseIndicator">
-                <div class="GridCellReleaseDateIndicator_Label"><span></span></div>
+                <div class="GridCellReleaseDateIndicator_Label"><span>@Model.product.releaseDate</span></div>
             </div>
             <div class="ProductImageCarousel_Wrapper goat-scroll">
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/1.jpeg" class="sc-htpNat">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/2.jpeg" class="sc-htpNat">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/3.jpeg" class="sc-htpNat">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/4.jpeg">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/5.jpeg" class="sc-htpNat ">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/6.jpeg" class="sc-htpNat ">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/7.jpeg" class="sc-htpNat ">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/8.jpeg" class="sc-htpNat ">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/9.jpeg" class="sc-htpNat ">
-                </div>
-                <div class="ProductImageCarousel_DesktopImageWrapper">
-                    <img alt="Nike atmos x LeBron 18 Low 'Sakura'"
-                         sizes="30vw" src="/utility/10.jpeg" class="sc-htpNat ">
-                </div>
+                @foreach (var i in Model.product.images){
+                    <div class="ProductImageCarousel_DesktopImageWrapper">
+                        <img alt="@Model.product.productNameID"
+                             sizes="30vw" src="/utility/i" class="sc-htpNat">
+                    </div>
+                }
             </div>
             <nav class="ProductTemplateBreadcrumbs_Wrapper">
                 <a class="ProductTemplateBreadcrumbs_Crumb ProductTemplateBreadcrumbs_BrandCrumb"
-                   href="#"> Nike</a><span> / </span><a class="ProductTemplateBreadcrumbs_Crumb" href="#">
-                    LeBron
-                    18
-                </a><span class="ProductTemplateBreadcrumbs_ProductName">
-                    / atmos x LeBron 18 Low 'Sakura'
+                   href="#"> @Model.product.brand.brandNameID</a><span> / </span>
+                <a class="ProductTemplateBreadcrumbs_Crumb" href="#">@Model.product.silhouette</a><span class="ProductTemplateBreadcrumbs_ProductName">
+                    / @Model.product.productNameID
                 </span>
             </nav>
         </div>
@@ -66,8 +31,7 @@
                 <div class="Hero_HeroPaneContent">
                     <button class="ProductWantButton_Button">Want</button>
                     <h1 class="ProductTitlePane_Title">
-                        atmos
-                        x LeBron 18 Low 'Sakura'
+                        @Model.product.productNameID
                     </h1>
                 </div>
                 <nav class="Hero_HeroPaneActions">
@@ -75,7 +39,7 @@
                         <button type="button" class="nashButton_Wrapper Hero_Button ProductTitlePaneActions_LeftHeroButton">
                             <div class="ProductTitlePaneActions_ButtonTextWrapper AnimatedUnderlineText">
                                 <a href="#">
-                                    Buy New &nbsp;-&nbsp; $200
+                                    Buy New &nbsp;-&nbsp; $@Model.product.price
                                 </a>
                             </div>
                         </button>
@@ -83,7 +47,7 @@
                         <button type="button" class="nashButton_Wrapper Hero_Button ProductTitlePaneActions_LeftHeroButton">
                             <div class="ProductTitlePaneActions_ButtonTextWrapper AnimatedUnderlineText">
                                 <a href="#">
-                                    Buy Used &nbsp;-&nbsp; $200
+                                    Buy Used &nbsp;-&nbsp; $@Model.product.price
                                 </a>
                             </div>
                         </button>
@@ -104,11 +68,7 @@
     <div class="ProductStory_Wrapper" id="ProductDetail">
         <h2 class="ProductStory_Title">Product Details</h2>
         <p class="ProductStory_Story">
-            Designed in partnership with the influential Tokyo-based retailer, the atmos x Nike LeBron 18 Low
-            ‘Cherry Blossom’ showcases a spring-ready design, highlighted by a Swoosh formed with pink
-            embroidered florals. The pastel hue is repeated on the sneaker’s molded eyelets and TPU heel
-            counter, as well as a multicolor geometric print that enlivens the textile upper. The low-top sits
-            on a cushy React foam midsole with a large-volume Max Air unit nestled under the heel.
+            @Model.product.story
         </p>
     </div>
     <div class="Divider_Dash"></div>
@@ -144,7 +104,7 @@
                     <div class="Fact_Wrapper">
                         <div class="Fact_Details">
                             <span class="Fact_Label">Brand</span><span class="Fact_Value">
-                                Nike
+                                @Model.product.brand.brandNameID
                             </span>
                         </div>
                     </div>
@@ -156,17 +116,7 @@
                         <span class="Fact_Label">
                             Release
                             Date
-                        </span><span class="Fact_Value">2021-04-24</span>
-                    </div>
-                </div>
-            </div>
-            <div class="NutritionalFacts_FactWrapper">
-                <div class="Fact_Wrapper">
-                    <div class="Fact_Details">
-                        <span class="Fact_Label">SKU</span><span class="Fact_Value">
-                            CV7562
-                            101
-                        </span>
+                        </span><span class="Fact_Value">@Model.product.releaseDate</span>
                     </div>
                 </div>
             </div>
@@ -177,7 +127,7 @@
                             <span class="Fact_Label">
                                 Upper
                                 Material
-                            </span><span class="Fact_Value">Mesh</span>
+                            </span><span class="Fact_Value">@Model.product.upperMaterial</span>
                         </div>
                     </div>
                 </a>
@@ -189,7 +139,7 @@
                             <span class="Fact_Label">
                                 Main
                                 Color
-                            </span><span class="Fact_Value">Pink</span>
+                            </span><span class="Fact_Value">@Model.product.color.colorNameID</span>
                         </div>
                     </div>
                 </a>
@@ -198,31 +148,17 @@
                 <div class="Fact_Wrapper">
                     <div class="Fact_Details">
                         <span class="Fact_Label">Colorway</span><span class="Fact_Value">
-                            Pale
-                            Ivory/Light Arctic Pink/Leche Blue
+                            @Model.product.colorWay
                         </span>
                     </div>
                 </div>
-            </div>
-            <div class="NutritionalFacts_FactWrapper">
-                <a class="FactLinkWrapper_StyledLink" href="#">
-                    <div class="Fact_Wrapper">
-                        <div class="Fact_Details">
-                            <span class="Fact_Label">Designer</span><span class="Fact_Value">
-                                Jason
-                                Petrie
-                            </span>
-                        </div>
-                    </div>
-                </a>
             </div>
             <div class="NutritionalFacts_FactWrapper">
                 <a class="FactLinkWrapper_StyledLink" href="#">
                     <div class="Fact_Wrapper">
                         <div class="Fact_Details">
                             <span class="Fact_Label">Silhouette</span><span class="Fact_Value">
-                                LeBron
-                                18
+                                @Model.product.silhouette
                             </span>
                         </div>
                     </div>
@@ -231,29 +167,7 @@
             <div class="NutritionalFacts_FactWrapper">
                 <a class="FactLinkWrapper_StyledLink" href="#">
                     <div class="Fact_Wrapper">
-                        <div class="Fact_Details">
-                            <span class="Fact_Label">Technology</span><span class="Fact_Value">
-                                Zoom
-                                Air
-                            </span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="NutritionalFacts_FactWrapper">
-                <div class="Fact_Wrapper">
-                    <div class="Fact_Details">
-                        <span class="Fact_Label">Nickname</span><span class="Fact_Value">
-                            Cherry
-                            Blossom
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="NutritionalFacts_FactWrapper">
-                <a class="FactLinkWrapper_StyledLink" href="#">
-                    <div class="Fact_Wrapper">
-                        <div class="Fact_Details"><span class="Fact_Label">Category</span><span class="Fact_Value">Basketball</span></div>
+                        <div class="Fact_Details"><span class="Fact_Label">Category</span><span class="Fact_Value">@Model.product.category.categoryNameID</span></div>
                     </div>
                 </a>
             </div>
@@ -261,7 +175,7 @@
     </div>
     <div class="Divider_Dash"></div>
    
-    @await Component.InvokeAsync("ProductCarousel")
+    @await Component.InvokeAsync("ProductCarousel", Model.listCarousel)
 
     <div class="align-center-justify-center full-width" style="height: 90px;">
         <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">

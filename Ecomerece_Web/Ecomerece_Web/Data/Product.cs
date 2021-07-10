@@ -18,6 +18,11 @@ namespace Ecomerece_Web.Data
         [Required]
         public double price { get; set; }
         public String wallpaper { get; set; }
+        [Required]
+        public int view { get; set; }
+        [Range(0.0, 5.0)]
+        public double rating { get; set; }
+        public String coverImg { get; set; }
         public Brand brand { get; set; }
         public Color color { get; set; }
         public Category category { get; set; }

@@ -1,4 +1,5 @@
-﻿@*@page
+﻿@page
+@*@page
     @model LoginModel
 
     @{
@@ -83,5 +84,65 @@
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
     }*@
-@page
-@await Component.InvokeAsync("Login", true);
+<!-- body -->
+@model LoginModel
+<div class="PageLayout_PageAligment" >
+    <div class="Hero_Wrapper LoginView_Hero">
+        <div class="Hero_FirstPane">
+            <div class="Hero_HeroPane">
+                <div class="Hero_HeroPaneContent LoginView_HeroPaneContent">
+                    <img alt="Red Jordan 1s" src="~/image/login.jpg"
+                         class="LoginView_Jordans">
+                </div>
+            </div>
+        </div>
+        <div class="Hero_SecondPane">
+            <form class="LoginForm" id="LoginForm" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                <div class="Hero_HeroPane LoginForm_HeroPane">
+                    <div class="Hero_HeroPaneContent LoginForm_HeroPaneContent">
+                        <header class="LoginForm_Header">
+                            <h1 class="LoginForm_Title">Log In</h1>
+                            <p class="LoginForm_Subtitle">
+                                You need to be logged in
+                                to continue.
+                            </p><a onclick="showForm('LoginForm','RegisterForm')" class="LoginForm_CreateAccountButton"
+                                   href="~/Identity/Account/Register" >Sign Up</a>
+                        </header>
+                        <main class="LoginForm_Main">
+                            <div class="MaterialInput_Content">
+                                <label class="MaterialInput_Label">
+                                    <input asp-for="Input.Email"
+                                           class="MaterialInput_Input" value=""><span class="MaterialInput_LabelCopy">Email or Username</span>
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </label>
+                            </div>
+                            <div class="LoginForm_InputWrapper">
+                                <div class="MaterialInput_Content">
+                                    <label class="MaterialInput_Label">
+                                        <input asp-for="Input.Password" password" type="password" autocomplete=""
+                                               aria-label="Password"
+                                               class="MaterialInput_Input" value=""><span class="MaterialInput_LabelCopy">Password</span>
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </label>
+                                </div><button type="button" class="LoginForm_ForgotPasswordButton">
+                                    <span>Forgot</span>
+                                </button>
+                            </div>
+                        </main>
+                    </div>
+                    <div class="LoginForm_Error"></div>
+                    <nav class="Hero_HeroPaneLoginActions">
+                        <span class="Hero_Border">
+                            <button type="submit"
+                                    class="GoatButton_Wrapper Hero_Button">
+                                Log
+                                In
+                            </button>
+                        </span>
+                    </nav>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,8 +1,13 @@
-﻿<div class="ModuleSection ProductsYouMayLike_Wrapper">
-    <div class="ModuleSectionHeader_Wrapper">
-        <h3 class="ModuleSectionTitle">You may also like</h3>
-        <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" href="#"><span>See All</span></a>
-    </div>
+﻿@model (List<Ecomerece_Web.Data.Product> products, String name, String url)
+
+<div class="ModuleSection ProductsYouMayLike_Wrapper">
+    @if (Model.url != "")
+    {
+        <div class="ModuleSectionHeader_Wrapper">
+            <h3 class="ModuleSectionTitle">You may also like</h3>
+            <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" href="@Model.url"><span>@Model.name</span></a>
+        </div>
+    }
     <div class="ModuleSectionContent">
         <div class="SideScrollingCarousel_Navigation">
             <button onclick="scrollXRight('ProductRelative')" class="LeftRightButtons_NavigationButton LeftRightButtons_LeftButtonStyled">
@@ -30,130 +35,21 @@
             </button>
         </div>
         <div class="SideScrollingCarousel_Carousel " id="ProductRelative">
-            <a class="ProductTemplateCarouselItem_Wrapper"
-               href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw" src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/053/769/509/original/758357_00.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            LeBron 18 Low
-                            'LeBronold Palmer'
+            @foreach (var i in Model.products)
+            {
+                <a class="ProductTemplateCarouselItem_Wrapper"
+                   href="#">
+                    <img alt="" sizes="(min-width: 640px) 20vw, 50vw" src="/utility/@i.wallpaper"
+                         class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
+                    <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
+                        <div class="ProductTemplateCarouselItem_ProductDetails">
+                            <div class="ProductTemplateCarouselItem_ProductName">
+                                @i.productNameID
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a><a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/045/282/415/original/694874_00.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">LeBron 18 'Sisterhood'</div>
-                    </div>
-                </div>
-            </a><a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/053/925/754/original/763858_00.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            'Viotech'
-                        </div>
-                    </div>
-                </div>
-            </a><a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/055/150/830/original/CV7564_101.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            EP 'Sakura'
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/055/150/830/original/CV7564_101.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            EP 'Sakura'
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/055/150/830/original/CV7564_101.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            EP 'Sakura'
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/055/150/830/original/CV7564_101.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            EP 'Sakura'
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/055/150/830/original/CV7564_101.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            EP 'Sakura'
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/055/150/830/original/CV7564_101.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            EP 'Sakura'
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="ProductTemplateCarouselItem_Wrapper" href="#">
-                <img alt="" sizes="(min-width: 640px) 20vw, 50vw"
-                     src="https://image.goat.com/crop/750/attachments/product_template_pictures/images/055/150/830/original/CV7564_101.png.png"
-                     class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                    <div class="ProductTemplateCarouselItem_ProductDetails">
-                        <div class="ProductTemplateCarouselItem_ProductName">
-                            atmos x LeBron 18 Low
-                            EP 'Sakura'
-                        </div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            }
         </div>
         <div class="FauxScrollbar_Track">
         </div>

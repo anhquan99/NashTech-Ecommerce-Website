@@ -1,27 +1,25 @@
 ﻿<!-- body -->
+@model (Ecomerece_Web.Data.Product product, List<Ecomerece_Web.Data.Product> rankList)
 <div class="PageLayout_PageAlignment">
-    <div class="HomeHeroSection_Container">
-        <img src="/utility/jordan4.jpg" style="width:100%;">
-        <div class="HomeHeroSection_Content">
-            <h2>Air Jordam 4 Retro 'White Oreo'</h2>
-        </div>
-        <a aria-label="Link to  - Air Jordan 4 Retro 'White Oreo'" class="HomeHeroSection_ClickableOverlay" href="#"></a>
-    </div>
-    @await Component.InvokeAsync("ProductCarousel")
+    @await Component.InvokeAsync("Product", new { product = Model.product, type = "cover" })
+    @await Component.InvokeAsync("ProductCarousel", Model.product)
     <div class="ModuleSection ProductsYouMayLike_Wrapper">
         <div class="ModuleSectionHeader_Wrapper">
             <h3 class="ModuleSectionTitle">Top 20 Trending</h3>
             <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" href="#"><span>See All</span></a>
         </div>
         <div class="container" style="max-width: 100%;">
-            @for (int i = 0; i < 4; i++)
+            @for (int i = 1; i <= Model.rankList.Count; i++)
             {
-                @Html.Raw("<div class='row'>");
-                @for (int x = 0; x < 3; x++)
+                if (i == 0 || i % 4 == 0)
                 {
-                    @await Component.InvokeAsync("Product", "Ranking");
+                    @Html.Raw("<div class='row'>");
                 }
-                @Html.Raw("</div>");
+                @await Component.InvokeAsync("Product", new { product = Model.rankList.ElementAt(i - 1), type = "Ranking", rank = i });
+                if (i % 4 == 0 || i == Model.rankList.Count)
+                {
+                    @Html.Raw("</div>");
+                }
             }
 
         </div>

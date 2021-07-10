@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Ecomerece_Web</title>
+    <title>NASH @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="shortcut icon" type="image/ico" href="/MainFavicon.png">
 </head>
 <body>
 
@@ -88,17 +89,16 @@
                     <li class="MenuItem_ListItem ">
                         <div class="Label Access">
                             <div class="UserLogin_Wrapper">
-                                <a data-qa="log_in" class="UserLogin_Link" href="#">Log In</a><a class="UserLogin_Link"
-                                                                                                 href="#">Sign Up</a>
+                                <a data-qa="log_in" class="UserLogin_Link"  href="~/Identity/Account/Login">Log In</a><a class="UserLogin_Link"
+                                                                                                 href="~/Identity/Account/Register">Sign Up</a>
                             </div>
 
                         </div>
 
                         </ul>
         </nav>
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </div>
-    <a aria-label="GOAT logo" class="Header_LinkLogo" href="#">
+    <a aria-label="GOAT logo" class="Header_LinkLogo" href="/">
         <img src="~/image/logo.png" alt="">
     </a>
     <div class="Header_HeaderLink AnimatedUnderlineText">

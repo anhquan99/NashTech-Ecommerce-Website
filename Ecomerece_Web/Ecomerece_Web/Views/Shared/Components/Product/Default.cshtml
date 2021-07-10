@@ -3,24 +3,25 @@
 *@
 @{
 }
+@model Ecomerece_Web.Data.Product
 <div class="card col-sm ProductCard" style="width: 18rem;">
     <a href="#">
         <div class="card-body Wraper">
             <div class="HeaderButton">
                 <div class="ReleaseDate">
-                    <span>Jul 4 2021</span>
+                    <span>@Model.releaseDate</span>
                 </div>
                 <button class="WantButton">
                     Want
                 </button>
             </div>
 
-            <img alt="Air Jordan 4 Retro 'White Oreo'" src="https://image.goat.com/750/attachments/product_template_pictures/images/054/789/997/original/697107_00.png.png"
+            <img alt="@Model.productNameID'" src="/Utility/@Model.wallpaper"
                  sizes="200px" class="ProductImage">
             <div class="Detail">
-                <h2 class="ProductName">Air Jordan 4 Retro 'White Oreo'</h2>
+                <h2 class="ProductName">@Model.productNameID</h2>
                 <div class="ProductPriceDisplay">
-                    <p class="ProductPrice">$200</p>
+                    <p class="ProductPrice">@Model.price</p>
                 </div>
             </div>
         </div>

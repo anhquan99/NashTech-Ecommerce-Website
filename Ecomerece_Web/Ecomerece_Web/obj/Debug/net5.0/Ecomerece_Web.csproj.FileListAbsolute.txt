@@ -590,9 +590,6 @@ E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
-E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Components\AuthenticateForm\LoginForm.cshtml.g.cs
-E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Components\AuthenticateForm\RegisterForm.cshtml.g.cs
-E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Components\Login\Default.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Components\Product\Default.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Components\Product\RankingProduct.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs

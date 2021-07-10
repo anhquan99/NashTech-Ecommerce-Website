@@ -69,7 +69,7 @@ namespace Ecomerece_Web
                 //endpoints.MapControllerRoute(
                 //    name: "ultility",
                 //    pattern: "{controller=Utility}/{action=get}/{imageFile}");
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
             });
         }
     }

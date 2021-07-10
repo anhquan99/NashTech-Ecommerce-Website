@@ -16,10 +16,14 @@ namespace Ecomerece_Web.Controllers
         {
             return View();
         }
-        [Route("/{Type}/{ProductName}")]
-        public IActionResult Detail(String Type, String ProductName)
+        [Route("/Sneaker/{ProductName}")]
+        [Route("/Appearance/{ProductName}")]
+        public IActionResult Detail( String ProductName)
         {
-            return View();
+            Ecomerece_Web.Data.Product product = new Data.Product();
+            List<Ecomerece_Web.Data.Product> list = new List<Data.Product>();
+            (Ecomerece_Web.Data.Product, List<Ecomerece_Web.Data.Product>) data = (product, list);
+            return View(data);
         }
     }
 }

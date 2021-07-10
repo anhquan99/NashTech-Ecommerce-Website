@@ -21,6 +21,7 @@ namespace Ecomerece_Web.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
         [Authorize]
