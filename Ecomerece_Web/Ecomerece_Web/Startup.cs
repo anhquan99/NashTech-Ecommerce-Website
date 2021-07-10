@@ -1,4 +1,5 @@
 using Ecomerece_Web.Data;
+using Ecomerece_Web.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,8 +34,10 @@ namespace Ecomerece_Web
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<Ecomerece_Web.Data.User>(
+                options => options.User.RequireUniqueEmail = true
                 //options => options.SignIn.RequireConfirmedAccount = true
                 )
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
@@ -71,6 +74,20 @@ namespace Ecomerece_Web
                 //    pattern: "{controller=Utility}/{action=get}/{imageFile}");
                 //endpoints.MapRazorPages();
             });
+            //Seeding create admin when the project if is initialized
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                Task task1 = Seed.SeedRolesAsync(userManager, roleManager);
+
+                task1.Wait();
+
+                var userManager2 = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                var roleManager2 = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                Task task2 = Seed.SeedAdminAsync(userManager2, roleManager2);
+                task2.Wait();
+            }
         }
     }
 }
