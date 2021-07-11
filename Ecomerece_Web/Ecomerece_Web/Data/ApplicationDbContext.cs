@@ -12,13 +12,13 @@ namespace Ecomerece_Web.Data
             : base(options)
         {
         }
-        DbSet<Brand> brands { get; set; }
-        DbSet<Category> categories { get; set; }
-        DbSet<Color> colors { get; set; }
-        DbSet<Product> products { get; set; }
-        DbSet<Silhouette> silhouettes { get; set; } 
-        DbSet<Type> types { get; set; }
-        DbSet<User> users { get; set; }
-        DbSet<Image> images { get; set; }
+        public DbSet<Brand> brands { get; set; }
+        public DbSet<Category> categories { get; set; }
+        public DbSet<Color> colors { get; set; }
+        public DbSet<Product> products { get; set; }
+        public DbSet<Silhouette> silhouettes { get; set; }
+        public DbSet<Type> types { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Image> images { get; set; }
     }
 }

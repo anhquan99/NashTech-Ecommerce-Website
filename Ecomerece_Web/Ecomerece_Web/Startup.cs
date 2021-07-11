@@ -29,8 +29,11 @@ namespace Ecomerece_Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                {
+                    options.UseSqlServer(
+                       Configuration.GetConnectionString("DefaultConnection"));
+                    options.UseLazyLoadingProxies(true);    
+                });
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<Ecomerece_Web.Data.User>(
@@ -40,6 +43,9 @@ namespace Ecomerece_Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            //enable lazy load
+            services.AddEntityFrameworkProxies();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
