@@ -11,6 +11,9 @@ namespace Ecomerece_Web.Data
         [Key]
         public String categoryNameID { get; set; } 
         public List<Product> products { get; set; }
-        
+
+        public Category()
+        {
+        }
     }
 }

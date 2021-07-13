@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ecomerece_Web.Services.Implement
+namespace Ecomerece_Web.Services.Implements
 {
     public class BaseService<T> where T : class
     {

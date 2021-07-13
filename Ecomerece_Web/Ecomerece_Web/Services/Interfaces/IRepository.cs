@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Services
 {
-    interface IRepository<T>
+    public interface IRepository<T>
     {
         public List<T> findAll();
         public bool update(T t);

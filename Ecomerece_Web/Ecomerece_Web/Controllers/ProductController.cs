@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ecomerece_Web.Data;
+using Ecomerece_Web.Services;
+using Ecomerece_Web.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +11,11 @@ namespace Ecomerece_Web.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly IRepository<Product> productService;
+        public ProductController(IProductRepository<Product> productService)
+        {
+            this.productService = productService; 
+        }
         public IActionResult Index()
         {
             return View();
@@ -16,14 +24,18 @@ namespace Ecomerece_Web.Controllers
         {
             return View();
         }
-        [Route("/Sneaker/{ProductName}")]
-        [Route("/Appearance/{ProductName}")]
+        [Route("/Product/{ProductName}")]
         public IActionResult Detail( String ProductName)
         {
-            Ecomerece_Web.Data.Product product = new Data.Product();
+            Ecomerece_Web.Data.Product product = productService.findByID(ProductName);
             List<Ecomerece_Web.Data.Product> list = new List<Data.Product>();
             (Ecomerece_Web.Data.Product, List<Ecomerece_Web.Data.Product>) data = (product, list);
             return View(data);
+        }
+        [Route("/Product/Brand/{brand}")]
+        public IActionResult Brand(String brand)
+        {
+            return View();
         }
     }
 }

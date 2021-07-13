@@ -1,38 +1,37 @@
 ﻿<!-- body -->
-@model (Ecomerece_Web.Data.Product product, List<Ecomerece_Web.Data.Product> rankList)
+@model (Ecomerece_Web.Data.Product coverProduct, List<Ecomerece_Web.Data.Product> topTrending, List<Ecomerece_Web.Data.Product> mostWanted)
 <div class="PageLayout_PageAlignment">
-    @await Component.InvokeAsync("Product", new { product = Model.product, type = "cover" })
-    @await Component.InvokeAsync("ProductCarousel", Model.product)
+    @await Component.InvokeAsync("Product", new { product = Model.coverProduct, type = "cover" })
+    @await Component.InvokeAsync("ProductCarousel", new { products = Model.topTrending, name = "Name"})
     <div class="ModuleSection ProductsYouMayLike_Wrapper">
         <div class="ModuleSectionHeader_Wrapper">
             <h3 class="ModuleSectionTitle">Top 20 Trending</h3>
             <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" href="#"><span>See All</span></a>
         </div>
         <div class="container" style="max-width: 100%;">
-            @for (int i = 1; i <= Model.rankList.Count; i++)
+            @for (int i = 1; i <= Model.topTrending.Count;)
             {
-                if (i == 0 || i % 4 == 0)
+                int temp = i + 3;
+                @Html.Raw("<div class='row'>");
+                for (int k = i; k < temp && k <= Model.topTrending.Count; k++, i++)
                 {
-                    @Html.Raw("<div class='row'>");
+                    @await Component.InvokeAsync("Product", new { product = Model.topTrending.ElementAt(i - 1), type = "Ranking", rank = i });
+
                 }
-                @await Component.InvokeAsync("Product", new { product = Model.rankList.ElementAt(i - 1), type = "Ranking", rank = i });
-                if (i % 4 == 0 || i == Model.rankList.Count)
-                {
-                    @Html.Raw("</div>");
-                }
+                @Html.Raw("</div>");
             }
-
         </div>
-    </div>
-    <div class="align-center-justify-center full-width" style="height: 90px;">
-        <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">
-            BACK
-            TO TOP
-        </p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer "
-                 style="transform: rotate(0deg);">
-            <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10"
-                      stroke-width="1.5"></polyline>
-        </svg>
-    </div>
+        @await Component.InvokeAsync("ProductCarousel",new { products = Model.mostWanted, name = "name"})
 
-</div>
+        <div class="align-center-justify-center full-width" style="height: 90px;">
+            <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">
+                BACK
+                TO TOP
+            </p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer "
+                     style="transform: rotate(0deg);">
+                <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10"
+                          stroke-width="1.5"></polyline>
+            </svg>
+        </div>
+
+    </div>

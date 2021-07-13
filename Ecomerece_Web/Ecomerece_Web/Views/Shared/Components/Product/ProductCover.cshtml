@@ -1,8 +1,8 @@
 ﻿@model Ecomerece_Web.Data.Product
 <div class="HomeHeroSection_Container">
-    <img src="/utility/@Model.coverImg" style="width:100%;">
+    <img src="/utility/@Model.wallpaper" style="width:100%;">
     <div class="HomeHeroSection_Content">
         <h2>@Model.productNameID</h2>
     </div>
-    <a aria-label="Link to  - @Model.productNameID" class="HomeHeroSection_ClickableOverlay" href="#"></a>
+    <a aria-label="Link to  - @Model.productNameID" class="HomeHeroSection_ClickableOverlay" href="/product/@Model.productNameID"></a>
 </div>

@@ -10,5 +10,9 @@ namespace Ecomerece_Web.Data
     {
         [Key]
         public String imageNameID { get; set; }
+
+        public Image()
+        {
+        }
     }
 }

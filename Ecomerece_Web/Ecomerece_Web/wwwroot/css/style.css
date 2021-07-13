@@ -57,6 +57,7 @@ footer {
     border-top: 1px solid rgb(11, 11, 11);
     display: grid;
     grid-template-columns: 50% 50%;
+    width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6, p, a, input, blockquote, addr, button {
@@ -649,9 +650,9 @@ a, p a {
 
 .Hero_Button {
     background-color: rgb(255, 255, 255);
+    color: rgb(11, 11, 11);
     border-radius: 0px;
     border: 1px solid rgb(255, 255, 255);
-    color: rgb(11, 11, 11);
     cursor: pointer;
     display: inline-block;
     font-family: Plain;
@@ -1388,17 +1389,19 @@ a .Fact_Details:hover {
 }
 
 .ProductCard a:hover {
+    text-decoration:none;
     color: initial;
 }
 
-text-align: center;
-font-weight: 400;
+
 .Grid_Wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, 33.33%);
     border-radius: 5px;
     border-left: 1px solid rgb(222, 222, 222);
     overflow-x: hidden;
+    text-align: center;
+    font-weight: 400;
 }
 
 .Grid_CellWrapper {

@@ -10,6 +10,10 @@ namespace Ecomerece_Web.Data
     {
         [Key]
         public String typeNameID { get; set; }  
-        public List<Product> products { get; set; } 
+        public List<Product> products { get; set; }
+
+        public Type()
+        {
+        }
     }
 }

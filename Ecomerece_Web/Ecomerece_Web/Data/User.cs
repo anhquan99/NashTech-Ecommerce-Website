@@ -11,5 +11,12 @@ namespace Ecomerece_Web.Data
     {
         [Required]
         public String fullName { get; set; }
+        [Required]
+        public String address { get; set; }
+        public List<Product> wantedProduct { set; get; }
+
+        public User()
+        {
+        }
     }
 }

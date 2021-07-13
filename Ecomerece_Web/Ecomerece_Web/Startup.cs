@@ -1,5 +1,7 @@
 using Ecomerece_Web.Data;
 using Ecomerece_Web.Models;
+using Ecomerece_Web.Services.Implements;
+using Ecomerece_Web.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,11 +31,11 @@ namespace Ecomerece_Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseSqlServer(
-                       Configuration.GetConnectionString("DefaultConnection"));
-                    options.UseLazyLoadingProxies(true);    
-                });
+            {
+                options.UseSqlServer(
+                   Configuration.GetConnectionString("DefaultConnection"));
+                //options.UseLazyLoadingProxies(true);
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<Ecomerece_Web.Data.User>(
@@ -44,7 +46,9 @@ namespace Ecomerece_Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             //enable lazy load
-            services.AddEntityFrameworkProxies();
+            //services.AddEntityFrameworkProxies();
+            services.AddScoped<IProductRepository<Product>, ProductService>();
+            //services.AddScoped<IUserRepository<User>, UserService>();
 
         }
 
@@ -81,19 +85,20 @@ namespace Ecomerece_Web
                 //endpoints.MapRazorPages();
             });
             //Seeding create admin when the project if is initialized
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-                Task task1 = Seed.SeedRolesAsync(userManager, roleManager);
+            //using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+            //    var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+            //    Task task1 = Seed.SeedRolesAsync(userManager, roleManager);
 
-                task1.Wait();
+            //    task1.Wait();
 
-                var userManager2 = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                var roleManager2 = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-                Task task2 = Seed.SeedAdminAsync(userManager2, roleManager2);
-                task2.Wait();
-            }
+            //    var userManager2 = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+            //    var roleManager2 = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+            //    Task task2 = Seed.SeedAdminAsync(userManager2, roleManager2);
+            //    task2.Wait();
+
+            //}
         }
     }
 }

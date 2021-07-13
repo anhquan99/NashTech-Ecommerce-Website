@@ -648,10 +648,10 @@ a, p a {
 }
 
 .Hero_Button {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(11, 11, 11);
     border-radius: 0px;
     border: 1px solid rgb(255, 255, 255);
-    color: rgb(11, 11, 11);
+    color: white;
     cursor: pointer;
     display: inline-block;
     font-family: Plain;
@@ -1389,11 +1389,13 @@ a .Fact_Details:hover {
 
 .ProductCard a:hover {
     color: initial;
+    text-decoration:none;
+
 }
 
-text-align: center;
-font-weight: 400;
 .Grid_Wrapper {
+    text-align: center;
+    font-weight: 400;
     display: grid;
     grid-template-columns: repeat(auto-fill, 33.33%);
     border-radius: 5px;
@@ -1539,17 +1541,20 @@ font-weight: 400;
 }
 
 .GridCellReleaseDateIndicator_Label {
-    height: 15px;
-    display: flex;
-    flex-direction: row;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
+    background-color: rgb(235, 235, 235);
+    border-color: rgb(235, 235, 235);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    color: rgb(11, 11, 11);
+    display: inline-block;
     font-size: 12px;
     font-family: Plain;
-    line-height: 16px;
     letter-spacing: 0px;
+    line-height: 16px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 2px 11px;
 }
 
 .ProductTemplateGridCell_DataContainer {
@@ -2156,7 +2161,8 @@ font-weight: 400;
     background-color: rgb(255, 255, 255);
     color: rgb(151, 151, 151);
 }
-.LoginForm_HeroPaneContent{
+
+.LoginForm_HeroPaneContent {
     width: 100%;
     flex: 1 1 0%;
     display: flex;
@@ -2168,13 +2174,15 @@ font-weight: 400;
     -webkit-box-pack: start;
     justify-content: flex-start;
 }
-.LoginForm_Header{
+
+.LoginForm_Header {
     width: 87%;
     margin-top: 76px;
     margin-bottom: 92px;
     text-align: center;
 }
-.LoginForm_Title{
+
+.LoginForm_Title {
     font-size: 24px;
     font-family: Plain-Medium;
     line-height: 1.5;
@@ -2182,7 +2190,8 @@ font-weight: 400;
     text-transform: capitalize;
     margin: 0px;
 }
-.LoginForm_Subtitle{
+
+.LoginForm_Subtitle {
     font-size: 12px;
     font-family: Plain;
     line-height: 1.5;
@@ -2190,7 +2199,8 @@ font-weight: 400;
     margin: 6px 0px 0px;
     color: rgb(129, 129, 129);
 }
-.LoginForm_CreateAccountButton{
+
+.LoginForm_CreateAccountButton {
     color: rgb(11, 11, 11);
     cursor: pointer;
     font-size: 12px;
@@ -2204,17 +2214,21 @@ font-weight: 400;
     border-bottom: 1px solid rgb(0, 0, 0);
     display: inline-block;
 }
-.LoginForm_CreateAccountButton:hover{
+
+.LoginForm_CreateAccountButton:hover {
     color: initial;
 }
-.LoginForm_Main{
+
+.LoginForm_Main {
     width: 100%;
 }
-.LoginForm_InputWrapper{
+
+.LoginForm_InputWrapper {
     position: relative;
     width: 100%;
 }
-.LoginForm_ForgotPasswordButton{
+
+.LoginForm_ForgotPasswordButton {
     background: none;
     border: 0px;
     color: rgb(11, 11, 11);
@@ -2232,13 +2246,15 @@ font-weight: 400;
     transform: translateY(-50%);
     z-index: 1;
 }
-.LoginForm_Error{
+
+.LoginForm_Error {
     margin: 16px;
     font-family: PlainLight, sans-serif;
     text-align: center;
     color: rgb(235, 2, 0);
 }
-.Hero_HeroPaneLoginActions{
+
+.Hero_HeroPaneLoginActions {
     flex-direction: row;
     border-top: 1px solid rgb(222, 222, 222);
     padding: 0px;

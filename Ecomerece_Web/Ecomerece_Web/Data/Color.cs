@@ -11,5 +11,9 @@ namespace Ecomerece_Web.Data
         [Key]
         public String colorNameID { set; get; }
         public List<Product> products { set; get; }
+
+        public Color()
+        {
+        }
     }
 }

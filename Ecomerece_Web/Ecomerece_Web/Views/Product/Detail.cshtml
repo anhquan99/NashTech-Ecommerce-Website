@@ -8,20 +8,21 @@
     <div class="Hero_Wrapper ProductTemplatePage_Hero">
         <div class="Hero_FirstPane">
             <div class="ProductTemplatePage_ReleaseIndicator">
-                <div class="GridCellReleaseDateIndicator_Label"><span>@Model.product.releaseDate</span></div>
+                <div class="GridCellReleaseDateIndicator_Label"><span>@Model.product.releaseDate.ToString("yyyy’-‘MM’-‘dd")</span></div>
             </div>
             <div class="ProductImageCarousel_Wrapper goat-scroll">
-                @foreach (var i in Model.product.images){
+                @foreach (var i in Model.product.images)
+                {
                     <div class="ProductImageCarousel_DesktopImageWrapper">
                         <img alt="@Model.product.productNameID"
-                             sizes="30vw" src="/utility/i" class="sc-htpNat">
+                             sizes="30vw" src="/utility/@i.imageNameID" class="sc-htpNat">
                     </div>
                 }
             </div>
             <nav class="ProductTemplateBreadcrumbs_Wrapper">
                 <a class="ProductTemplateBreadcrumbs_Crumb ProductTemplateBreadcrumbs_BrandCrumb"
-                   href="#"> @Model.product.brand.brandNameID</a><span> / </span>
-                <a class="ProductTemplateBreadcrumbs_Crumb" href="#">@Model.product.silhouette</a><span class="ProductTemplateBreadcrumbs_ProductName">
+                   href="~/Product/@Model.product.brand.brandNameID"> @Model.product.brand.brandNameID</a><span> / </span>
+                <span class="ProductTemplateBreadcrumbs_Crumb" >@Model.product.silhouette.silhouetteNameID</span><span class="ProductTemplateBreadcrumbs_ProductName">
                     / @Model.product.productNameID
                 </span>
             </nav>
@@ -47,7 +48,7 @@
                         <button type="button" class="nashButton_Wrapper Hero_Button ProductTitlePaneActions_LeftHeroButton">
                             <div class="ProductTitlePaneActions_ButtonTextWrapper AnimatedUnderlineText">
                                 <a href="#">
-                                    Buy Used &nbsp;-&nbsp; $@Model.product.price
+                                    Buy Used &nbsp;-&nbsp; $@Model.product.usedPrice
                                 </a>
                             </div>
                         </button>
@@ -116,22 +117,25 @@
                         <span class="Fact_Label">
                             Release
                             Date
-                        </span><span class="Fact_Value">@Model.product.releaseDate</span>
+                        </span><span class="Fact_Value">@Model.product.releaseDate.ToString("yyyy-MM-dd")</span>
                     </div>
                 </div>
             </div>
-            <div class="NutritionalFacts_FactWrapper">
-                <a class="FactLinkWrapper_StyledLink" href="#">
-                    <div class="Fact_Wrapper">
-                        <div class="Fact_Details">
-                            <span class="Fact_Label">
-                                Upper
-                                Material
-                            </span><span class="Fact_Value">@Model.product.upperMaterial</span>
+            @if (!String.IsNullOrEmpty(Model.product.upperMaterial))
+            {
+                <div class="NutritionalFacts_FactWrapper">
+                    <a class="FactLinkWrapper_StyledLink" href="#">
+                        <div class="Fact_Wrapper">
+                            <div class="Fact_Details">
+                                <span class="Fact_Label">
+                                    Upper
+                                    Material
+                                </span><span class="Fact_Value">@Model.product.upperMaterial</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            }
             <div class="NutritionalFacts_FactWrapper">
                 <a class="FactLinkWrapper_StyledLink" href="#">
                     <div class="Fact_Wrapper">
@@ -153,17 +157,20 @@
                     </div>
                 </div>
             </div>
-            <div class="NutritionalFacts_FactWrapper">
-                <a class="FactLinkWrapper_StyledLink" href="#">
-                    <div class="Fact_Wrapper">
-                        <div class="Fact_Details">
-                            <span class="Fact_Label">Silhouette</span><span class="Fact_Value">
-                                @Model.product.silhouette
-                            </span>
+            @if (Model.product.silhouette != null)
+            {
+                <div class="NutritionalFacts_FactWrapper">
+                    <a class="FactLinkWrapper_StyledLink" href="#">
+                        <div class="Fact_Wrapper">
+                            <div class="Fact_Details">
+                                <span class="Fact_Label">Silhouette</span><span class="Fact_Value">
+                                    @Model.product.silhouette.silhouetteNameID
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            }
             <div class="NutritionalFacts_FactWrapper">
                 <a class="FactLinkWrapper_StyledLink" href="#">
                     <div class="Fact_Wrapper">
@@ -174,8 +181,8 @@
         </div>
     </div>
     <div class="Divider_Dash"></div>
-   
-    @await Component.InvokeAsync("ProductCarousel", Model.listCarousel)
+
+    @*@await Component.InvokeAsync("ProductCarousel", Model.listCarousel)*@
 
     <div class="align-center-justify-center full-width" style="height: 90px;">
         <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">

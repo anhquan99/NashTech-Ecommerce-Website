@@ -11,5 +11,9 @@ namespace Ecomerece_Web.Data
         [Key]
         public String brandNameID { get; set; }
         public List<Product> products { get; set; }
+
+        public Brand()
+        {
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ecomerece_Web.Services.Implement
+namespace Ecomerece_Web.Services.Implements
 {
     public class ProductService : BaseService<Product>, IProductRepository<Product>
     {
@@ -15,13 +15,25 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
+                var brand = dbContext.Set<Brand>().Find(t.brand.brandNameID);
+                if (brand != null) t.brand = brand;
+                var color = dbContext.Set<Color>().Find(t.color.colorNameID);
+                if (color != null) t.color = color;
+                var category = dbContext.Set<Category>().Find(t.category.categoryNameID);
+                if (category != null) t.category = category;
+                var type = dbContext.Set<Ecomerece_Web.Data.Type>().Find(t.type.typeNameID);
+                if (type != null) t.type = type;
+                var silhoutte = dbContext.Set<Silhouette>().Find(t.silhouette.silhouetteNameID);
+                if (silhoutte != null) t.silhouette = silhoutte;
+
                 this.objectSet.Add(t);
+                dbContext.SaveChanges();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.Error.WriteLine(e.Message);
-                throw ;
+                throw;
             }
         }
 
@@ -33,7 +45,7 @@ namespace Ecomerece_Web.Services.Implement
                 objectSet.Remove(item);
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.Error.WriteLine(e.Message);
                 throw;
@@ -57,7 +69,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return dbContext.products.Include(x => x.brand.brandNameID.ToLower() == brand.ToLower()).ToList();
+                return dbContext.products.Where(x => x.brand.brandNameID.ToLower() == brand.ToLower()).ToList();
             }
             catch (Exception e)
             {
@@ -70,7 +82,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.Include(x => x.category.categoryNameID.ToLower() == category.ToLower()).ToList();
+                return objectSet.Where(x => x.category.categoryNameID.ToLower() == category.ToLower()).ToList();
             }
             catch (Exception e)
             {
@@ -83,7 +95,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.Include(x => x.color.colorNameID.ToLower() == color.ToLower()).ToList();
+                return objectSet.Where(x => x.color.colorNameID.ToLower() == color.ToLower()).ToList();
             }
             catch (Exception e)
             {
@@ -96,7 +108,8 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.Single(x => x.productNameID == id);
+                return objectSet.Where(x => x.productNameID == id).includeAll().SingleOrDefault();
+
             }
             catch (Exception e)
             {
@@ -109,7 +122,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.Include(x => x.upperMaterial.ToLower() == material.ToLower()).ToList();
+                return objectSet.Where(x => x.upperMaterial.ToLower() == material.ToLower()).ToList();
             }
             catch (Exception e)
             {
@@ -118,10 +131,11 @@ namespace Ecomerece_Web.Services.Implement
             }
         }
 
-        public List<Product> findByReleaseDateOrderDesc()
+        public List<Product> getAllReleaseDateOrderDesc()
         {
-            try{
-                return objectSet.OrderByDescending(x => x.releaseDate).ToList();
+            try
+            {
+                return objectSet.getReleasedProduct().OrderByDescending(x => x.releaseDate).ToList();
             }
             catch (Exception e)
             {
@@ -134,7 +148,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.Include(x => x.silhouette.silhouetteNameID.ToLower() == silhouette.ToLower()).ToList();
+                return objectSet.Where(x => x.silhouette.silhouetteNameID.ToLower() == silhouette.ToLower()).ToList();
             }
             catch (Exception e)
             {
@@ -147,7 +161,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.Include(x => x.type.typeNameID.ToLower() == type.ToLower()).ToList();
+                return objectSet.Where(x => x.type.typeNameID.ToLower() == type.ToLower()).ToList();
             }
             catch (Exception e)
             {
@@ -160,7 +174,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.Include(x => x.type.typeNameID.ToLower() == type.ToLower() && x.brand.brandNameID == brand.ToLower()).ToList();
+                return objectSet.Where(x => x.type.typeNameID.ToLower() == type.ToLower() && x.brand.brandNameID == brand.ToLower()).ToList();
             }
             catch (Exception e)
             {
@@ -173,7 +187,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.OrderByDescending(x => x.rating).Take(20).ToList();
+                return objectSet.getReleasedProduct().OrderByDescending(x => x.rating).Take(20).ToList();
             }
             catch (Exception e)
             {
@@ -186,7 +200,7 @@ namespace Ecomerece_Web.Services.Implement
         {
             try
             {
-                return objectSet.OrderByDescending(x => x.view).Take(20).ToList();
+                return objectSet.getReleasedProduct().OrderByDescending(x => x.view).Take(20).ToList();
             }
             catch (Exception e)
             {
@@ -224,6 +238,138 @@ namespace Ecomerece_Web.Services.Implement
                 Console.Error.WriteLine(e.Message);
                 throw;
             }
+        }
+
+        public List<Product> findByBrandWithTypeAndReleaseDateOrderDesc(string brand, string type)
+        {
+            try
+            {
+                return objectSet.getReleasedProduct().Where(p => p.brand.brandNameID.ToLower() == brand.ToLower() && p.type.typeNameID.ToLower() == type.ToLower()).OrderByDescending(p => p.releaseDate).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+        public List<Product> findBySilhouetteWithReleaseDateOrderDesc(string silhouette)
+        {
+            try
+            {
+                return objectSet.getReleasedProduct().Where(p => p.silhouette.silhouetteNameID.ToLower() == silhouette.ToLower()).OrderByDescending(p => p.releaseDate).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+        public List<Product> findByBranWithAndReleaseDate(string brand)
+        {
+            try
+            {
+                return objectSet.getReleasedProduct().Where(p => p.brand.brandNameID.ToLower() == brand.ToLower()).OrderByDescending(p => p.releaseDate).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+        public List<Product> top20Treding()
+        {
+            try
+            {
+                return objectSet.getReleasedProduct().OrderByDescending(p => p.releaseDate).ThenBy(p => p.view).Take(20).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
+
+        }
+        /// <summary>
+        /// only return 20 item
+        /// </summary>
+        /// <returns></returns>
+        public List<Product> mostWanted()
+        {
+            try
+            {
+                return objectSet.getReleasedProduct().OrderByDescending(p => p.releaseDate).ThenBy(p => p.view).Take(20).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+        public List<Product> findByYearWithReleaseDateOrderDesc(int year)
+        {
+            try
+            {
+                return objectSet.Where(p => p.releaseDate.Year == year).OrderByDescending(p => p.releaseDate).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
+        }
+        /// <summary>
+        /// return single item
+        /// </summary>
+        /// <returns></returns>
+        public Product getCoverProductWithOrderDesc()
+        {
+            try
+            {
+                return objectSet.Where(p => p.coverImg != "").FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+
+
+
+
+    }
+    public static class IQueryableExtensions
+    {
+        /// <summary>
+        /// use query
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static IQueryable<Product> getReleasedProduct(this IQueryable<Product> source)
+        {
+            return source.Where(p => p.releaseDate <= DateTime.Now);
+        }
+        public static IQueryable<Product> includeAll(this IQueryable<Product> source)
+        {
+            return source.Include(p => p.brand)
+                           .Include(p => p.category)
+                           .Include(p => p.color)
+                           .Include(p => p.images)
+                           .Include(p => p.silhouette)
+                           .Include(p => p.type);
+        }
+        /// <summary>
+        /// use for expression
+        /// </summary>
+        /// <returns></returns>
+        public static System.Linq.Expressions.Expression<Func<Product, bool>> isReleased()
+        {
+            return p => p.releaseDate <= DateTime.Now;
         }
     }
 }

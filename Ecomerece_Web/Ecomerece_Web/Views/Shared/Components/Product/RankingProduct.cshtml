@@ -5,7 +5,7 @@
 }
 @model (Ecomerece_Web.Data.Product product, int rank)
 <div class="card col-sm ProductCard" style="width: 18rem;">
-    <a href="#">
+    <a href="~/product/@Model.product.productNameID">
         <div class="card-body Wraper">
             <div class="HeaderButton">
                 <div class="ReleaseDate">
@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <img alt="@Model.product.productNameID" src="/utility/@Model.product.wallpaper"
+            <img alt="@Model.product.productNameID" src="/utility/@Model.product.coverImg"
                  sizes="200px" class="ProductImage HomeHero_ProductImg">
             <div class="Detail">
                 <h2 class="ProductName">@Model.product.productNameID</h2>

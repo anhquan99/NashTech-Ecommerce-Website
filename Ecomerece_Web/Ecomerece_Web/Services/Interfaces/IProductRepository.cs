@@ -5,18 +5,29 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Services.Interfaces
 {
-    interface IProductRepository<T> : IRepository<T>
+    public interface IProductRepository<T> : IRepository<T>
     {
-        List<T> findByReleaseDateOrderDesc();
-        List<T> findByMaterial(String material);
-        List<T> findByColor(String color);
-        List<T> findByBrand(String brand);
-        List<T> findByCategory(String category);
-        List<T> findByType(String type);
-        List<T> findByTypeAndBrand(String type, String brand);
-        List<T> findBySilhouette(String silhouette);
-        List<T> topView();
-        List<T> topRating();
-        
+        // for admin
+        public List<T> findByMaterial(String material);
+        public List<T> findByColor(String color);
+        public List<T> findByBrand(String brand);
+        public List<T> findByCategory(String category);
+        public List<T> findByType(String type);
+        public List<T> findByTypeAndBrand(String type, String brand);
+        public List<T> findBySilhouette(String silhouette);
+        // for user
+        public List<T> getAllReleaseDateOrderDesc();
+        public List<T> topView();
+        public List<T> topRating();
+        public List<T> findByBrandWithTypeAndReleaseDateOrderDesc(String brand, String type);
+        public List<T> findBySilhouetteWithReleaseDateOrderDesc(String silhouette);
+        public List<T> findByBranWithAndReleaseDate(String brand);
+        public List<T> top20Treding();
+        public List<T> mostWanted();
+        public List<T> findByYearWithReleaseDateOrderDesc(int year);
+        public T getCoverProductWithOrderDesc();
+
+
+
     }
 }

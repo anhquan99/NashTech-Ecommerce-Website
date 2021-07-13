@@ -10,7 +10,7 @@
     }
     <div class="ModuleSectionContent">
         <div class="SideScrollingCarousel_Navigation">
-            <button onclick="scrollXRight('ProductRelative')" class="LeftRightButtons_NavigationButton LeftRightButtons_LeftButtonStyled">
+            <button onclick="scrollXRight('@ViewBag.id')" class="LeftRightButtons_NavigationButton LeftRightButtons_LeftButtonStyled">
                 <svg version="1.1" xlmns="http://www.w3.org/2000/svg" xlmnsxlink="http://www.w3.org/1999/xlink"
                      class="" width="4px" height="8px" viewBox="0 0 11 17">
                     <title>Left Caret</title>
@@ -21,7 +21,7 @@
                         </g>
                     </g>
                 </svg>
-            </button><button onclick="scrollXLeft('ProductRelative')" class="LeftRightButtons_NavigationButton LeftRightButtons_RightButtonStyled">
+            </button><button onclick="scrollXLeft('@ViewBag.id')" class="LeftRightButtons_NavigationButton LeftRightButtons_RightButtonStyled">
                 <svg version="1.1" xlmns="http://www.w3.org/2000/svg" xlmnsxlink="http://www.w3.org/1999/xlink"
                      class="" width="4px" height="8px" viewBox="0 0 11 17">
                     <title>Right Caret</title>
@@ -34,23 +34,27 @@
                 </svg>
             </button>
         </div>
-        <div class="SideScrollingCarousel_Carousel " id="ProductRelative">
-            @foreach (var i in Model.products)
-            {
-                <a class="ProductTemplateCarouselItem_Wrapper"
-                   href="#">
-                    <img alt="" sizes="(min-width: 640px) 20vw, 50vw" src="/utility/@i.wallpaper"
-                         class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
-                    <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
-                        <div class="ProductTemplateCarouselItem_ProductDetails">
-                            <div class="ProductTemplateCarouselItem_ProductName">
-                                @i.productNameID
+        @if (Model.products.Count > 4)
+        {
+            <div class="SideScrollingCarousel_Carousel " id="@ViewBag.id">
+                @foreach (var i in Model.products)
+                {
+                    <a class="ProductTemplateCarouselItem_Wrapper"
+                       href="~/Product/@i.productNameID">
+                        <img alt="" sizes="(min-width: 640px) 20vw, 50vw" src="/utility/@i.coverImg"
+                             class="sc-htpNat ProductTemplateCarouselItem_ProductImage">
+                        <div class="ProductTemplateCarouselItem_ProductDetailsContainer">
+                            <div class="ProductTemplateCarouselItem_ProductDetails">
+                                <div class="ProductTemplateCarouselItem_ProductName">
+                                    @i.productNameID
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            }
-        </div>
+                    </a>
+                }
+            </div>
+
+        }
         <div class="FauxScrollbar_Track">
         </div>
     </div>

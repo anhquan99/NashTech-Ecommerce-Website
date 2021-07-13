@@ -16,7 +16,10 @@ namespace Ecomerece_Web.Data
         public String colorWay { get; set; }
         public String story { get; set; }
         [Required]
+        [Range(0.0, double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double price { get; set; }
+        [Range(0.0, double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
+        public double usedPrice { get; set; }
         public String wallpaper { get; set; }
         [Required]
         public int view { get; set; }
@@ -30,5 +33,11 @@ namespace Ecomerece_Web.Data
         public Ecomerece_Web.Data.Silhouette silhouette {get;set;}
       
         public List<Image> images { get; set; }
+        public List<User> userWantProduct { get; set; }
+
+        public Product()
+        {
+          
+        }
     }
 }

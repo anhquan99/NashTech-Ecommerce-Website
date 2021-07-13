@@ -7,18 +7,18 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Ecomerece_Web.Data.Migrations
+namespace Ecomerece_Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210710023427_update-product-field")]
-    partial class updateproductfield
+    [Migration("20210713164324_add-field-product")]
+    partial class addfieldproduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Ecomerece_Web.Data.Brand", b =>
@@ -84,6 +84,9 @@ namespace Ecomerece_Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("coverImg")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("price")
                         .HasColumnType("float");
 
@@ -104,6 +107,9 @@ namespace Ecomerece_Web.Data.Migrations
 
                     b.Property<string>("upperMaterial")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("usedPrice")
+                        .HasColumnType("float");
 
                     b.Property<int>("view")
                         .HasColumnType("int");
@@ -197,6 +203,10 @@ namespace Ecomerece_Web.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("fullName")
                         .IsRequired()
@@ -350,6 +360,21 @@ namespace Ecomerece_Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ProductUser", b =>
+                {
+                    b.Property<string>("userWantProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("wantedProductproductNameID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("userWantProductId", "wantedProductproductNameID");
+
+                    b.HasIndex("wantedProductproductNameID");
+
+                    b.ToTable("ProductUser");
+                });
+
             modelBuilder.Entity("Ecomerece_Web.Data.Image", b =>
                 {
                     b.HasOne("Ecomerece_Web.Data.Product", null)
@@ -437,6 +462,21 @@ namespace Ecomerece_Web.Data.Migrations
                     b.HasOne("Ecomerece_Web.Data.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProductUser", b =>
+                {
+                    b.HasOne("Ecomerece_Web.Data.User", null)
+                        .WithMany()
+                        .HasForeignKey("userWantProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecomerece_Web.Data.Product", null)
+                        .WithMany()
+                        .HasForeignKey("wantedProductproductNameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Ecomerece_Web.Data.Migrations
+namespace Ecomerece_Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210709191331_recreate-database")]
+    [Migration("20210713155748_recreate-database")]
     partial class recreatedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,7 +84,13 @@ namespace Ecomerece_Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("coverImg")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("price")
+                        .HasColumnType("float");
+
+                    b.Property<double>("rating")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("releaseDate")
@@ -101,6 +107,9 @@ namespace Ecomerece_Web.Data.Migrations
 
                     b.Property<string>("upperMaterial")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("view")
+                        .HasColumnType("int");
 
                     b.Property<string>("wallpaper")
                         .HasColumnType("nvarchar(max)");
