@@ -615,3 +615,4 @@ E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Home\ShopAll.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Home\TimeLine.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Product\Brand.cshtml.g.cs
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Components\ProductList\Default.cshtml.g.cs

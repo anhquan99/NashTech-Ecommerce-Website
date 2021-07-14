@@ -108,7 +108,9 @@ namespace Ecomerece_Web.Services.Implements
         {
             try
             {
-                return objectSet.Where(x => x.productNameID == id).includeAll().SingleOrDefault();
+                return objectSet.Where(x => x.productNameID == id)
+                    .includeAll()
+                    .SingleOrDefault();
 
             }
             catch (Exception e)
@@ -131,11 +133,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> getAllReleaseDateOrderDesc()
+        public List<Product> getAllReleaseDateOrderDesc(int page, int size)
         {
             try
             {
-                return objectSet.getReleasedProduct().OrderByDescending(x => x.releaseDate).ToList();
+                return objectSet.getReleasedProduct().OrderByDescending(x => x.releaseDate).Page(page,size).ToList();
             }
             catch (Exception e)
             {
@@ -329,7 +331,8 @@ namespace Ecomerece_Web.Services.Implements
         {
             try
             {
-                return objectSet.Where(p => p.coverImg != "").FirstOrDefault();
+                var temp = objectSet.Where(p => !String.IsNullOrEmpty(p.wallpaper)).FirstOrDefault();
+                return temp;
             }
             catch (Exception e)
             {
@@ -370,6 +373,10 @@ namespace Ecomerece_Web.Services.Implements
         public static System.Linq.Expressions.Expression<Func<Product, bool>> isReleased()
         {
             return p => p.releaseDate <= DateTime.Now;
+        }
+        public static IQueryable<Product> Page(this IQueryable<Product> source, int page, int pageSize)
+        {
+            return source.Skip((page - 1) * pageSize).Take(pageSize);
         }
     }
 }

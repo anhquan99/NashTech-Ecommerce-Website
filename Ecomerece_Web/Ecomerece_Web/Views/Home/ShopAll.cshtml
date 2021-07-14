@@ -1,5 +1,130 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Ecomerece_Web.Data.Product> 
+<div class="PageLayout_PageAlignmentListProduct">
+
+    <div class="InfiniteScrollSearchGrid_Container">
+        <div class="InfiniteScrollSearchGrid_HeadingWrapper">
+            <div class="BrandLogo_LogoContainer" style="background-image: url('https://www.goat.com/public/images/brands/acnestudios.png'); height: 40px; width: 100%; margin: 16px 0px;"></div>
+            <p class="InfiniteScrollSearchGrid_BrandDescription">
+                Art, architecture and contemporary
+                culture form the basis of Acne Studios' unconventional ethos. A creative collective born in 1996, the
+                Swedish fashion house came onto Vogue Paris' radar after co-founder Jonny Johansson designed 100 pairs of
+                raw denim <a href="#">jeans</a> with red stitching for friends and family.
+            </p>
+        </div><input type="search" class="HiddenInstantSearchBox_Input" value="">
+        <div class="SneakerApparelToggle_Container">
+            <a href="#" class="SneakerApparelToggle_Option">Sneakers</a><a href="#"
+                                                                           class="SneakerApparelToggle_Option">Apparel</a>
+        </div>
+        <div class="InfiniteScrollSearchGrid_GridAndFiltersContainer">
+            <div class="InfiniteScrollSearchGrid_Observer"></div>
+            <div class="InfiniteScrollSearchGrid_Filters"></div>
+            <div class="InfiniteScrollSearchGrid_FilterSummaryWrapper">
+                <div class="FilterSummaryRow_Wrapper">
+                    <div class="FilterSummaryRow_NumOfResults">
+                        <h1 class="SearchResultCountText_HitsText">
+                            Showing 21
+                            results
+                        </h1>
+                    </div>
+                    <div class="FilterSummaryRow_StyledSortBy">
+                        <div class="DropdownMenu_Dropdown">
+                            <button onlcick="openSelection('SortListSelection')" class="DropdownMenu_DropdownButton">
+                                <div class="DropdownMenu_Title">Sort By</div>
+                                <div class="DropdownMenu_Title DropdownMenu_Selection">
+                                    Popular
+                                </div>
+                                <div class="DropdownMenu_ArrowWrapper">
+                                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer " style="transform: rotate(-180deg);">
+                                        <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10"
+                                                  stroke-width="1.5"></polyline>
+                                    </svg>
+                                </div>
+                            </button>
+                            <ul class="DropdownMenu_DropdownList goat-scroll" id="SortListSelection">
+                                <li class="DropdownMenu_DropdownListItem">
+                                    <button class="DropdownMenu_DropdownListItemButton">
+                                        <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">popular</div>
+                                        <div class="DropdownMenu_DropdownListItemButtonIcon">
+                                            <svg width="14" height="14" viewBox="0 0 10 8"
+                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <line x1="1.06066" y1="3.91664" x2="3.33333" y2="6.18931" stroke="black" stroke-width="1.5"
+                                                      stroke-linecap="round"></line>
+                                                <line x1="3.3335" y1="6.18934" x2="8.27284" y2="1.25" stroke="black" stroke-width="1.5"
+                                                      stroke-linecap="round"></line>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </li>
+                                <li class="DropdownMenu_DropdownListItem">
+                                    <button class="DropdownMenu_DropdownListItemButton">
+                                        <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">new</div>
+                                    </button>
+                                </li>
+                                <li class="DropdownMenu_DropdownListItem">
+                                    <button class="DropdownMenu_DropdownListItemButton">
+                                        <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">upcoming</div>
+                                    </button>
+                                </li>
+                                <li class="DropdownMenu_DropdownListItem">
+                                    <button class="DropdownMenu_DropdownListItemButton">
+                                        <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">
+                                            price
+                                            (low-high)
+                                        </div>
+                                    </button>
+                                </li>
+                                <li class="DropdownMenu_DropdownListItem">
+                                    <button class="DropdownMenu_DropdownListItemButton">
+                                        <div class="DropdownMenu_Title DropdownMenu_DropdownListItemButtonLabel">
+                                            price
+                                            (high-low)
+                                        </div>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="max-width: 91%;" id="itemList">
+    @await Component.InvokeAsync("ProductList", new { products = Model })
+</div>
+<div class="align-center-justify-center full-width" style="height: 90px;">
+    <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">
+        BACK
+        TO TOP
+    </p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer "
+             style="transform: rotate(0deg);">
+        <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10" stroke-width="1.5"></polyline>
+    </svg>
+</div>
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script>
+    var page = @ViewBag.page;
+    var url = window.location.hostname;
+    $(window).scroll(function () {
+        if (page != -1) {
+            if ($(window).height() + $(window).scrollTop() >($(document).height() *80/100)) {
+                page += 1;
+                $.ajax({
+                    type: 'GET',
+                    url: "/home/shopallpage/" + page,
+                    success: function (result) {
+                        $('#itemList').append(result);
+                        console.log(result);
+                    },
+                    error: function (result) {
+                        page = -1;
+                        console.log(page);
+                    },
+                    async: true
+                });
+            }
+        }
+    });
+</script>

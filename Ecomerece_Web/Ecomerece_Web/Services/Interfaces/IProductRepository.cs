@@ -16,7 +16,7 @@ namespace Ecomerece_Web.Services.Interfaces
         public List<T> findByTypeAndBrand(String type, String brand);
         public List<T> findBySilhouette(String silhouette);
         // for user
-        public List<T> getAllReleaseDateOrderDesc();
+        public List<T> getAllReleaseDateOrderDesc(int page,int size);
         public List<T> topView();
         public List<T> topRating();
         public List<T> findByBrandWithTypeAndReleaseDateOrderDesc(String brand, String type);

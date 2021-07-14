@@ -2033,8 +2033,8 @@ a .Fact_Details:hover {
 }
 
 .HomeHero_ProductImg {
-    padding-top: 45px;
-    padding-bottom: 10px;
+    padding-top: 10vh;
+    padding-bottom: 5vh;
 }
 
 .Hero_Wrapper {

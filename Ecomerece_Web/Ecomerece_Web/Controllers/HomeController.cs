@@ -35,12 +35,21 @@ namespace Ecomerece_Web.Controllers
         }
         public IActionResult TimeLine()
         {
+            Seed.SeedProduct(productService);
             return View();
         }
+        [Route("/Home/ShopAll")]
         public IActionResult ShopAll()
         {
-            
-            return View() ;
+            var data = productService.getAllReleaseDateOrderDesc(1, 8);
+            ViewBag.page = 1;
+            return View(data);
+        }
+        [Route("Home/ShopAllPage/{page}")]
+        public IActionResult ShopAllPage(int page)
+        {
+            var data = productService.getAllReleaseDateOrderDesc(page, 8);
+            return ViewComponent("ProductList", new {products =  data});
         }
         [Authorize]
         public IActionResult Privacy()

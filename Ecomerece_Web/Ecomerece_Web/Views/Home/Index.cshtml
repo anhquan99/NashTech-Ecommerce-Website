@@ -2,7 +2,7 @@
 @model (Ecomerece_Web.Data.Product coverProduct, List<Ecomerece_Web.Data.Product> topTrending, List<Ecomerece_Web.Data.Product> mostWanted)
 <div class="PageLayout_PageAlignment">
     @await Component.InvokeAsync("Product", new { product = Model.coverProduct, type = "cover" })
-    @await Component.InvokeAsync("ProductCarousel", new { products = Model.topTrending, name = "Name"})
+    @await Component.InvokeAsync("ProductCarousel", new { products = Model.topTrending, name = "Name" })
     <div class="ModuleSection ProductsYouMayLike_Wrapper">
         <div class="ModuleSectionHeader_Wrapper">
             <h3 class="ModuleSectionTitle">Top 20 Trending</h3>
@@ -11,7 +11,7 @@
         <div class="container" style="max-width: 100%;">
             @for (int i = 1; i <= Model.topTrending.Count;)
             {
-                int temp = i + 3;
+                int temp = i + 4;
                 @Html.Raw("<div class='row'>");
                 for (int k = i; k < temp && k <= Model.topTrending.Count; k++, i++)
                 {
@@ -21,17 +21,17 @@
                 @Html.Raw("</div>");
             }
         </div>
-        @await Component.InvokeAsync("ProductCarousel",new { products = Model.mostWanted, name = "name"})
-
-        <div class="align-center-justify-center full-width" style="height: 90px;">
-            <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">
-                BACK
-                TO TOP
-            </p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer "
-                     style="transform: rotate(0deg);">
-                <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10"
-                          stroke-width="1.5"></polyline>
-            </svg>
-        </div>
-
     </div>
+    @await Component.InvokeAsync("ProductCarousel", new { products = Model.mostWanted, name = "name" })
+    <div class="align-center-justify-center full-width" style="height: 90px;">
+        <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">
+            BACK
+            TO TOP
+        </p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.33 5" width="10px" height="10px" class="arrow pointer "
+                 style="transform: rotate(0deg);">
+            <polyline points="1.17 4.25 4.17 1.25 7.17 4.25" fill="none" stroke="#0b0b0b" stroke-miterlimit="10"
+                      stroke-width="1.5"></polyline>
+        </svg>
+    </div>
+
+</div>

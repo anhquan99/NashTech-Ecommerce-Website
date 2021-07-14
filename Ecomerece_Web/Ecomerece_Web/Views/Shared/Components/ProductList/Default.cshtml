@@ -1,0 +1,14 @@
+﻿    <!-- body -->
+@model List<Ecomerece_Web.Data.Product>
+    @for (int i = 1; i <= Model.Count;)
+    {
+        int temp = i + 4;
+        @Html.Raw("<div class='row flex-nowrap'>");
+        for (int k = i; k < temp && k <= Model.Count; k++, i++)
+        {
+            @await Component.InvokeAsync("Product", new { product = Model.ElementAt(i - 1) });
+
+        }
+        @Html.Raw("</div>");
+    }
+
