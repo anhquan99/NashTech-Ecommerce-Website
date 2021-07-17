@@ -616,3 +616,15 @@ E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Home\TimeLine.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Product\Brand.cshtml.g.cs
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\obj\Debug\net5.0\Razor\Views\Shared\Components\ProductList\Default.cshtml.g.cs
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\AutoMapper.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\IdentityModel.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\IdentityServer4.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\IdentityServer4.AspNetIdentity.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\IdentityServer4.EntityFramework.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\IdentityServer4.EntityFramework.Storage.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\IdentityServer4.Storage.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Microsoft.OpenApi.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -66,7 +66,14 @@ namespace Ecomerece_Web.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [StringLength(100, ErrorMessage = "{0} must be at least {2} and at max {1} character long.", MinimumLength = 2)]
             [Display(Name = "Fullname")]
+
             public String fullName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [StringLength(100, ErrorMessage = "{0} must be at least {2} and at max {1} character long.", MinimumLength = 2)]
+            [Display(Name = "Address")]
+            public String address { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -81,7 +88,7 @@ namespace Ecomerece_Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email, fullName = Input.fullName};
+                var user = new User { UserName = Input.Email, Email = Input.Email, fullName = Input.fullName, address = Input.address};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

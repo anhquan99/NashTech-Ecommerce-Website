@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

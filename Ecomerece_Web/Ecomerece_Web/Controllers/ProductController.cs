@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ProductController : Controller
     {
         private readonly IRepository<Product> productService;

@@ -81,7 +81,7 @@
 
                             <li class="MenuItem_ListItem">
                                 <label class="Label">
-                                    <span class="AnimatedUnderlineText"><a href="~/Identity/Account/Manage" id="">Account Setting</a></span>
+                                    <span class="AnimatedUnderlineText"><a href="#" id="">Account Setting</a></span>
                                 </label>
                             </li>
 
@@ -89,8 +89,8 @@
                             <li class="MenuItem_ListItem ">
                                 <div class="Label Access">
                                     <div class="UserLogin_Wrapper">
-                                        <a data-qa="log_in" class="UserLogin_Link" href="~/Identity/Account/Login">Log In</a><a class="UserLogin_Link"
-                                                                                                                                href="~/Identity/Account/Register">Sign Up</a>
+                                        <a data-qa="log_in" class="UserLogin_Link" asp-area="Identity" asp-page="/Account/Login">Log In</a>
+                                        <a class="UserLogin_Link" asp-area="Identity" asp-page="/Account/Register">Sign Up</a>
                                     </div>
 
                                 </div>

@@ -2235,11 +2235,17 @@ a .Fact_Details:hover {
     transform: translateY(-50%);
     z-index: 1;
 }
-.LoginForm_Error{
+.LoginForm_Error {
     margin: 16px;
     font-family: PlainLight, sans-serif;
     text-align: center;
     color: rgb(235, 2, 0);
+}
+.LoginForm_Error li {
+    list-style-type: none
+}
+.LoginForm_Error ul {
+    padding : 0
 }
 .Hero_HeroPaneLoginActions{
     flex-direction: row;

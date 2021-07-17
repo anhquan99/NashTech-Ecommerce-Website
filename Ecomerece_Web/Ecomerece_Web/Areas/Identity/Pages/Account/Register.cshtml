@@ -105,6 +105,14 @@
                             </div>
                             <div class="MaterialInput_Content">
                                 <label class="MaterialInput_Label">
+                                    <input asp-for="Input.address" class="MaterialInput_Input"><span class="MaterialInput_LabelCopy">
+                                        Address
+                                    </span>
+                                    <span asp-validation-for="Input.fullName" class="text-danger"></span>
+                                </label>
+                            </div>
+                            <div class="MaterialInput_Content">
+                                <label class="MaterialInput_Label">
                                     <input asp-for="Input.Email"
                                            class="MaterialInput_Input"><span class="
                                             MaterialInput_LabelCopy">Email</span>

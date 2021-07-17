@@ -1,4 +1,5 @@
 using Ecomerece_Web.Data;
+using Ecomerece_Web.IdentityServer;
 using Ecomerece_Web.Models;
 using Ecomerece_Web.Services.Implements;
 using Ecomerece_Web.Services.Interfaces;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,10 +45,76 @@ namespace Ecomerece_Web
                 //options => options.SignIn.RequireConfirmedAccount = true
                 )
                 .AddRoles<IdentityRole>()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             //enable lazy load
             //services.AddEntityFrameworkProxies();
+
+            var builder = services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+                //options.UserInteraction.LoginUrl = "/Account/Login";
+                //options.UserInteraction.LogoutUrl = "/Account/Logout";
+                options.Authentication = new IdentityServer4.Configuration.AuthenticationOptions()
+                {
+                    CookieLifetime = TimeSpan.FromHours(10), // ID server cookie timeout set to 10 hours
+                    CookieSlidingExpiration = true
+                };
+            })
+            .AddInMemoryApiResources(Config.Apis)
+            .AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))
+            .AddInMemoryIdentityResources(Config.Ids)
+            .AddInMemoryApiScopes(Config.ApiScopes)
+            .AddInMemoryClients(Config.Clients)
+            .AddAspNetIdentity<User>()
+            .AddDeveloperSigningCredential();
+
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Account/", model =>
+                {
+                    foreach (var selector in model.Selectors)
+                    {
+                        var attributeRouteModel = selector.AttributeRouteModel;
+                        attributeRouteModel.Order = -1;
+                        attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
+                    }
+                });
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Webapp space api", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Implicit = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri(Configuration["AuthorityUrl"] + "/connect/authorize"),
+                            Scopes = new Dictionary<string, string> { { "api.aq", "AQ API" } }
+                        },
+                    },
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+               {
+                   {
+                    new OpenApiSecurityScheme
+                       {
+                           Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                       },
+                    new List<String>{"api.AQ "}
+                   }
+                });
+            });
+
             services.AddScoped<IProductRepository<Product>, ProductService>();
             //services.AddScoped<IUserRepository<User>, UserService>();
 
@@ -74,8 +142,18 @@ namespace Ecomerece_Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseIdentityServer();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Webapp space api v1");
+                c.OAuthClientId("swagger");
+            });
+
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -85,20 +163,20 @@ namespace Ecomerece_Web
                 //endpoints.MapRazorPages();
             });
             //Seeding create admin when the project if is initialized
-            //using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            //{
-            //    var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-            //    var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-            //    Task task1 = Seed.SeedRolesAsync(userManager, roleManager);
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                    var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                    Task task1 = Seed.SeedRolesAsync(userManager, roleManager);
 
-            //    task1.Wait();
+                    task1.Wait();
 
-            //    var userManager2 = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-            //    var roleManager2 = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-            //    Task task2 = Seed.SeedAdminAsync(userManager2, roleManager2);
-            //    task2.Wait();
+                    var userManager2 = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                    var roleManager2 = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                    Task task2 = Seed.SeedAdminAsync(userManager2, roleManager2);
+                    task2.Wait();
 
-            //}
+                }
         }
     }
 }

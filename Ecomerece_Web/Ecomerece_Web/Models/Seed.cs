@@ -197,7 +197,7 @@ namespace Ecomerece_Web.Models
                 //    }
                 //},
                 #endregion
-
+                #region new seed
                 new Product()
                 {
                     productNameID = "Air Jordan 1 Retro High OG 'Electro Orange'",
@@ -812,6 +812,7 @@ namespace Ecomerece_Web.Models
                     service.create(i);
                 }
             }
+            #endregion end
         }
         public async static Task SeedRolesAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {

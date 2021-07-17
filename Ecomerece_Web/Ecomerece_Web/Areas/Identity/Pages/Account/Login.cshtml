@@ -106,7 +106,7 @@
                                 You need to be logged in
                                 to continue.
                             </p><a onclick="showForm('LoginForm','RegisterForm')" class="LoginForm_CreateAccountButton"
-                                   href="~/Identity/Account/Register" >Sign Up</a>
+                                   asp-area="Identity" asp-page="/Account/Register" >Sign Up</a>
                         </header>
                         <main class="LoginForm_Main">
                             <div class="MaterialInput_Content">
@@ -130,7 +130,9 @@
                             </div>
                         </main>
                     </div>
-                    <div class="LoginForm_Error"></div>
+                    <div class="LoginForm_Error">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
                     <nav class="Hero_HeroPaneLoginActions">
                         <span class="Hero_Border">
                             <button type="submit"
