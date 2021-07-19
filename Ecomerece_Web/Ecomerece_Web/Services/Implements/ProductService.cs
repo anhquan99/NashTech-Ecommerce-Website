@@ -359,12 +359,25 @@ namespace Ecomerece_Web.Services.Implements
         }
         public static IQueryable<Product> includeAll(this IQueryable<Product> source)
         {
-            return source.Include(p => p.brand)
-                           .Include(p => p.category)
-                           .Include(p => p.color)
-                           .Include(p => p.images)
-                           .Include(p => p.silhouette)
-                           .Include(p => p.type);
+            return source.Select(p => new Product
+            {
+                productNameID = p.productNameID,
+                releaseDate = p.releaseDate,
+                upperMaterial = p.upperMaterial,
+                colorWay = p.colorWay,
+                story = p.story,
+                price = p.price,
+                wallpaper = p.wallpaper,
+                view = p.view,
+                rating = p.rating,
+                coverImg = p.coverImg,
+                brand = new Brand() { brandNameID = p.brand.brandNameID },
+                color = new Color() { colorNameID = p.color.colorNameID },
+                category = new Category() { categoryNameID = p.category.categoryNameID },
+                type = new Data.Type() { typeNameID = p.type.typeNameID },
+                silhouette = new Silhouette() { silhouetteNameID = p.silhouette.silhouetteNameID },
+                usedPrice = p.usedPrice
+            });
         }
         /// <summary>
         /// use for expression

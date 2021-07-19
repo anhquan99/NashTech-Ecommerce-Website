@@ -26,7 +26,7 @@ namespace Ecomerece_Web
         {
             Configuration = configuration;
         }
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -77,7 +77,7 @@ namespace Ecomerece_Web
 
             services.AddRazorPages(options =>
             {
-                options.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Account/", model =>
+                options.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Identity/Account/", model =>
                 {
                     foreach (var selector in model.Selectors)
                     {
@@ -87,7 +87,16 @@ namespace Ecomerece_Web
                     }
                 });
             });
-
+            //CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3000");
+                                      //.AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Webapp space api", Version = "v1" });
@@ -116,6 +125,11 @@ namespace Ecomerece_Web
             });
 
             services.AddScoped<IProductRepository<Product>, ProductService>();
+            services.AddScoped<IRepository<Brand>, BrandService>();
+            services.AddScoped<IRepository<Category>, CategoryService>();
+            services.AddScoped<IRepository<Silhouette>, SilhouetteService>();
+            services.AddScoped<IRepository<Ecomerece_Web.Data.Type>, TypeService>();
+            services.AddScoped<IRepository<Color>, ColorService>();
             //services.AddScoped<IUserRepository<User>, UserService>();
 
         }
@@ -136,6 +150,9 @@ namespace Ecomerece_Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            //CORS
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 

@@ -46,7 +46,7 @@ namespace Ecomerece_Web.Controllers
             ViewBag.page = 1;
             return View(data);
         }
-        [Route("Home/ShopAllPage/{page}")]
+        [Route("/Home/ShopAllPage/{page}")]
         public IActionResult ShopAllPage(int page)
         {
             var data = productService.getAllReleaseDateOrderDesc(page, 8);

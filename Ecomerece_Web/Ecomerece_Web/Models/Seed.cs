@@ -1,6 +1,7 @@
 ﻿using Ecomerece_Web.Data;
 using Ecomerece_Web.Services;
 using Ecomerece_Web.Services.Implements;
+using Ecomerece_Web.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
