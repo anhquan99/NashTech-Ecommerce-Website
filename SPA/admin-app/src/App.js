@@ -7,7 +7,7 @@ import { Container } from 'reactstrap';
 import Navbar from './Components/navbar'
 import TableProduct from './Components/TableProduct'
 import { Switch, Route } from "react-router-dom";
-import AddProduct from './Components/FormProduct';
+import AddProduct from './Components/FormAddProduct';
 
 function App() {
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
@@ -28,7 +28,7 @@ function App() {
                 <TableProduct/>
               </Route>
               <Route exact path="/addProduct" >
-                <AddProduct/>
+                <AddProduct method='post'/>
               </Route>
               <Route exact path="/Pages" ></Route>
               <Route exact path="/faq" ></Route>

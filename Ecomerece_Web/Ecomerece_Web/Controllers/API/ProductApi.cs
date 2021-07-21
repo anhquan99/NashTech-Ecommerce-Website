@@ -44,7 +44,7 @@ namespace Ecomerece_Web.Controllers.API
         }
         // POST api/<ProductApi>
         [HttpPost]
-        public void Post([FromBody] ProductPrototype product)
+        public void Post([FromForm] ProductPrototype product)
         {
             //Console.WriteLine(product.ToString());
 

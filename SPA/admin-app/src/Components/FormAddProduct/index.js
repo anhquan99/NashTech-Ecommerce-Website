@@ -1,87 +1,113 @@
 import React, { Component } from 'react'
-import './../FormProduct/FormProduct.css';
-import { get, post } from "../../httpHelper";
+import './../FormAddProduct/FormAddProduct.css';
+import { get, postWithFile, put } from "../../httpHelper";
+import { Redirect } from 'react-router-dom'
 export default class index extends Component {
     state = {
         wallpaper: [],
         coverImg: [],
         img: [],
+        imgFiles: [],
         message: "",
-        brand:[],
-        category:[],
-        silhouette:[],
-        type:[],
-        color:[]
+        brand: [],
+        category: [],
+        silhouette: [],
+        type: [],
+        color: [],
+        product: []
     };
-    componentDidMount(){
+    componentDidMount() {
         this.fetchBrandList();
         this.fetchCategoryList();
         this.fetchSilhouetteList();
         this.fetchTypeList();
         this.fetchColorList();
+        if (this.props.method === 'put') {
+            this.fetchProduct();
+        }
     }
     isFileImage(file) {
         return file && file['type'].split('/')[0] === 'image';
     }
+    fetchProduct() {
+        get("/api/Product/" + this.props.id).then((response) => {
+            if (response.status === 200) {
+                this.setState({
+                    product: response.data
+                });
+            }
+            // console.log("brand: " + this.state.brand);
+        });
+    }
     fetchBrandList() {
         get("/api/BrandApi").then((response) => {
             if (response.status === 200) {
-                this.setState({brand: response.data.map((item)=>{
-                    return item.brandNameID;
-                })});
+                this.setState({
+                    brand: response.data.map((item) => {
+                        return item.brandNameID;
+                    })
+                });
             }
-            console.log("brand: " + this.state.brand);
+            // console.log("brand: " + this.state.brand);
         });
     }
     fetchColorList() {
         get("/api/ColorApi").then((response) => {
             if (response.status === 200) {
-                this.setState({color: response.data.map((item)=>{
-                    return item.colorNameID;
-                })});
+                this.setState({
+                    color: response.data.map((item) => {
+                        return item.colorNameID;
+                    })
+                });
             }
-            console.log(this.state.color);
+            // console.log(this.state.color);
         });
     }
     fetchCategoryList() {
         get("/api/CategoryApi").then((response) => {
             if (response.status === 200) {
-                this.setState({category: response.data.map((item)=>{
-                    return item.categoryNameID;
-                })});
+                this.setState({
+                    category: response.data.map((item) => {
+                        return item.categoryNameID;
+                    })
+                });
             }
-            console.log(this.state.category);
+            // console.log(this.state.category);
         });
     }
     fetchSilhouetteList() {
         get("/api/SilhouetteApi").then((response) => {
             if (response.status === 200) {
-                this.setState({silhouette: response.data.map((item)=>{
-                    return item.silhouetteNameID;
-                })});
+                this.setState({
+                    silhouette: response.data.map((item) => {
+                        return item.silhouetteNameID;
+                    })
+                });
             }
-            console.log(this.state.silhouette);
+            // console.log(this.state.silhouette);
         });
     }
     fetchTypeList() {
         get("/api/TypeApi").then((response) => {
             if (response.status === 200) {
-                this.setState({type: response.data.map((item)=>{
-                    return item.typeNameID;
-                })});
+                this.setState({
+                    type: response.data.map((item) => {
+                        return item.typeNameID;
+                    })
+                });
             }
-            console.log(this.state.type);
+            // console.log(this.state.type);
 
         });
     }
-    renderDataList(source){
-        return source.map((item)=>{
-            return <option value={item}></option>
+    renderDataList(source) {
+        return source.map((item) => {
+            return <option value={item} key={item}></option>
         })
     }
 
-    handleImageChange(e, source) {
-        // console.log(e.target.files);
+    handleImageChange(e, source ) {
+        console.log(e.target.files);
         if (e.target.files) {
             // console.log(e.target.files.length);
             for (let i = 0; i < e.target.files.length; i++) {
@@ -99,32 +125,97 @@ export default class index extends Component {
 
             this.setState({ [source]: filesArray });
             Array.from(e.target.files).map(
-                (file) => URL.revokeObjectURL(file) // avoid memory leak
+                (file) => {
+                    URL.revokeObjectURL(file);
+                    console.log("revokeObjectURL: " + file);
+                }
             );
+
+            this.setState({ message: "" });
+        }
+    };
+    handleMultiImageChange(e, source, fileSource) {
+        if (e.target.files) {
+            var files = e.target.files;
+            // console.log(e.target.files.length);
+            for (let i = 0; i < files.length; i++) {
+                if (!this.isFileImage(files[i])) {
+                    this.setState({ message: "INVALID IMAGE FILE" });
+                    return;
+                }
+            }
+            const filesArray = Array.from(files).map((file) =>
+                URL.createObjectURL(file)
+            );
+            this.setState({ [source]: filesArray });
+            console.log( [...new Set([...[source] ,...filesArray])]); 
+            // this.setState({ [source]: [...new Set([...[source] ,...filesArray])] });
+            // this.setState({ [fileSource]: [...[fileSource], ...files] });
+            Array.from(e.target.files).map(
+                (file) => {
+                    URL.revokeObjectURL(file);
+                    console.log("revokeObjectURL: " + file);
+                }
+            );
+
             this.setState({ message: "" });
         }
     };
     renderPhotos(source) {
-        // console.log(source);
         return source.map((photo) => {
-            return <img src={photo} alt="" key={photo} />
+            return (<div style={{
+                border: "1px solid rgb(222, 222, 222)",
+                height: '250px',
+                backgroundImage: `url(${photo})`,
+                backgroundColor: "white",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "contain",
+                position: "relative"
+            }}>
+                <button key={photo} type="button" className="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>)
         })
     }
-    handleFormSubmit(e){
+    handleFormSubmit(e) {
         e.preventDefault();
-        post("/api/Product").then((response) => {
-            console.log(response);
-            // if (response.status === 200) {
-            //     this.setState({brand: response.data.map((item)=>{
-            //         return item.brandNameID;
-            //     })});
-            // }
-            // console.log("brand: " + this.state.brand);
+        var object = {};
+        const formData = new FormData(e.target);
+        formData.forEach(function (value, key) {
+            object[key] = value;
         });
+        // for (var key of formData.entries()) {
+        // 	console.log(key[0] + ', ' + key[1])
+        // }
+        if (this.props.method === 'post') {
+            postWithFile("/api/Product", formData).then((response) => {
+                if (response.status === 200) {
+                    alert("Success");
+                    window.location = "/";
+                }
+            }).catch(function (error) {
+                console.log("POST Product field");
+                return Promise.reject(error);
+            });
+        }
+        else if (this.props.method === 'put') {
+            put("/api/Product", formData).then((response) => {
+                if (response.status === 200) {
+                    alert("Success");
+                    window.location = "/";
+                }
+            }).catch(function (error) {
+                console.log("POST Product field");
+                return Promise.reject(error);
+            });
+        }
     }
+
     render() {
         return (
-            <form className="form" onSubmit={(e) => this.handleFormSubmit(e)}>
+            <form className="form" method="post" onSubmit={(e) => this.handleFormSubmit(e)} encType="multipart/form-data">
                 <h2 className="textareas">ADD NEW PRODUCT</h2>
                 <div className="form-group">
                     <label htmlFor="productNameID">PRODUCT NAME</label>
@@ -147,7 +238,7 @@ export default class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="color">COLOR</label>
-                        <input type="text" className="form-control" id="color" name="color" placeholder="ENTER COLOR" list="colors"/>
+                        <input type="text" className="form-control" id="color" name="color" placeholder="ENTER COLOR" list="colors" />
                         <datalist id="colors">{this.renderDataList(this.state.color)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
@@ -160,11 +251,11 @@ export default class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="price">PRICE</label>
-                        <input type="text" className="form-control" id="price" name="price" placeholder="ENTER PRICE" />
+                        <input type="number" className="form-control" id="price" name="price" placeholder="ENTER PRICE" />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="usedPrice">USED PRICE</label>
-                        <input type="text" className="form-control" id="usedPrice" name="usedPrice" placeholder="ENTER USED PRICE" />
+                        <input type="number" className="form-control" id="usedPrice" name="usedPrice" placeholder="ENTER USED PRICE" />
                     </div>
                 </div>
 
@@ -172,12 +263,12 @@ export default class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="brand">BRAND</label>
-                        <input type="text" className="form-control" id="brand" name="brand" placeholder="ENTER BRAND" list="brands"/>
+                        <input type="text" className="form-control" id="brand" name="brand" placeholder="ENTER BRAND" list="brands" />
                         <datalist id="brands">{this.renderDataList(this.state.brand)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="silhouette">SILHOUTTE</label>
-                        <input type="text" className="form-control" id="silhouette" name="silhouette" placeholder="ENTER SILHOUTTE" list="silhouettes"/>
+                        <input type="text" className="form-control" id="silhouette" name="silhouette" placeholder="ENTER SILHOUTTE" list="silhouettes" />
                         <datalist id="silhouettes">{this.renderDataList(this.state.silhouette)}</datalist>
                     </div>
                 </div>
@@ -191,7 +282,7 @@ export default class index extends Component {
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="type">TYPE</label>
-                        <input type="text" className="form-control" id="type" name="type" placeholder="ENTER TYPE" list="types"/>
+                        <input type="text" className="form-control" id="type" name="type" placeholder="ENTER TYPE" list="types" />
                         <datalist id="types">{this.renderDataList(this.state.type)}</datalist>
                     </div>
                 </div>
@@ -207,8 +298,8 @@ export default class index extends Component {
                         <span className="input-group-text">UPLOAD PRODUCT IMAGE</span>
                     </div>
                     <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="productImage" name="images" multiple="multiple" accept="image/*" onChange={(e) => this.handleImageChange(e, "img")} />
-                        <label className="custom-file-label" for="productImage">Choose file</label>
+                        <input type="file" className="custom-file-input" id="productImage" name="images" multiple="multiple" accept="image/*" onChange={(e) => this.handleMultiImageChange(e, "img", "imgFiles")} />
+                        <label className="custom-file-label" htmlFor="productImage">Choose file</label>
                     </div>
                 </div>
                 <div className="grid">{this.renderPhotos(this.state.img)}</div>
@@ -219,8 +310,8 @@ export default class index extends Component {
                         <span className="input-group-text">UPLOAD PRODUCT COVER</span>
                     </div>
                     <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="productCover" name="coverImage" accept="image/*" onChange={(e) => this.handleImageChange(e, "coverImg")} />
-                        <label className="custom-file-label" for="productCover">Choose file</label>
+                        <input type="file" className="custom-file-input" id="productCover" name="coverImage" accept="image/*" onChange={(e) => this.handleImageChange(e, this.state.coverImg)} />
+                        <label className="custom-file-label" htmlFor="productCover">Choose file</label>
                     </div>
                 </div>
                 <div className="grid">{this.renderPhotos(this.state.coverImg)}</div>
@@ -231,8 +322,8 @@ export default class index extends Component {
                         <span className="input-group-text">UPLOAD PRODUCT WALLPAPER</span>
                     </div>
                     <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="productWallpaper" name="wallpaperImage" accept="image/*" onChange={(e) => this.handleImageChange(e, "wallpaper")} />
-                        <label className="custom-file-label" for="productWallpaper">Choose file</label>
+                        <input type="file" className="custom-file-input" id="productWallpaper" name="wallpaperImage" accept="image/*" onChange={(e) => this.handleImageChange(e, this.state.wallpaper)} />
+                        <label className="custom-file-label" htmlFor="productWallpaper">Choose file</label>
                     </div>
                 </div>
                 <div className="grid">{this.renderPhotos(this.state.wallpaper)}</div>
@@ -242,7 +333,7 @@ export default class index extends Component {
                     <label className="error">{this.state.message}</label>
                 </div>
                 <div className="col text-center button">
-                    <button type="submit" className="btn form-btn col-md-3 ">ADD</button>
+                    <button type="submit" className="btn form-btn col-md-2 ">ADD</button>
                 </div>
 
 

@@ -17,7 +17,13 @@ export function put(url, body) {
 export function post(url, body) {
   return axios.post(endpoint + url, body);
 }
-
+export function postWithFile(url, body) {
+  return axios.post(endpoint + url, body,{
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+}
 export function del(url) {
   return axios.delete(endpoint + url);
 }

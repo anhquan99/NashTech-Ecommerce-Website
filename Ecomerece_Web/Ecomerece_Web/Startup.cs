@@ -124,6 +124,7 @@ namespace Ecomerece_Web
                 });
             });
 
+
             services.AddScoped<IProductRepository<Product>, ProductService>();
             services.AddScoped<IRepository<Brand>, BrandService>();
             services.AddScoped<IRepository<Category>, CategoryService>();
@@ -167,6 +168,10 @@ namespace Ecomerece_Web
                 c.OAuthClientId("swagger");
             });
 
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:3000/")
+           .AllowAnyHeader()
+);
 
             app.UseEndpoints(endpoints =>
             {

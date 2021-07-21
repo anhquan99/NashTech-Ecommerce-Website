@@ -11,7 +11,7 @@
 }
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
     grid-gap: 20px;
     align-items: stretch;
 }
@@ -43,4 +43,7 @@ hr{
 .form-btn :hover{
     background-color: #0b0b0b;
     color: white;
+}
+.close{
+    padding: 5px !important;
 }
