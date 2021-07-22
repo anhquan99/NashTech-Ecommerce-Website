@@ -93,8 +93,8 @@ namespace Ecomerece_Web
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:3000");
-                                      //.AllowAnyHeader().AllowAnyMethod();
+                                      builder.WithOrigins("http://localhost:3000")
+                                      .AllowAnyHeader().AllowAnyMethod();
                                   });
             });
             services.AddSwaggerGen(c =>

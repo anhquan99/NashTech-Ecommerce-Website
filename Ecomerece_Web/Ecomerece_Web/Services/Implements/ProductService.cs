@@ -376,7 +376,8 @@ namespace Ecomerece_Web.Services.Implements
                 category = new Category() { categoryNameID = p.category.categoryNameID },
                 type = new Data.Type() { typeNameID = p.type.typeNameID },
                 silhouette = new Silhouette() { silhouetteNameID = p.silhouette.silhouetteNameID },
-                usedPrice = p.usedPrice
+                usedPrice = p.usedPrice,
+                images = p.images
             });
         }
         /// <summary>

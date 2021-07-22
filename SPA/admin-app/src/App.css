@@ -23,7 +23,7 @@ a:focus {
     SIDEBAR STYLE
 ----------------------------------------------------- */
 .sidebar {
-  min-width: 20vw;
+  min-width: 15vw;
   max-width: 20vw;
   background: #0b0b0b;
   color: #fff;
@@ -136,4 +136,7 @@ li a.dropdown-toggle::after {
 }
 .hr{
   border: solid #0b0b0b;
+}
+.dropdown-toggle::after{
+  border: 0 !important;
 }

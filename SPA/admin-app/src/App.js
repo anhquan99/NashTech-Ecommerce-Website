@@ -6,15 +6,16 @@ import React, { useState } from "react";
 import { Container } from 'reactstrap';
 import Navbar from './Components/navbar'
 import TableProduct from './Components/TableProduct'
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import AddProduct from './Components/FormAddProduct';
+import UpdateProduct from './Components/FormUpdateProduct';
 
 function App() {
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
   return (
     <>
-      <Router>
+      <BrowserRouter>
         <div className="App wrapper">
           <SideBar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
           <Container fluid>
@@ -28,9 +29,11 @@ function App() {
                 <TableProduct/>
               </Route>
               <Route exact path="/addProduct" >
-                <AddProduct method='post'/>
+                <AddProduct />
               </Route>
-              <Route exact path="/Pages" ></Route>
+              <Route exact path="/updateProduct/:product" >
+                <UpdateProduct/>
+              </Route>
               <Route exact path="/faq" ></Route>
               <Route exact path="/contact" ></Route>
               <Route exact path="/Home-1"  ></Route>
@@ -45,7 +48,7 @@ function App() {
             </Switch>
           </Container>
         </div>
-      </Router>
+      </BrowserRouter>
     </>
   );
 }

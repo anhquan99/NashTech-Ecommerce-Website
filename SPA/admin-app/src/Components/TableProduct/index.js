@@ -6,7 +6,7 @@ export default class index extends Component {
     state = {
         productList: []
     };
-    componentDidMount(){
+    componentDidMount() {
         this.fetchProductList();
     }
     fetchProductList() {
@@ -29,12 +29,18 @@ export default class index extends Component {
                 </thead>
                 <tbody>
                     {this.state.productList.map((product) => (
+
                         <tr key={product.productNameID}>
                             <td>{product.productNameID}</td>
                             <td>{product.releaseDate}</td>
                             <td>{product.price}</td>
-                            <td>@twitter</td>
+                            <td> <Link to={`/updateProduct/${product.productNameID}`}>
+                                Detail
+                            </Link>
+                            </td>
                         </tr>
+
+
                     ))}
                 </tbody>
             </Table>

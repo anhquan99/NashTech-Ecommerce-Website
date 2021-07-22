@@ -2,6 +2,7 @@
 using Ecomerece_Web.Data.Prototype;
 using Ecomerece_Web.Models;
 using Ecomerece_Web.Services;
+using Ecomerece_Web.Services.Adapter;
 using Ecomerece_Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,9 +34,9 @@ namespace Ecomerece_Web.Controllers.API
 
         // GET api/<ProductApi>/5
         [HttpGet("{id}")]
-        public Product Get(String id)
+        public ProductPrototype Get(String id)
         {
-            return productService.findByID(id);
+            return ProductAdapter.convertFromProductToProductType(productService.findByID(id));
         }
         [HttpGet("getpage/{page}")]
         public IEnumerable<Product> GetPage(int page)
@@ -52,7 +53,7 @@ namespace Ecomerece_Web.Controllers.API
 
         // PUT api/<ProductApi>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] ProductPrototype product)
+        public void Put(String id, [FromBody] ProductPrototype product)
         {
 
         }

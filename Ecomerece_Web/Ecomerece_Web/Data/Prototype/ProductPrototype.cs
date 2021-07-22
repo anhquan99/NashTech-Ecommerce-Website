@@ -25,10 +25,11 @@ namespace Ecomerece_Web.Data.Prototype
         public String category { get; set; }
         public String type { get; set; }
         public String silhouette { get; set; }
+        public List<Image> images{get;set; }
 
-        public List<IFormFile> images { get; set; }
-        public IFormFile coverImage { get; set; }
-        public IFormFile wallpaperImage { get; set; }
+        public List<IFormFile> imagesPost { get; set; }
+        public IFormFile coverImagePost { get; set; }
+        public IFormFile wallpaperImagePost { get; set; }
 
     }
 }

@@ -22,8 +22,15 @@ namespace Ecomerece_Web.Controllers
         {
             var path = Environment.CurrentDirectory;
             var imagePath = Path.Combine(path, "image", imageFile);
-            var img = System.IO.File.OpenRead(imagePath);
-            return File(img, "image/jpeg");    
+            try
+            {
+                var img = System.IO.File.OpenRead(imagePath);
+                return File(img, "image/jpeg");
+            }
+            catch(FileNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }
