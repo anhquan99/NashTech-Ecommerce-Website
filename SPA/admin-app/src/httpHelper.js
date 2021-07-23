@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpoint = "https://localhost:5001";
+const endpoint = process.env.REACT_APP_LOCAL_URL;
 // const token = localStorage.getItem("token");
 
 export function get(url) {

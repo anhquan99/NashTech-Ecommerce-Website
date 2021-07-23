@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './../FormAddProduct/FormAddProduct.css';
 import { get, postWithFile, put } from "../../httpHelper";
-import { withRouter } from 'react-router-dom';
-import * as moment from 'moment';
+import { withRouter, Redirect } from 'react-router-dom';
 class index extends Component {
     constructor(props) {
         super(props);
         this.itemRef = [];
+
     }
+    REACT_APP_LOCAL_URL = process.env.REACT_APP_LOCAL_URL;
     state = {
         wallpaper: [],
         coverImg: [],
@@ -23,17 +24,18 @@ class index extends Component {
         type: [],
         color: [],
         product: [],
-        releaseDate : "",
-        productOldFile : []
+        releaseDate: "",
+        productOldFile: [],
+        error: ""
     };
     async componentDidMount() {
-        
+        await this.fetchProduct();
         await this.fetchBrandList();
         await this.fetchCategoryList();
         await this.fetchSilhouetteList();
         await this.fetchTypeList();
         await this.fetchColorList();
-        await this.fetchProduct();
+
     }
     setRef = (ref) => {
         this.itemRef.push(ref);
@@ -43,27 +45,29 @@ class index extends Component {
         return file && file['type'].split('/')[0] === 'image';
     }
     async  fetchProduct() {
-         get("/api/Product/" + this.props.match.params.product).then((response) => {
+        await get("/api/Product/" + this.props.match.params.product).then((response) => {
             if (response.status === 200) {
                 this.setState({
                     product: response.data
                 });
-                var date = this.state.product.releaseDate.substr(0,10);
-                this.setState({releaseDate : date}) ;
+                var date = this.state.product.releaseDate.substr(0, 10);
+                this.setState({ releaseDate: date });
+                console.log(response.data);
             }
-            else {
-                console.load("FAILED TO LOAD PRODUCT");
-                console.load(response.status);
+        }).then(() => {
+            if (this.state.product.wallpaper != null) {
+                this.setState({ wallpaper: [this.state.product.wallpaper].map((item) => item = `${this.REACT_APP_LOCAL_URL}/Utility/` + item) });
             }
-        }).then(()=>{
-            var tempData = this.state.product.images.map((item) => item = "https://localhost:5001/" + "Utility/" + item.imageNameID); 
-            this.setState({img : tempData});
-            if(this.state.product.wallpaper != null){
-                this.setState({ wallpaper : [this.state.product.wallpaper].map((item) => item = "https://localhost:5001/" + "Utility/" + item)});
+            if (this.state.product.coverImg != null) {
+                this.setState({ coverImg: [this.state.product.coverImg].map((item) => item = `${this.REACT_APP_LOCAL_URL}/Utility/` + item) });
             }
-            this.setState({coverImg : [this.state.product.coverImg].map((item) => item = "https://localhost:5001/" + "Utility/" + item) });
-            
-            
+            if (this.state.product.images != null) {
+                var tempData = this.state.product.images.map((item) => item = `${this.REACT_APP_LOCAL_URL}/Utility/` + item.imageNameID);
+                this.setState({ productOldFile: Array.from(this.state.product.images.map((item) => item = item.imageNameID)) });
+                this.setState({ img: tempData });
+            }
+        }).catch(error => {
+            this.setState({ error: error });
         });
     }
     fetchBrandList() {
@@ -147,7 +151,6 @@ class index extends Component {
                     URL.revokeObjectURL(file);
                 }
             );
-
             this.setState({ message: "" });
         }
     };
@@ -160,9 +163,7 @@ class index extends Component {
             // // https://stackoverflow.com/questions/1187518/how-to-get-the-difference-between-two-arrays-in-javascript
             var diffrent = Array.from(files.filter(x => !oldFiles.includes(x)));
 
-            // console.log(this.state.imgFiles);
             await this.setState({ imgFiles: diffrent });
-            // console.log(diffrent);
 
             for (let i = 0; i < diffrent.length; i++) {
                 if (!this.isFileImage(files[i])) {
@@ -173,15 +174,12 @@ class index extends Component {
             const filesArray = Array.from(diffrent).map((file) =>
                 URL.createObjectURL(file)
             );
-            await this.setState({ img: filesArray });
-            // console.log(this.state.img);
+            await this.setState({ img: [...new Set([...this.state.img, ...filesArray])] });
             Array.from(e.target.files).map(
                 (file) => {
                     URL.revokeObjectURL(file);
-                    // console.log("revokeObjectURL: " + file);
                 }
             );
-
             this.setState({ message: "" });
         }
     };
@@ -208,6 +206,14 @@ class index extends Component {
     }
     async handleFormSubmit(e) {
         e.preventDefault();
+        if (this.state.productOldFile.length === 0 && this.state.imgFiles.length === 0) {
+            this.setState({ message: "CAN NOT HAVE EMPTY PRODUCT IMAGE" });
+            return;
+        }
+        if (this.state.coverImg.length === 0) {
+            this.setState({ message: "CAN NOT HAVE EMPTY PRODUCT COVER IMAGE" });
+            return;
+        }
         var object = {};
         const formData = new FormData(e.target);
         formData.forEach(function (value, key) {
@@ -218,54 +224,76 @@ class index extends Component {
             formData.append("imagesPost", tempFiles[i]);
 
         }
+        for (var i = 0; i < this.state.productOldFile.length; i++) {
+            formData.append("oldFiles", this.state.productOldFile[i]);
+        }
         for (var key of formData.entries()) {
             console.log(key[0] + ', ' + key[1])
         }
+
         put(`/api/Product/${this.props.match.params.product}`, formData).then((response) => {
             if (response.status === 200) {
                 alert("Success");
                 window.location = "/";
             }
         }).catch(function (error) {
-            console.log("PUT Product field");
+            alert("PUT Product field");
             return Promise.reject(error);
         });
     }
     async removeMultiPhotos(blobPhoto, source, state) {
-        // let blob = await fetch(blobPhoto).then(r => r.blob());
         var tempBlob = blobPhoto.photo;
         var files = await Array.from(source);
         for (var i = 0; i < files.length; i++) {
             if (tempBlob === files[i]) {
+                var currentFile = files[i].replace(`${this.REACT_APP_LOCAL_URL}/Utility/`, "");
+                if (this.state.productOldFile.includes(currentFile)) {
+                    var index = this.state.productOldFile.indexOf(currentFile);
+                    var tempOldFile = this.state.productOldFile;
+                    tempOldFile.splice(index, 1);
+                    this.setState({ productOldFile: Array.from(tempOldFile) });
+                }
+                else {
+                    var tempFiles = this.state.imgFiles;
+                    tempFiles.splice(i, 1);
+                    this.setState({ imgFiles: tempFiles });
+                }
                 files.splice(i, 1);
-                var tempFiles = this.state.imgFiles;
-                tempFiles.splice(i, 1);
-                this.setState({ imgFiles: tempFiles });
-                console.log(this.state.imgFiles);
                 await this.setState({ [state]: files });
-                break;
+
+
+                return;
             }
         }
 
     }
     render() {
-        return (
+        if (this.state.error !== "") {
+            console.log(this.state.error);
+            return <Redirect to="/notfound" />
+        }
+        else return (
             <form className="form" onSubmit={(e) => this.handleFormSubmit(e)} encType="multipart/form-data">
-                <h2 className="textareas">ADD NEW PRODUCT</h2>
+                <h2 className="textareas">UPDATE PRODUCT: <span style={{ color: "red" }}>{this.state.product.productNameID}</span></h2>
                 <div className="form-group">
-                    <label htmlFor="productNameID">PRODUCT NAME</label>
-                    <input type="text" className="form-control" id="productNameID" placeholder="ENTER PRODUCT NAME" value={this.state.product.productNameID} defaultValue="" name="productNameID" />
+                    <input type="hidden" className="form-control" id="productNameID" placeholder="ENTER PRODUCT NAME" value={this.state.product.productNameID} defaultValue="" name="productNameID" />
                 </div>
 
 
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="releaseDate">RELEASE DATE</label>
-                        <input type="date" className="form-control" id="releaseDate" name="releaseDate" placeholder="ENTER RELEASE DATE" value={this.state.releaseDate} defaultValue="" />
+                        <input type="date" className="form-control" id="releaseDate" name="releaseDate" placeholder="ENTER RELEASE DATE" value={this.state.releaseDate} defaultValue="" onChange={e => this.setState({
+                            releaseDate: e.target.value
+                        })} />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="upperMaterial">UPPER MATERIAL</label>
-                        <input type="text" className="form-control" id="upperMaterial" name="upperMaterial" value={this.state.product.upperMaterial} placeholder="ENTER UPPER MATERIAL" defaultValue="" />
+                        <input type="text" className="form-control" id="upperMaterial" name="upperMaterial" value={this.state.product.upperMaterial} placeholder="ENTER UPPER MATERIAL" defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, upperMaterial: e.target.value
+                            }
+                        }))} />
                     </div>
                 </div>
 
@@ -273,12 +301,20 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="color">COLOR</label>
-                        <input type="text" className="form-control" id="color" name="color" placeholder="ENTER COLOR" value={this.state.product.color} list="colors" defaultValue=""/>
+                        <input type="text" required={true} className="form-control" id="color" name="color" placeholder="ENTER COLOR" value={this.state.product.color} list="colors" defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, color: e.target.value
+                            }
+                        }))} />
                         <datalist id="colors">{this.renderDataList(this.state.color)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="colorway">COLOWAY</label>
-                        <input type="text" className="form-control" id="colorway" name="colorway" placeholder="ENTER COLORWAY" value={this.state.product.colorWay} defaultValue="" />
+                        <input type="text" required={true} className="form-control" id="colorway" name="colorway" placeholder="ENTER COLORWAY" value={this.state.product.colorWay} defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, colorWay: e.target.value
+                            }
+                        }))} />
                     </div>
                 </div>
 
@@ -286,11 +322,19 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="price">PRICE</label>
-                        <input type="number" className="form-control" id="price" name="price" placeholder="ENTER PRICE" value={this.state.product.price}  defaultValue=""/>
+                        <input type="number" required={true} className="form-control" id="price" name="price" placeholder="ENTER PRICE" value={this.state.product.price} defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, price: e.target.value
+                            }
+                        }))} />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="usedPrice">USED PRICE</label>
-                        <input type="number" className="form-control" id="usedPrice" name="usedPrice" placeholder="ENTER USED PRICE" value={this.state.product.usedPrice} defaultValue="" />
+                        <input type="number" required={true} className="form-control" id="usedPrice" name="usedPrice" placeholder="ENTER USED PRICE" value={this.state.product.usedPrice} defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, usedPrice: e.target.value
+                            }
+                        }))} />
                     </div>
                 </div>
 
@@ -298,12 +342,20 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="brand">BRAND</label>
-                        <input type="text" className="form-control" id="brand" name="brand" placeholder="ENTER BRAND" list="brands" value={this.state.product.brand} defaultValue=""/>
+                        <input type="text" required={true} className="form-control" id="brand" name="brand" placeholder="ENTER BRAND" list="brands" value={this.state.product.brand} defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, brand: e.target.value
+                            }
+                        }))} />
                         <datalist id="brands">{this.renderDataList(this.state.brand)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="silhouette">SILHOUTTE</label>
-                        <input type="text" className="form-control" id="silhouette" name="silhouette" placeholder="ENTER SILHOUTTE" list="silhouettes" value={this.state.product.silhouette} defaultValue=""/>
+                        <input type="text" className="form-control" required={true} id="silhouette" name="silhouette" placeholder="ENTER SILHOUTTE" list="silhouettes" value={this.state.product.silhouette} defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, silhouette: e.target.value
+                            }
+                        }))} />
                         <datalist id="silhouettes">{this.renderDataList(this.state.silhouette)}</datalist>
                     </div>
                 </div>
@@ -312,20 +364,42 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="category">CATEGORY</label>
-                        <input type="text" className="form-control" id="category" name="category" placeholder="ENTER CATEGORY" list="categories" value={this.state.product.category} defaultValue="" />
+                        <input type="text" className="form-control" required={true} id="category" name="category" placeholder="ENTER CATEGORY" list="categories" value={this.state.product.category} defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, category: e.target.value
+                            }
+                        }))} />
                         <datalist id="categories">{this.renderDataList(this.state.category)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="type">TYPE</label>
-                        <input type="text" className="form-control" id="type" name="type" placeholder="ENTER TYPE" list="types" value={this.state.product.type} defaultValue="" />
+                        <input type="text" required={true} className="form-control" id="type" name="type" placeholder="ENTER TYPE" list="types" value={this.state.product.type} defaultValue="" onChange={e => this.setState(prevState => ({
+                            product: {
+                                ...prevState.product, type: e.target.value
+                            }
+                        }))} />
                         <datalist id="types">{this.renderDataList(this.state.type)}</datalist>
                     </div>
                 </div>
 
-
+                <div className="form-row">
+                    <div className="form-group col-md-6">
+                        <label htmlFor="view">VIEW</label>
+                        <input type="text" required={true} className="form-control" id="view" name="view" placeholder="ENTER COLOR" value={this.state.product.view} list="colors" defaultValue="" disabled='true' />
+                        <datalist id="colors">{this.renderDataList(this.state.color)}</datalist>
+                    </div>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="rating">RATING</label>
+                        <input type="text" required={true} className="form-control" id="rating" name="rating" placeholder="ENTER COLORWAY" value={this.state.product.rating} defaultValue="" disabled='true' />
+                    </div>
+                </div>
                 <div className="form-group">
                     <label htmlFor="story">STORY</label>
-                    <textarea className="form-control text_area" id="story" name="story" placeholder="ENTER STORY" value={this.state.product.story} defaultValue="" />
+                    <textarea className="form-control text_area" id="story" name="story" placeholder="ENTER STORY" value={this.state.product.story} defaultValue="" onChange={e => this.setState(prevState => ({
+                        product: {
+                            ...prevState.product, story: e.target.value
+                        }
+                    }))} />
                 </div>
 
                 <div className="input-group mb-3">
@@ -338,7 +412,7 @@ class index extends Component {
                     </div>
                 </div>
                 <div className="grid">
-                {this.renderPhotos(this.state.img, "img")}</div>
+                    {this.renderPhotos(this.state.img, "img")}</div>
                 <hr></hr>
 
                 <div className="input-group mb-3">
@@ -351,7 +425,7 @@ class index extends Component {
                     </div>
                 </div>
                 <div className="grid">
-                {this.renderPhotos(this.state.coverImg, "coverImg")}
+                    {this.renderPhotos(this.state.coverImg, "coverImg")}
                 </div>
                 <hr></hr>
 
@@ -365,7 +439,7 @@ class index extends Component {
                     </div>
                 </div>
                 <div className="grid">
-                {this.renderPhotos(this.state.wallpaper, "wallpaper")}
+                    {this.renderPhotos(this.state.wallpaper, "wallpaper")}
                 </div>
                 <hr></hr>
 

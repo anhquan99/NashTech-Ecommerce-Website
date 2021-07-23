@@ -1,0 +1,28 @@
+.img_td{
+    width: 6vw;
+}
+.producTable thead{
+    background: #0b0b0b;
+    border: 0;
+    color: white;
+}
+.producTable td{
+    font-size: 1.2vw;
+    vertical-align: middle;
+    
+}
+.table-bordered td, .table-bordered th {
+    border: 0
+
+}
+.table td, .table th {
+    border-top: 0
+}
+.producTable td{
+    transition: 0.3s;
+}
+.producTable tr:hover td:not(:nth-child(1)){
+    /* background: #DCDCDC; */
+    background: #0b0b0b;
+    color:white;
+}

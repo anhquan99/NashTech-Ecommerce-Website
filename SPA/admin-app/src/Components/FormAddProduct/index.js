@@ -225,7 +225,7 @@ class index extends Component {
                 this.setState({imgFiles : tempFiles});
                 console.log(this.state.imgFiles);
                 await this.setState({[state] : files});
-                break;
+                return;
             }
         }
         
@@ -236,14 +236,14 @@ class index extends Component {
                 <h2 className="textareas">ADD NEW PRODUCT</h2>
                 <div className="form-group">
                     <label htmlFor="productNameID">PRODUCT NAME</label>
-                    <input type="text" className="form-control" id="productNameID" placeholder="ENTER PRODUCT NAME" name="productNameID" />
+                    <input required={true} type="text" className="form-control" id="productNameID" placeholder="ENTER PRODUCT NAME" name="productNameID" />
                 </div>
 
 
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="releaseDate">RELEASE DATE</label>
-                        <input type="date" className="form-control" id="releaseDate" name="releaseDate" placeholder="ENTER RELEASE DATE" />
+                        <input type="date" required={true} className="form-control" id="releaseDate" name="releaseDate" placeholder="ENTER RELEASE DATE" />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="upperMaterial">UPPER MATERIAL</label>
@@ -255,12 +255,12 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="color">COLOR</label>
-                        <input type="text" className="form-control" id="color" name="color" placeholder="ENTER COLOR" list="colors" />
+                        <input type="text" required={true} className="form-control" id="color" name="color" placeholder="ENTER COLOR" list="colors" />
                         <datalist id="colors">{this.renderDataList(this.state.color)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="colorway">COLOWAY</label>
-                        <input type="text" className="form-control" id="colorway" name="colorway" placeholder="ENTER COLORWAY" />
+                        <input required={true} type="text" className="form-control" id="colorway" name="colorway" placeholder="ENTER COLORWAY" />
                     </div>
                 </div>
 
@@ -268,11 +268,11 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="price">PRICE</label>
-                        <input type="number" className="form-control" id="price" name="price" placeholder="ENTER PRICE" />
+                        <input required={true} type="number" className="form-control" id="price" name="price" placeholder="ENTER PRICE" />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="usedPrice">USED PRICE</label>
-                        <input type="number" className="form-control" id="usedPrice" name="usedPrice" placeholder="ENTER USED PRICE" />
+                        <input type="number" required={true} className="form-control" id="usedPrice" name="usedPrice" placeholder="ENTER USED PRICE" />
                     </div>
                 </div>
 
@@ -280,12 +280,12 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="brand">BRAND</label>
-                        <input type="text" className="form-control" id="brand" name="brand" placeholder="ENTER BRAND" list="brands" />
+                        <input type="text" required={true} className="form-control" id="brand" name="brand" placeholder="ENTER BRAND" list="brands" />
                         <datalist id="brands">{this.renderDataList(this.state.brand)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="silhouette">SILHOUTTE</label>
-                        <input type="text" className="form-control" id="silhouette" name="silhouette" placeholder="ENTER SILHOUTTE" list="silhouettes" />
+                        <input type="text" required={true} className="form-control" id="silhouette" name="silhouette" placeholder="ENTER SILHOUTTE" list="silhouettes" />
                         <datalist id="silhouettes">{this.renderDataList(this.state.silhouette)}</datalist>
                     </div>
                 </div>
@@ -294,12 +294,12 @@ class index extends Component {
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <label htmlFor="category">CATEGORY</label>
-                        <input type="text" className="form-control" id="category" name="category" placeholder="ENTER CATEGORY" list="categories" />
+                        <input type="text" required={true} className="form-control" id="category" name="category" placeholder="ENTER CATEGORY" list="categories" />
                         <datalist id="categories">{this.renderDataList(this.state.category)}</datalist>
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="type">TYPE</label>
-                        <input type="text" className="form-control" id="type" name="type" placeholder="ENTER TYPE" list="types" />
+                        <input type="text" required={true} className="form-control" id="type" name="type" placeholder="ENTER TYPE" list="types" />
                         <datalist id="types">{this.renderDataList(this.state.type)}</datalist>
                     </div>
                 </div>
@@ -315,7 +315,7 @@ class index extends Component {
                         <span className="input-group-text">UPLOAD PRODUCT IMAGE</span>
                     </div>
                     <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="productImage" multiple="multiple" accept="image/*" onChange={(e) => this.handleMultiImageChange(e, "img", "imgFiles")} />
+                        <input type="file" required={true} className="custom-file-input" id="productImage" multiple="multiple" accept="image/*" onChange={(e) => this.handleMultiImageChange(e, "img", "imgFiles")} />
                         <label className="custom-file-label" htmlFor="productImage">Choose file</label>
                     </div>
                 </div>
@@ -327,7 +327,7 @@ class index extends Component {
                         <span className="input-group-text">UPLOAD PRODUCT COVER</span>
                     </div>
                     <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="productCover" name="coverImagePost" accept="image/*" onChange={(e) => this.handleImageChange(e, "coverImg")} />
+                        <input type="file" required={true} className="custom-file-input" id="productCover" name="coverImagePost" accept="image/*" onChange={(e) => this.handleImageChange(e, "coverImg")} />
                         <label className="custom-file-label" htmlFor="productCover">Choose file</label>
                     </div>
                 </div>

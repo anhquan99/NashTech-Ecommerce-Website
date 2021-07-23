@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -34,9 +35,15 @@ namespace Ecomerece_Web.Controllers.API
 
         // GET api/<ProductApi>/5
         [HttpGet("{id}")]
-        public ProductPrototype Get(String id)
+        public ActionResult<ProductPrototype> Get(String id)
         {
-            return ProductAdapter.convertFromProductToProductType(productService.findByID(id));
+            var data = productService.findByID(id);
+            
+            if (data != null) return ProductAdapter.convertFromProductToProductType(data);
+            else
+            {
+                return NotFound();
+            }
         }
         [HttpGet("getpage/{page}")]
         public IEnumerable<Product> GetPage(int page)
@@ -53,7 +60,7 @@ namespace Ecomerece_Web.Controllers.API
 
         // PUT api/<ProductApi>/5
         [HttpPut("{id}")]
-        public void Put(String id, [FromBody] ProductPrototype product)
+        public void Put(String id, [FromForm] ProductPrototype product, [FromForm] List<String> oldFiles)
         {
 
         }

@@ -27,7 +27,9 @@ namespace Ecomerece_Web.Services.Adapter
                 category = p.category.categoryNameID,
                 type = p.type.typeNameID,
                 silhouette = p.silhouette.silhouetteNameID,
-                images = p.images
+                images = p.images,
+                colorWay = p.colorWay,
+                story = p.story
             };
         }
     }
