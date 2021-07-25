@@ -3,6 +3,7 @@ using Ecomerece_Web.IdentityServer;
 using Ecomerece_Web.Models;
 using Ecomerece_Web.Services.Implements;
 using Ecomerece_Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,10 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Ecomerece_Web
@@ -124,6 +127,25 @@ namespace Ecomerece_Web
                 });
             });
 
+            //https://weblog.west-wind.com/posts/2021/Mar/09/Role-based-JWT-Tokens-in-ASPNET-Core#setting-up-jwt-authentication-and-authorization
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = "any",
+                    ValidateAudience = true,
+                    ValidAudience = "any",
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("e991736ba4e6609f778b7217e1892354b8bdaf28baf7c1add58fcd6764a6ce6f"))
+                };
+            });
 
             services.AddScoped<IProductRepository<Product>, ProductService>();
             services.AddScoped<IRepository<Brand>, BrandService>();
@@ -186,19 +208,19 @@ namespace Ecomerece_Web
             });
             //Seeding create admin when the project if is initialized
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-                {
-                    var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                    var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-                    Task task1 = Seed.SeedRolesAsync(userManager, roleManager);
+            {
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                Task task1 = Seed.SeedRolesAsync(userManager, roleManager);
 
-                    task1.Wait();
+                task1.Wait();
 
-                    var userManager2 = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-                    var roleManager2 = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-                    Task task2 = Seed.SeedAdminAsync(userManager2, roleManager2);
-                    task2.Wait();
+                var userManager2 = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                var roleManager2 = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                Task task2 = Seed.SeedAdminAsync(userManager2, roleManager2);
+                task2.Wait();
 
-                }
+            }
         }
     }
 }

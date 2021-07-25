@@ -38,8 +38,8 @@ namespace Ecomerece_Web.Controllers.API
         public ActionResult<ProductPrototype> Get(String id)
         {
             var data = productService.findByID(id);
-            
-            if (data != null) return ProductAdapter.convertFromProductToProductType(data);
+
+            if (data != null) return ProductAdapter.convertFromProductToProtoType(data);
             else
             {
                 return NotFound();

@@ -628,3 +628,4 @@ E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\Work\NashTech\Project\NashTech-Ecommerce-Website\Ecomerece_Web\Ecomerece_Web\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
