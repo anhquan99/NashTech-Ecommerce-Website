@@ -228,6 +228,7 @@ namespace Ecomerece_Web.Services.Implements
                 item.colorWay = t.colorWay;
                 item.story = t.story;
                 item.price = t.price;
+                item.usedPrice = t.usedPrice;
                 item.wallpaper = t.wallpaper;
                 item.brand = t.brand;
                 item.color = t.color;

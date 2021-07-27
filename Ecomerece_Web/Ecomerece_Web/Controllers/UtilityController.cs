@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Ecomerece_Web.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
@@ -20,12 +21,9 @@ namespace Ecomerece_Web.Controllers
         [Route("[controller]/{imageFile}")]
         public IActionResult get([FromRoute] String imageFile)
         {
-            var path = Environment.CurrentDirectory;
-            var imagePath = Path.Combine(path, "image", imageFile);
             try
             {
-                var img = System.IO.File.OpenRead(imagePath);
-                return File(img, "image/jpeg");
+                return File(FileService.loadImg(imageFile), "image/jpeg");
             }
             catch (FileNotFoundException)
             {

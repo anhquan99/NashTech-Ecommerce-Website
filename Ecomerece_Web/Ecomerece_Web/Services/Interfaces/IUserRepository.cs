@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Services.Interfaces
 {
-    interface IUserRepository<T> : IRepository<T>
+    public interface IUserRepository<T> : IRepository<T>
     {
-        
+        public List<T> findAllAdmin();
     }
 }

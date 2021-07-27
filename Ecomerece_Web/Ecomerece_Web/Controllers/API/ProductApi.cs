@@ -21,9 +21,13 @@ namespace Ecomerece_Web.Controllers.API
     public class ProductApi : ControllerBase
     {
         private readonly IProductRepository<Product> productService;
-        public ProductApi(IProductRepository<Product> service)
+        private readonly IAdapter<Product, ProductPrototype> productAdapter;
+        private readonly FileService fileService;
+        public ProductApi(IProductRepository<Product> service, IAdapter<Product, ProductPrototype> productAdapter, FileService fileService)
         {
             this.productService = service;
+            this.productAdapter = productAdapter;
+            this.fileService = fileService;
         }
         // GET: api/<ProductApi>
         //[Authorize]
@@ -39,7 +43,7 @@ namespace Ecomerece_Web.Controllers.API
         {
             var data = productService.findByID(id);
 
-            if (data != null) return ProductAdapter.convertFromProductToProtoType(data);
+            if (data != null) return productAdapter.convertFromOriginToProtoType(data);
             else
             {
                 return NotFound();
@@ -54,21 +58,80 @@ namespace Ecomerece_Web.Controllers.API
         [HttpPost]
         public void Post([FromForm] ProductPrototype product)
         {
-            //Console.WriteLine(product.ToString());
+            Product newProduct = productAdapter.convertFromProtoTypeToOriginal(product);
+            product.coverImg = product.coverImagePost.FileName;
+            product.wallpaper = product.wallpaperImagePost.FileName;
+            product.images.Add(new Image { imageNameID = product.coverImg });
+            foreach (var i in product.imagesPost)
+            {
+                product.images.Add(new Image { imageNameID = i.FileName });
+            }
+            fileService.uploadMultiFile(product.imagesPost);
+            fileService.uploadFile(product.coverImagePost);
+            if (product.wallpaperImagePost != null)
+            {
+                fileService.uploadFile(product.wallpaperImagePost);
 
+            }
+            newProduct = productAdapter.convertFromProtoTypeToOriginal(product);
+            productService.create(newProduct);
         }
 
         // PUT api/<ProductApi>/5
         [HttpPut("{id}")]
         public void Put(String id, [FromForm] ProductPrototype product, [FromForm] List<String> oldFiles)
         {
-            //
+            var oldProduct = productService.findByID(id);
+            List<String> originOldFile = oldProduct.images.Select(x => x.imageNameID).ToList();
+            List<String> deleteFile = (List<string>)originOldFile.Except(oldFiles);
+            // delete old file has been removed
+            foreach (var i in deleteFile)
+            {
+                fileService.deleteFile(i);
+            }
+            // if cover img is changed
+            if (oldProduct.coverImg != product.coverImagePost.FileName)
+            {
+                product.coverImg = product.coverImagePost.FileName;
+                fileService.deleteFile(oldProduct.coverImg);
+                product.images.Add(new Image { imageNameID = product.coverImg });
+            }
+            // if wallpaper is changed
+            if (oldProduct.wallpaper != product.wallpaperImagePost.FileName)
+            {
+                if (!String.IsNullOrEmpty(oldProduct.wallpaper))
+                {
+                    fileService.deleteFile(oldProduct.wallpaper);
+                }
+                fileService.uploadFile(product.wallpaperImagePost);
+                product.wallpaper = product.wallpaperImagePost.FileName;
+            }
+
+            foreach (var i in product.imagesPost)
+            {
+                product.images.Add(new Image { imageNameID = i.FileName });
+            }
+            fileService.uploadMultiFile(product.imagesPost);
+            fileService.uploadFile(product.coverImagePost);
+            var tempOriginal = productAdapter.convertFromProtoTypeToOriginal(product);
+            productService.update(tempOriginal);
         }
 
         // DELETE api/<ProductApi>/5
         [HttpDelete("{id}")]
         public void Delete(String id)
         {
+            var product = productService.findByID(id);
+            foreach (var i in product.images)
+            {
+                fileService.deleteFile(i.imageNameID);
+            }
+            fileService.deleteFile(product.coverImg);
+            if (String.IsNullOrEmpty(product.wallpaper))
+            {
+                fileService.deleteFile(product.wallpaper);
+            }
+
             productService.delete(id);
         }
     }

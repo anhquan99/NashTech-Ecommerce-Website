@@ -38,6 +38,7 @@ namespace IDS
                 .AddDefaultTokenProviders();
             services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
 
+            //https://blog.devgenius.io/identityserver4-authentication-with-asp-net-identity-for-user-management-6449bb985d21
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddAspNetIdentity<IdentityUser>()

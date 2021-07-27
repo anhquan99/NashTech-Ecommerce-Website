@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Services.Adapter
 {
-    public class ProductAdapter
+    public class ProductAdapter : IAdapter<Product, ProductPrototype>
     {
-        public static ProductPrototype convertFromProductToProtoType(Product p)
+        public ProductPrototype convertFromOriginToProtoType(Product p)
         {
             return new ProductPrototype()
             {
@@ -32,7 +32,7 @@ namespace Ecomerece_Web.Services.Adapter
                 story = p.story
             };
         }
-        public static Product convertFromPrototypeToProduct(ProductPrototype p)
+        public Product convertFromProtoTypeToOriginal(ProductPrototype p)
         {
             return new Product()
             {

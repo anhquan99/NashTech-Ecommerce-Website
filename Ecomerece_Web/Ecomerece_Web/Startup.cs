@@ -1,5 +1,8 @@
 using Ecomerece_Web.Data;
+using Ecomerece_Web.Data.Prototype;
 using Ecomerece_Web.Models;
+using Ecomerece_Web.Services;
+using Ecomerece_Web.Services.Adapter;
 using Ecomerece_Web.Services.Implements;
 using Ecomerece_Web.Services.Interfaces;
 using IdentityServer4.AccessTokenValidation;
@@ -137,11 +140,12 @@ namespace Ecomerece_Web
             //});
 
             services.AddScoped<IProductRepository<Product>, ProductService>();
+            services.AddScoped<IUserRepository<User>, UserService>();
+            services.AddScoped<IAdapter<User, UserPrototype>, UserAdapter>();
+            services.AddScoped<IAdapter<Product, ProductPrototype>, ProductAdapter>();
+            services.AddScoped<IAdapter<User, UserPrototype>, UserAdapter>();
             services.AddScoped<IRepository<Brand>, BrandService>();
-            services.AddScoped<IRepository<Category>, CategoryService>();
-            services.AddScoped<IRepository<Silhouette>, SilhouetteService>();
-            services.AddScoped<IRepository<Ecomerece_Web.Data.Type>, TypeService>();
-            services.AddScoped<IRepository<Color>, ColorService>();
+            services.AddScoped<FileService>();
             //services.AddScoped<IUserRepository<User>, UserService>();
 
         }
@@ -178,7 +182,7 @@ namespace Ecomerece_Web
             app.UseAuthorization();
 
 
-   
+
 
             app.UseEndpoints(endpoints =>
             {

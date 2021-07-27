@@ -317,7 +317,7 @@ namespace Ecomerece_Web.Models
                         new Image(){ imageNameID = "Air-Jordan-4-Retro-SE-'Sashiko'-8.jpeg" },
 
                     }
-                }, 
+                },
                 new Product()
                 {
                     productNameID = "Air Jordan 1 Retro High OG GS 'Shadow 2.0'",
@@ -404,7 +404,7 @@ namespace Ecomerece_Web.Models
                         new Image(){ imageNameID = "Dunk-High-'Kentucky'-2021-7.jpeg" },
                         new Image(){ imageNameID = "Dunk-High-'Kentucky'-2021-8.jpeg" },
                     }
-                }, 
+                },
                 new Product()
                 {
                     productNameID = "Fragment Design x Dunk High 'Beijing'",
@@ -806,9 +806,9 @@ namespace Ecomerece_Web.Models
                     }
                 },
             };
-            foreach(var i in data)
+            foreach (var i in data)
             {
-                if(service.findByID(i.productNameID) == null)
+                if (service.findByID(i.productNameID) == null)
                 {
                     service.create(i);
                 }
@@ -817,8 +817,8 @@ namespace Ecomerece_Web.Models
         }
         public async static Task SeedRolesAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Roles.User.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Roles.admin.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Roles.user.ToString()));
         }
         public async static Task SeedAdminAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -834,13 +834,13 @@ namespace Ecomerece_Web.Models
             if (userManager.Users.All(u => u.Email != defaultUser.Email))
             {
                 await userManager.CreateAsync(defaultUser, "P@assword123");
-                await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
+                await userManager.AddToRoleAsync(defaultUser, Roles.admin.ToString());
             }
         }
     }
     public enum Roles
     {
-        Admin,
-        User
+        admin,
+        user
     }
 }
