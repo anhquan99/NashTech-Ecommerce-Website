@@ -45,14 +45,6 @@ function App() {
               {/* <Route exact path="/fontal"  >
                 <Fontal></Fontal>
               </Route> */}
-              <Route exact path="/Home-2"  ></Route>
-              <Route exact path="/Home-3"  ></Route>
-              <Route exact path="/Page-1"  ></Route>
-              <Route exact path="/Page-2"  ></Route>
-              <Route exact path="/page-1"  ></Route>
-              <Route exact path="/page-2"  ></Route>
-              <Route exact path="/page-3"  ></Route>
-              <Route exact path="/page-4"  ></Route>
             </Switch>
           </Container>
         </div>

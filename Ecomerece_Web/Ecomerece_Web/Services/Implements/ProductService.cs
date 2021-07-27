@@ -41,8 +41,13 @@ namespace Ecomerece_Web.Services.Implements
         {
             try
             {
-                var item = objectSet.Single(x => x.productNameID == id);
+                var item = objectSet.includeAll().Single(x => x.productNameID == id);
+                foreach (var i in item.images)
+                {
+                    dbContext.images.Remove(i);
+                }
                 objectSet.Remove(item);
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception e)

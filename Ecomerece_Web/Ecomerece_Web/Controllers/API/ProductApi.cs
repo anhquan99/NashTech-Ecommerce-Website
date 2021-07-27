@@ -60,16 +60,16 @@ namespace Ecomerece_Web.Controllers.API
         {
             Product newProduct = productAdapter.convertFromProtoTypeToOriginal(product);
             product.coverImg = product.coverImagePost.FileName;
-            product.wallpaper = product.wallpaperImagePost.FileName;
+            product.images = new List<Image>();
             product.images.Add(new Image { imageNameID = product.coverImg });
             foreach (var i in product.imagesPost)
             {
                 product.images.Add(new Image { imageNameID = i.FileName });
             }
             fileService.uploadMultiFile(product.imagesPost);
-            fileService.uploadFile(product.coverImagePost);
             if (product.wallpaperImagePost != null)
             {
+                product.wallpaper = product.wallpaperImagePost.FileName;
                 fileService.uploadFile(product.wallpaperImagePost);
 
             }
@@ -83,21 +83,21 @@ namespace Ecomerece_Web.Controllers.API
         {
             var oldProduct = productService.findByID(id);
             List<String> originOldFile = oldProduct.images.Select(x => x.imageNameID).ToList();
-            List<String> deleteFile = (List<string>)originOldFile.Except(oldFiles);
+            List<String> deleteFile = originOldFile.Where(p => !oldFiles.All(i => i == p)).ToList();
             // delete old file has been removed
             foreach (var i in deleteFile)
             {
                 fileService.deleteFile(i);
             }
             // if cover img is changed
-            if (oldProduct.coverImg != product.coverImagePost.FileName)
+            if (product.coverImagePost.FileName != null)
             {
                 product.coverImg = product.coverImagePost.FileName;
                 fileService.deleteFile(oldProduct.coverImg);
                 product.images.Add(new Image { imageNameID = product.coverImg });
             }
             // if wallpaper is changed
-            if (oldProduct.wallpaper != product.wallpaperImagePost.FileName)
+            if (product.wallpaperImagePost.FileName != null)
             {
                 if (!String.IsNullOrEmpty(oldProduct.wallpaper))
                 {
@@ -126,8 +126,7 @@ namespace Ecomerece_Web.Controllers.API
             {
                 fileService.deleteFile(i.imageNameID);
             }
-            fileService.deleteFile(product.coverImg);
-            if (String.IsNullOrEmpty(product.wallpaper))
+            if (!String.IsNullOrEmpty(product.wallpaper))
             {
                 fileService.deleteFile(product.wallpaper);
             }

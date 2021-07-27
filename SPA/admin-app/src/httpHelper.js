@@ -4,9 +4,7 @@ const endpoint = process.env.REACT_APP_LOCAL_URL;
 // const token = localStorage.getItem("token");
 
 export function get(url) {
-//   console.log(token);
   return axios.get(endpoint + url, {
-    // headers: { Authorization: `Bearer ${token}` },
   });
 }
 
@@ -25,5 +23,5 @@ export function postWithFile(url, body) {
   });
 }
 export function del(url) {
-  return axios.delete(endpoint + url);
+  return axios.delete(endpoint +  url);
 }

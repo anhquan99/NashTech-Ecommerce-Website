@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './../FormAddProduct/FormAddProduct.css';
-import { get, postWithFile, put } from "../../httpHelper";
+import { get, put } from "../../httpHelper";
 import { withRouter, Redirect } from 'react-router-dom';
 class index extends Component {
     constructor(props) {
@@ -123,6 +123,7 @@ class index extends Component {
                     })
                 });
             }
+
         });
     }
     renderDataList(source) {

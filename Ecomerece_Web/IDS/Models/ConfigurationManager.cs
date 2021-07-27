@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IDS.Models
 {
+    //https://oguzhanabali.com/asp-net-core-appsettings-json-get-value-in-static-class/
     static class ConfigurationManager
     {
         public static IConfiguration AppSetting { get; }

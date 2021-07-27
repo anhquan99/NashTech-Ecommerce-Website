@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace IDS.Data
 {
+    //https://github.com/damienbod/AspNet5IdentityServerAngularImplicitFlow/blob/main/src/StsServerIdentity/Startup.cs
+    //https://damienbod.com/2016/11/18/extending-identity-in-identityserver4-to-manage-users-in-asp-net-core/
     public class IdentityWithAdditionalClaimsProfileService : IProfileService
     {
         private readonly UserManager<IdentityUser> _userManager;
