@@ -28,6 +28,7 @@ namespace Ecomerece_Web.Controllers
         [Route("/Product/{ProductName}")]
         public IActionResult Detail( String ProductName)
         {
+
             Ecomerece_Web.Data.Product product = productService.findByID(ProductName);
             List<Ecomerece_Web.Data.Product> list = new List<Data.Product>();
             (Ecomerece_Web.Data.Product, List<Ecomerece_Web.Data.Product>) data = (product, list);

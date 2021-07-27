@@ -65,11 +65,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByBrand(string brand)
+        public IQueryable<Product> findByBrand(string brand)
         {
             try
             {
-                return dbContext.products.Where(x => x.brand.brandNameID.ToLower() == brand.ToLower()).ToList();
+                return dbContext.products.Where(x => x.brand.brandNameID.ToLower() == brand.ToLower());
             }
             catch (Exception e)
             {
@@ -78,11 +78,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByCategory(string category)
+        public IQueryable<Product> findByCategory(string category)
         {
             try
             {
-                return objectSet.Where(x => x.category.categoryNameID.ToLower() == category.ToLower()).ToList();
+                return objectSet.Where(x => x.category.categoryNameID.ToLower() == category.ToLower());
             }
             catch (Exception e)
             {
@@ -91,11 +91,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByColor(string color)
+        public IQueryable<Product> findByColor(string color)
         {
             try
             {
-                return objectSet.Where(x => x.color.colorNameID.ToLower() == color.ToLower()).ToList();
+                return objectSet.Where(x => x.color.colorNameID.ToLower() == color.ToLower());
             }
             catch (Exception e)
             {
@@ -120,11 +120,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByMaterial(string material)
+        public IQueryable<Product> findByMaterial(string material)
         {
             try
             {
-                return objectSet.Where(x => x.upperMaterial.ToLower() == material.ToLower()).ToList();
+                return objectSet.Where(x => x.upperMaterial.ToLower() == material.ToLower());
             }
             catch (Exception e)
             {
@@ -133,11 +133,13 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> getAllReleaseDateOrderDesc(int page, int size)
+        public IQueryable<Product> getAllReleaseDateOrderDesc()
         {
             try
             {
-                return objectSet.getReleasedProduct().OrderByDescending(x => x.releaseDate).Page(page,size).ToList();
+                return objectSet.getReleasedProduct()
+                    .OrderByDescending(x => x.releaseDate)
+                    .Where(IQueryableExtensions.isSneaker());
             }
             catch (Exception e)
             {
@@ -146,11 +148,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findBySilhouette(string silhouette)
+        public IQueryable<Product> findBySilhouette(string silhouette)
         {
             try
             {
-                return objectSet.Where(x => x.silhouette.silhouetteNameID.ToLower() == silhouette.ToLower()).ToList();
+                return objectSet.Where(x => x.silhouette.silhouetteNameID.ToLower() == silhouette.ToLower());
             }
             catch (Exception e)
             {
@@ -159,11 +161,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByType(string type)
+        public IQueryable<Product> findByType(string type)
         {
             try
             {
-                return objectSet.Where(x => x.type.typeNameID.ToLower() == type.ToLower()).ToList();
+                return objectSet.Where(x => x.type.typeNameID.ToLower() == type.ToLower());
             }
             catch (Exception e)
             {
@@ -172,11 +174,11 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByTypeAndBrand(string type, string brand)
+        public IQueryable<Product> findByTypeAndBrand(string type, string brand)
         {
             try
             {
-                return objectSet.Where(x => x.type.typeNameID.ToLower() == type.ToLower() && x.brand.brandNameID == brand.ToLower()).ToList();
+                return objectSet.Where(x => x.type.typeNameID.ToLower() == type.ToLower() && x.brand.brandNameID == brand.ToLower());
             }
             catch (Exception e)
             {
@@ -185,11 +187,13 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> topRating()
+        public IQueryable<Product> topRating()
         {
             try
             {
-                return objectSet.getReleasedProduct().OrderByDescending(x => x.rating).Take(20).ToList();
+                return objectSet.getReleasedProduct()
+                    .OrderByDescending(x => x.rating)
+                    .Where(IQueryableExtensions.isSneaker()).Take(20);
             }
             catch (Exception e)
             {
@@ -198,11 +202,13 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> topView()
+        public IQueryable<Product> topView()
         {
             try
             {
-                return objectSet.getReleasedProduct().OrderByDescending(x => x.view).Take(20).ToList();
+                return objectSet.getReleasedProduct()
+                    .OrderByDescending(x => x.view)
+                    .Where(IQueryableExtensions.isSneaker()).Take(20);
             }
             catch (Exception e)
             {
@@ -242,11 +248,13 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByBrandWithTypeAndReleaseDateOrderDesc(string brand, string type)
+        public IQueryable<Product> findByBrandWithTypeAndReleaseDateOrderDesc(string brand)
         {
             try
             {
-                return objectSet.getReleasedProduct().Where(p => p.brand.brandNameID.ToLower() == brand.ToLower() && p.type.typeNameID.ToLower() == type.ToLower()).OrderByDescending(p => p.releaseDate).ToList();
+                return objectSet.getReleasedProduct()
+                    .Where(p => p.brand.brandNameID.ToLower() == brand.ToLower())
+                    .OrderByDescending(p => p.releaseDate);
             }
             catch (Exception e)
             {
@@ -255,11 +263,14 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findBySilhouetteWithReleaseDateOrderDesc(string silhouette)
+        public IQueryable<Product> findBySilhouetteWithReleaseDateOrderDesc(string silhouette)
         {
             try
             {
-                return objectSet.getReleasedProduct().Where(p => p.silhouette.silhouetteNameID.ToLower() == silhouette.ToLower()).OrderByDescending(p => p.releaseDate).ToList();
+                return objectSet.getReleasedProduct()
+                    .Where(p => p.silhouette.silhouetteNameID.ToLower() == silhouette.ToLower())
+                    .Where(IQueryableExtensions.isSneaker())
+                    .OrderByDescending(p => p.releaseDate);
             }
             catch (Exception e)
             {
@@ -268,11 +279,13 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByBranWithAndReleaseDate(string brand)
+        public IQueryable<Product> findByBranWithAndReleaseDate(string brand)
         {
             try
             {
-                return objectSet.getReleasedProduct().Where(p => p.brand.brandNameID.ToLower() == brand.ToLower()).OrderByDescending(p => p.releaseDate).ToList();
+                return objectSet.getReleasedProduct()
+                    .Where(p => p.brand.brandNameID.ToLower() == brand.ToLower())
+                    .OrderByDescending(p => p.releaseDate);
             }
             catch (Exception e)
             {
@@ -281,11 +294,13 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> top20Treding()
+        public IQueryable<Product> topTrending()
         {
             try
             {
-                return objectSet.getReleasedProduct().OrderByDescending(p => p.releaseDate).ThenBy(p => p.view).Take(20).ToList();
+                return objectSet.getReleasedProduct()
+                    .OrderByDescending(p => p.releaseDate)
+                    .ThenBy(p => p.view).Where(p => p.releaseDate.Year == DateTime.Now.Year);
             }
             catch (Exception e)
             {
@@ -298,11 +313,14 @@ namespace Ecomerece_Web.Services.Implements
         /// only return 20 item
         /// </summary>
         /// <returns></returns>
-        public List<Product> mostWanted()
+        public IQueryable<Product> mostWanted()
         {
             try
             {
-                return objectSet.getReleasedProduct().OrderByDescending(p => p.releaseDate).ThenBy(p => p.view).Take(20).ToList();
+                return objectSet.getReleasedProduct()
+                    .Where(IQueryableExtensions.isSneaker())
+                    .OrderByDescending(p => p.releaseDate)
+                    .ThenBy(p => p.view).Take(20);
             }
             catch (Exception e)
             {
@@ -311,11 +329,12 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-        public List<Product> findByYearWithReleaseDateOrderDesc(int year)
+        public IQueryable<Product> findByYearWithReleaseDateOrderDesc(int year)
         {
             try
             {
-                return objectSet.Where(p => p.releaseDate.Year == year).OrderByDescending(p => p.releaseDate).ToList();
+                return objectSet.Where(p => p.releaseDate.Year == year)
+                    .OrderByDescending(p => p.releaseDate);
             }
             catch (Exception e)
             {
@@ -323,15 +342,13 @@ namespace Ecomerece_Web.Services.Implements
                 throw;
             }
         }
-        /// <summary>
-        /// return single item
-        /// </summary>
-        /// <returns></returns>
         public Product getCoverProductWithOrderDesc()
         {
             try
             {
-                var temp = objectSet.Where(p => !String.IsNullOrEmpty(p.wallpaper)).FirstOrDefault();
+                var temp = objectSet.Where(p => !String.IsNullOrEmpty(p.wallpaper))
+                    .Where(IQueryableExtensions.isSneaker())
+                    .FirstOrDefault();
                 return temp;
             }
             catch (Exception e)
@@ -341,56 +358,36 @@ namespace Ecomerece_Web.Services.Implements
             }
         }
 
-
-
-
-
-    }
-    public static class IQueryableExtensions
-    {
-        /// <summary>
-        /// use query
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static IQueryable<Product> getReleasedProduct(this IQueryable<Product> source)
+        public IQueryable<Product> getAllReleasedInYear(int year)
         {
-            return source.Where(p => p.releaseDate <= DateTime.Now);
-        }
-        public static IQueryable<Product> includeAll(this IQueryable<Product> source)
-        {
-            return source.Select(p => new Product
+            try
             {
-                productNameID = p.productNameID,
-                releaseDate = p.releaseDate,
-                upperMaterial = p.upperMaterial,
-                colorWay = p.colorWay,
-                story = p.story,
-                price = p.price,
-                wallpaper = p.wallpaper,
-                view = p.view,
-                rating = p.rating,
-                coverImg = p.coverImg,
-                brand = new Brand() { brandNameID = p.brand.brandNameID },
-                color = new Color() { colorNameID = p.color.colorNameID },
-                category = new Category() { categoryNameID = p.category.categoryNameID },
-                type = new Data.Type() { typeNameID = p.type.typeNameID },
-                silhouette = new Silhouette() { silhouetteNameID = p.silhouette.silhouetteNameID },
-                usedPrice = p.usedPrice,
-                images = p.images
-            });
+                return objectSet.getReleasedProduct()
+                    .OrderByDescending(p => p.releaseDate)
+                    .ThenBy(p => p.view).Where(p => p.releaseDate.Year == year)
+                    ;
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
         }
-        /// <summary>
-        /// use for expression
-        /// </summary>
-        /// <returns></returns>
-        public static System.Linq.Expressions.Expression<Func<Product, bool>> isReleased()
+
+        public IQueryable<Product> findByBrandAndReleaseDate(string brand)
         {
-            return p => p.releaseDate <= DateTime.Now;
-        }
-        public static IQueryable<Product> Page(this IQueryable<Product> source, int page, int pageSize)
-        {
-            return source.Skip((page - 1) * pageSize).Take(pageSize);
+            try
+            {
+                return objectSet.getReleasedProduct()
+                    .Where(p => p.brand.brandNameID.ToLower() == brand.ToLower())
+                    .Where(IQueryableExtensions.isSneaker()).OrderByDescending(p => p.releaseDate)
+                    ;
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                throw;
+            }
         }
     }
 }

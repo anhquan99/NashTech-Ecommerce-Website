@@ -1,0 +1,16 @@
+﻿@model (String brand, List<Ecomerece_Web.Data.Product> products)
+<div class="PageLayout_PageAlignmentListProduct">
+
+    <div class="CollectionHeader_CollectionHeaderWrapper">
+        <div class="CollectionHeader_CollectionHeaderInfo">
+            <h1 class="CollectionHeader_CollectionHeadOne">@Model.brand</h1>
+            <p class="CollectionHeader_CollectionDescription"></p>
+        </div>
+    </div>
+    @if (Model.products != null)
+    {
+        <div class="container" style="max-width: 91%;" id="itemList">
+            @await Component.InvokeAsync("ProductList", new { products = Model.products })
+        </div>
+    }
+</div>

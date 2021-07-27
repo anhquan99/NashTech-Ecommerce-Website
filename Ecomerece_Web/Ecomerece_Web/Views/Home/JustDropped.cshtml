@@ -1,0 +1,25 @@
+﻿@model List<Ecomerece_Web.Data.Product>
+<div class="PageLayout_PageAlignmentListProduct">
+    <div class="CollectionHeader_CollectionHeaderWrapper">
+        <div class="CollectionHeader_CollectionHeaderInfo">
+            <h1 class="CollectionHeader_CollectionHeadOne">
+                Just
+                Dropped
+            </h1>
+            <p class="CollectionHeader_CollectionDescription">
+                Check
+                out the latest launches and new releases. Sneakers from Nike, Jordan, adidas, Vans, New Balance and
+                more available now.
+            </p>
+        </div>
+        <div src="https://image.goat.com/1500/attachments/collection_pictures/images/057/820/647/original/lebronSB.png"
+             class="CollectionHeader_CollectionHeaderContentImageDesktop"></div><img alt="collection-header" src="https://image.goat.com/1500/attachments/collection_pictures/images/057/820/647/original/lebronSB.png"
+                                                                                     class="CollectionHeader_CollectionHeaderContentImageMobile">
+    </div>
+    @if (Model != null)
+    {
+        <div class="container" style="max-width: 91%;" id="itemList">
+            @await Component.InvokeAsync("ProductList", new { products = Model })
+        </div>
+    }
+</div>

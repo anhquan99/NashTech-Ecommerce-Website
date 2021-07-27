@@ -1,0 +1,7 @@
+﻿@model List<Ecomerece_Web.Data.Brand>
+@foreach (var i in Model)
+{
+    <li class="MenuItem_ListItem Label">
+        <div class="AnimatedUnderlineText "><a href="/brand/@i.brandNameID"><label><span></span>@i.brandNameID</label></a></div>
+    </li>
+}

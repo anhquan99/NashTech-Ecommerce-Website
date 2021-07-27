@@ -1,11 +1,9 @@
 ﻿@page
 @*@page
     @model LoginModel
-
     @{
         ViewData["Title"] = "Log in";
     }
-
     <h1>@ViewData["Title"]</h1>
     <div class="row">
         <div class="col-md-4">
@@ -80,13 +78,12 @@
             </section>
         </div>
     </div>
-
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
     }*@
 <!-- body -->
 @model LoginModel
-<div class="PageLayout_PageAligment" >
+<div class="PageLayout_PageAligment">
     <div class="Hero_Wrapper LoginView_Hero">
         <div class="Hero_FirstPane">
             <div class="Hero_HeroPane">
@@ -106,7 +103,7 @@
                                 You need to be logged in
                                 to continue.
                             </p><a onclick="showForm('LoginForm','RegisterForm')" class="LoginForm_CreateAccountButton"
-                                   asp-area="Identity" asp-page="/Account/Register" >Sign Up</a>
+                                   asp-area="Identity" asp-page="/Account/Register">Sign Up</a>
                         </header>
                         <main class="LoginForm_Main">
                             <div class="MaterialInput_Content">
@@ -144,7 +141,6 @@
                     </nav>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

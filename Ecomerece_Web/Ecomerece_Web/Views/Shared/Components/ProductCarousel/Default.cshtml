@@ -1,13 +1,13 @@
 ﻿@model (List<Ecomerece_Web.Data.Product> products, String name, String url)
 
 <div class="ModuleSection ProductsYouMayLike_Wrapper">
-    @if (Model.url != "")
-    {
-        <div class="ModuleSectionHeader_Wrapper">
-            <h3 class="ModuleSectionTitle">You may also like</h3>
-            <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" href="@Model.url"><span>@Model.name</span></a>
-        </div>
-    }
+    <div class="ModuleSectionHeader_Wrapper">
+        <h3 class="ModuleSectionTitle">@Model.name</h3>
+        @if (Model.url != "")
+        {
+            <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" href="@Model.url"><span>See All</span></a>
+        }
+    </div>
     <div class="ModuleSectionContent">
         <div class="SideScrollingCarousel_Navigation">
             <button onclick="scrollXRight('@ViewBag.id')" class="LeftRightButtons_NavigationButton LeftRightButtons_LeftButtonStyled">

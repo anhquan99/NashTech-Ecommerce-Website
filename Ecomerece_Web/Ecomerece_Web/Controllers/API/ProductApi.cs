@@ -48,7 +48,7 @@ namespace Ecomerece_Web.Controllers.API
         [HttpGet("getpage/{page}")]
         public IEnumerable<Product> GetPage(int page)
         {
-            return productService.getAllReleaseDateOrderDesc(page, 10);
+            return IQueryableExtensions.Page(productService.getAllReleaseDateOrderDesc(), page, 10);
         }
         // POST api/<ProductApi>
         [HttpPost]
@@ -62,7 +62,7 @@ namespace Ecomerece_Web.Controllers.API
         [HttpPut("{id}")]
         public void Put(String id, [FromForm] ProductPrototype product, [FromForm] List<String> oldFiles)
         {
-
+            //
         }
 
         // DELETE api/<ProductApi>/5

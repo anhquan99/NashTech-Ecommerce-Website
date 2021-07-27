@@ -1434,7 +1434,7 @@ a .Fact_Details:hover {
     justify-content: center;
 }
 
-.DropdownMenu__DropdownList {
+.DropdownMenu_DropdownList {
     overflow: hidden scroll;
     background-color: white;
     border: 1px solid rgb(176, 176, 176);
@@ -2258,4 +2258,56 @@ a .Fact_Details:hover {
     flex-direction: row;
     border-top: 1px solid rgb(222, 222, 222);
     padding: 0px;
+}
+.CollectionHeader_CollectionHeaderWrapper{
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 100%;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 6em 0px 8em;
+}
+.CollectionHeader_CollectionHeaderInfo{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4em;
+}
+.CollectionHeader_CollectionHeadOne{
+    max-width: 640px;
+    font-size: 32px;
+    font-family: Plain;
+    line-height: 1.83;
+    letter-spacing: 0.1px;
+    font-weight: 400;
+    font-variant-numeric: lining-nums;
+}
+.CollectionHeader_CollectionDescription{
+    margin-top: 0px;
+    padding: 0px 4.8% 0px 4.5%;
+    max-width: 640px;
+    font-variant-numeric: lining-nums;
+    color: rgb(129, 129, 129);
+    font-size: 14px;
+    font-family: Plain;
+    line-height: 16px;
+    letter-spacing: 0px;
+}
+.CollectionHeader_CollectionHeaderContentImageDesktop{
+    display: none;
+}
+.CollectionHeader_CollectionHeaderContentImageMobile{
+    display: block;
+    min-width: 30%;
+    max-width: 37%;
+    flex: 0 0 50%;
+    align-self: center;
+    height: auto;
+    max-height: 820px;
+    margin-left: 8.1%;
 }

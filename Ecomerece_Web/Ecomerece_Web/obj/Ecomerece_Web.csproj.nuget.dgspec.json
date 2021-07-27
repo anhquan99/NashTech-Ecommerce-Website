@@ -47,17 +47,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "IdentityServer4": {
+            "IdentityServer4.AccessTokenValidation": {
               "target": "Package",
-              "version": "[4.1.2, )"
-            },
-            "IdentityServer4.AspNetIdentity": {
-              "target": "Package",
-              "version": "[4.1.2, )"
-            },
-            "IdentityServer4.EntityFramework": {
-              "target": "Package",
-              "version": "[4.1.2, )"
+              "version": "[3.0.1, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

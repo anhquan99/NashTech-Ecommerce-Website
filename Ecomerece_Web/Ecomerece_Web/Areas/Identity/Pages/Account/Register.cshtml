@@ -3,9 +3,7 @@
         @{
             ViewData["Title"] = "Register";
         }
-
         <h1>@ViewData["Title"]</h1>
-
         <div class="row">
             <div class="col-md-4">
                 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -61,7 +59,6 @@
                 </section>
             </div>
         </div>
-
         @section Scripts {
             <partial name="_ValidationScriptsPartial" />
         }
@@ -87,7 +84,7 @@
             </div>
         </div>
         <div class="Hero_SecondPane">
-            <form class="RegisterForm_Form" method="post" asp-route-returnUrl="@Model.ReturnUrl" >
+            <form class="RegisterForm_Form" method="post" asp-route-returnUrl="@Model.ReturnUrl">
                 <div class="Hero_HeroPane RegisterForm_HeroPane">
                     <div class="Hero_HeroPaneContent RegisterForm_HeroPaneContent">
                         <header class="RegisterForm_Header">
@@ -108,7 +105,7 @@
                                     <input asp-for="Input.address" class="MaterialInput_Input"><span class="MaterialInput_LabelCopy">
                                         Address
                                     </span>
-                                    <span asp-validation-for="Input.fullName" class="text-danger"></span>
+                                    <span asp-validation-for="Input.address" class="text-danger"></span>
                                 </label>
                             </div>
                             <div class="MaterialInput_Content">
@@ -152,8 +149,7 @@
                     </div>
                     <nav class="Hero_HeroPaneLoginActions">
                         <a class="Hero_Link" href="~/Identity/Account/Login">
-                            <button
-                                    type="button" class="GoatButton_Wrapper Hero_Button">
+                            <button type="button" class="GoatButton_Wrapper Hero_Button">
                                 Back
                             </button>
                         </a><span class="Hero_Border">

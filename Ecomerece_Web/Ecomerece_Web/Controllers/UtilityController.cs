@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Controllers
-{         
+{
     public class UtilityController : Controller
     {
         public UtilityController()
@@ -27,7 +27,7 @@ namespace Ecomerece_Web.Controllers
                 var img = System.IO.File.OpenRead(imagePath);
                 return File(img, "image/jpeg");
             }
-            catch(FileNotFoundException)
+            catch (FileNotFoundException)
             {
                 return NotFound();
             }

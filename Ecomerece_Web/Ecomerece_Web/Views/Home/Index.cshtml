@@ -1,28 +1,39 @@
 ﻿<!-- body -->
-@model (Ecomerece_Web.Data.Product coverProduct, List<Ecomerece_Web.Data.Product> topTrending, List<Ecomerece_Web.Data.Product> mostWanted)
+@model (Ecomerece_Web.Data.Product coverProduct, List<Ecomerece_Web.Data.Product> topTrending, List<Ecomerece_Web.Data.Product> mostWanted, List<Ecomerece_Web.Data.Product> justDropped)
 <div class="PageLayout_PageAlignment">
-    @await Component.InvokeAsync("Product", new { product = Model.coverProduct, type = "cover" })
-    @await Component.InvokeAsync("ProductCarousel", new { products = Model.topTrending, name = "Name" })
+    @if (Model.coverProduct != null)
+    {
+        @await Component.InvokeAsync("Product", new { product = Model.coverProduct, type = "cover" })
+
+    }
+    @if (Model.justDropped != null)
+    {
+        @await Component.InvokeAsync("ProductCarousel", new { products = Model.justDropped, name = "Just Dropped", url = "/Home/JustDropped" })
+
+    }
     <div class="ModuleSection ProductsYouMayLike_Wrapper">
         <div class="ModuleSectionHeader_Wrapper">
             <h3 class="ModuleSectionTitle">Top 20 Trending</h3>
-            <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" href="#"><span>See All</span></a>
+            <a class="ButtonLink_Button ModuleSectionHeader_DesktopButton" asp-action="Top20Trending" asp-controller="Home"><span>See All</span></a>
         </div>
         <div class="container" style="max-width: 100%;">
-            @for (int i = 1; i <= Model.topTrending.Count;)
+            @if (Model.topTrending != null)
             {
-                int temp = i + 4;
-                @Html.Raw("<div class='row'>");
-                for (int k = i; k < temp && k <= Model.topTrending.Count; k++, i++)
+                @for (int i = 1; i <= Model.topTrending.Count;)
                 {
-                    @await Component.InvokeAsync("Product", new { product = Model.topTrending.ElementAt(i - 1), type = "Ranking", rank = i });
+                    int temp = i + 4;
+                    @Html.Raw("<div class='row'>");
+                    for (int k = i; k < temp && k <= Model.topTrending.Count; k++, i++)
+                    {
+                        @await Component.InvokeAsync("Product", new { product = Model.topTrending.ElementAt(i - 1), type = "Ranking", rank = i });
 
+                    }
+                    @Html.Raw("</div>");
                 }
-                @Html.Raw("</div>");
             }
         </div>
     </div>
-    @await Component.InvokeAsync("ProductCarousel", new { products = Model.mostWanted, name = "name" })
+    @await Component.InvokeAsync("ProductCarousel", new { products = Model.mostWanted, name = "Most Wanted", url="/Home/MostWanted" })
     <div class="align-center-justify-center full-width" style="height: 90px;">
         <p onclick="backToTop()" class="plainmedium10caps  underline-hover pointer" style="margin: 0;margin-right: 6px;">
             BACK

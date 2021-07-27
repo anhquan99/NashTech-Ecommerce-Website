@@ -1,24 +1,17 @@
 using Ecomerece_Web.Data;
-using Ecomerece_Web.IdentityServer;
 using Ecomerece_Web.Models;
 using Ecomerece_Web.Services.Implements;
 using Ecomerece_Web.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ecomerece_Web
@@ -29,7 +22,6 @@ namespace Ecomerece_Web
         {
             Configuration = configuration;
         }
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -41,7 +33,7 @@ namespace Ecomerece_Web
                    Configuration.GetConnectionString("DefaultConnection"));
                 //options.UseLazyLoadingProxies(true);
             });
-            services.AddDatabaseDeveloperPageExceptionFilter();
+            //services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<Ecomerece_Web.Data.User>(
                 options => options.User.RequireUniqueEmail = true
@@ -56,96 +48,93 @@ namespace Ecomerece_Web
             //enable lazy load
             //services.AddEntityFrameworkProxies();
 
-            var builder = services.AddIdentityServer(options =>
+            services.AddAuthorization(options =>
             {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-                //options.UserInteraction.LoginUrl = "/Account/Login";
-                //options.UserInteraction.LogoutUrl = "/Account/Logout";
-                options.Authentication = new IdentityServer4.Configuration.AuthenticationOptions()
+                options.AddPolicy("admin", policyAdmin =>
                 {
-                    CookieLifetime = TimeSpan.FromHours(10), // ID server cookie timeout set to 10 hours
-                    CookieSlidingExpiration = true
-                };
-            })
-            .AddInMemoryApiResources(Config.Apis)
-            .AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients"))
-            .AddInMemoryIdentityResources(Config.Ids)
-            .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients)
-            .AddAspNetIdentity<User>()
-            .AddDeveloperSigningCredential();
-
-            services.AddRazorPages(options =>
-            {
-                options.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Identity/Account/", model =>
-                {
-                    foreach (var selector in model.Selectors)
-                    {
-                        var attributeRouteModel = selector.AttributeRouteModel;
-                        attributeRouteModel.Order = -1;
-                        attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
-                    }
+                    policyAdmin.RequireClaim("role", "admin");
                 });
             });
             //CORS
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:3000")
-                                      .AllowAnyHeader().AllowAnyMethod();
-                                  });
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder
+                        .WithOrigins(Configuration["SPAClient:URL"])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
             });
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    // base-address of your identityserver
+                    options.Authority = Configuration["IDS:URL"];
+                    // name of the API resource
+                    options.ApiName = Configuration["IDS:API_NAME"];
+                });
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Webapp space api", Version = "v1" });
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "IdentityServer.Demo.Api",
+                        Version = "v1",
+                    });
+                c.CustomSchemaIds(x => x.FullName);
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows
-                    {
-                        Implicit = new OpenApiOAuthFlow
-                        {
-                            AuthorizationUrl = new Uri(Configuration["AuthorityUrl"] + "/connect/authorize"),
-                            Scopes = new Dictionary<string, string> { { "api.aq", "AQ API" } }
-                        },
-                    },
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-               {
-                   {
-                    new OpenApiSecurityScheme
-                       {
-                           Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer"}
-                       },
-                    new List<String>{"api.AQ "}
-                   }
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
                 });
             });
 
             //https://weblog.west-wind.com/posts/2021/Mar/09/Role-based-JWT-Tokens-in-ASPNET-Core#setting-up-jwt-authentication-and-authorization
-            services.AddAuthentication(auth =>
-            {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = "any",
-                    ValidateAudience = true,
-                    ValidAudience = "any",
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("e991736ba4e6609f778b7217e1892354b8bdaf28baf7c1add58fcd6764a6ce6f"))
-                };
-            });
+            //services.AddAuthentication(auth =>
+            //{
+            //    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //.AddJwtBearer(options =>
+            //{
+            //    options.SaveToken = true;
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidIssuer = "any",
+            //        ValidateAudience = true,
+            //        ValidAudience = "any",
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("e991736ba4e6609f778b7217e1892354b8bdaf28baf7c1add58fcd6764a6ce6f"))
+            //    };
+            //});
 
             services.AddScoped<IProductRepository<Product>, ProductService>();
             services.AddScoped<IRepository<Brand>, BrandService>();
@@ -164,6 +153,12 @@ namespace Ecomerece_Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                app.UseSwagger();
+
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("v1/swagger.json", "MyAPI V1");
+                });
             }
             else
             {
@@ -175,25 +170,15 @@ namespace Ecomerece_Web
             app.UseStaticFiles();
 
             //CORS
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseIdentityServer();
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Webapp space api v1");
-                c.OAuthClientId("swagger");
-            });
 
-            app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:3000/")
-           .AllowAnyHeader()
-);
+   
 
             app.UseEndpoints(endpoints =>
             {
@@ -201,10 +186,6 @@ namespace Ecomerece_Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                //endpoints.MapControllerRoute(
-                //    name: "ultility",
-                //    pattern: "{controller=Utility}/{action=get}/{imageFile}");
-                //endpoints.MapRazorPages();
             });
             //Seeding create admin when the project if is initialized
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
