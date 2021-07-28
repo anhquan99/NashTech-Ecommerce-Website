@@ -6,6 +6,7 @@ using Ecomerece_Web.Services.Adapter;
 using Ecomerece_Web.Services.Implements;
 using Ecomerece_Web.Services.Interfaces;
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -72,14 +73,18 @@ namespace Ecomerece_Web
                     });
             });
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
-                {
-                    // base-address of your identityserver
-                    options.Authority = Configuration["IDS:URL"];
-                    // name of the API resource
-                    options.ApiName = Configuration["IDS:API_NAME"];
-                });
+            services.AddAuthentication()
+            .AddIdentityServerAuthentication(options =>
+            {
+                // base-address of your identityserver
+                options.Authority = Configuration["IDS:URL"];
+                // name of the API resource
+                options.ApiName = Configuration["IDS:API_NAME"];
+            })
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+            });
 
             services.AddSwaggerGen(c =>
             {

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Controllers.API
 {
-    [Authorize("admin")]
+    //[Authorize("admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserApi : ControllerBase
