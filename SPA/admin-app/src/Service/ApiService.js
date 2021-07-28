@@ -1,30 +1,31 @@
 import axios from 'axios';
-import { AuthenticationService } from './AuthenticationService';
-
-export default class ApiService {
-    authenticationService;
+import { Constants } from '../helpers/constants';
+import { AuthService } from './AuthenticationService';
+export class ApiService {
     constructor() {
-        this.authenticationService = new AuthenticationService()
+        this.authService = new AuthService();
     }
-    callApi = async () => {
-        const user = await this.authenticationService.getUser();
+    async callApi() {
+        const user = await this.authService.getUser();
         if (user && user.access_token) {
-            return this._callApi(user.access_token).cacth(error => {
+            return this._callApi(user.access_token).catch(error => {
                 if (error.response.status === 401) {
-                    throw new Error("USER NOT LOGGED IN");
+                    throw new Error('User is not logged in');
                 }
                 throw error;
             });
         }
         else if (user) {
-            throw new Error("USER NOT LOGGED IN");
+            throw new Error('User is not logged in');
         }
     }
-    _callApi = ( token) =>{
+    _callApi(token) {
         const headers = {
-            Accept : "application/json",
-            Authorization : "Bearer " + token
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token
         };
-        return axios.get(process.env.REACT_APP_LOCAL_URL + "/getuser"); 
+        return axios.get(Constants.apiRoot + 'weatherforecast', {
+            headers
+        });
     }
 }

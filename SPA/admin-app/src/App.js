@@ -13,7 +13,7 @@ import NotFound from './Components/NotFound';
 import TableUser from './Components/TableUser';
 import TableAdmin from './Components/TableAdmin';
 import Home from './Components/Home';
-import {AuthenticationService} from './Service/AuthenticationService';
+import Fontal from './Components/Fontal'
 
 // import Fontal from './Components/Fontal'
 
@@ -47,15 +47,16 @@ function App() {
               <Route exact path="/getadmin"  >
                 <TableAdmin></TableAdmin>
               </Route>
+              <Route exact path="/fontal"  >
+                <Fontal></Fontal>
+              </Route>
               {/* <Route exact path="/notfound" >
                 <NotFound></NotFound>
               </Route> */}
               <Route path="**" >
                 <NotFound></NotFound>
               </Route>
-              {/* <Route exact path="/fontal"  >
-                <Fontal></Fontal>
-              </Route> */}
+              
             </Switch>
           </Container>
         </div>
@@ -101,7 +102,6 @@ export default App;
 //     }
 //   }
 // };
-// import Fontal from './Components/Fontal'
 
 // function App() {
 //   const [sidebarIsOpen, setSidebarOpen] = useState(true);
