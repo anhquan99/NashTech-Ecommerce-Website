@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import AuthService from '../../Service/AuthenticationService'; 
 
 const Example = (props) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
-
+  const authService = new AuthService();
+  const logout = async () =>{
+    const user = await authService.getUser();
+    if(user.access_token != null){
+      authService.logout()
+    }
+  }
   return (
     <div>
       <Navbar color="faded" light>
@@ -14,10 +21,7 @@ const Example = (props) => {
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <NavLink href="#" onClick={logout}>Logout</NavLink>
             </NavItem>
           </Nav>
         </Collapse>

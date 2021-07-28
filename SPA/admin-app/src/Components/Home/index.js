@@ -10,7 +10,7 @@ export default function index(): ReactElement {
     return (
         <div>
             <h1>Home</h1>
-            <button onClick={login}>HOME</button>
+            <button onClick={login}>LOGIN</button>
         </div>
     )
 }

@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { Constants } from '../helpers/constants';
-import { AuthService } from './AuthenticationService';
-export class ApiService {
-    constructor() {
-        this.authService = new AuthService();
+import AuthService from './AuthenticationService';
+export default class ApiService {
+    constructor(){
+        this.authService = new AuthService(); 
     }
     async callApi() {
         const user = await this.authService.getUser();
@@ -24,7 +23,8 @@ export class ApiService {
             Accept: 'application/json',
             Authorization: 'Bearer ' + token
         };
-        return axios.get(Constants.apiRoot + 'weatherforecast', {
+        console.log("Call");
+        return axios.get(process.env.REACT_APP_LOCAL_URL + '/api/userapi', {
             headers
         });
     }

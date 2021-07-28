@@ -1,20 +1,15 @@
-import authority  from "../../Service/AuthenticationService";
+import ApiService  from "../../Service/ApiService";
 import React, { Component } from 'react'
-
+import AuthService from '../../Service/AuthenticationService';
 export default class index extends Component {
-    mygetUser(){
-        // getUser().then((user) => {
-        //   if (user) {
-        //     console.log("User details: " + JSON.stringify(user));
-            
-        //   } else {
-        //     console.log('You are not logged in.');
-        //   }
-        // });
-        var auth = new authority();
-        var user = authority.getUser;
-        var token = window.localStorage;
-        console.log(user);
+    constructor(){
+        super();
+        this.authService = new AuthService();  
+        this.apiService = new ApiService();
+    }
+    async mygetUser(){
+        const user = await this.authService.getUser();
+        console.log(await this.apiService._callApi(user.access_token));
     }
     render() {
         return (

@@ -1,27 +1,63 @@
 import axios from "axios";
+import AuthService from './Service/AuthenticationService';
 
 const endpoint = process.env.REACT_APP_LOCAL_URL;
 // const token = localStorage.getItem("token");
 
-export function get(url) {
+export async function get(url) {
+  const authService = new AuthService();
+  const user = await authService.getUser();
+  console.log(user);
+  const headers = {
+    Accept: 'application/json',
+    Authorization: 'Bearer ' + user.access_token
+  };
   return axios.get(endpoint + url, {
+    headers
   });
 }
 
-export function put(url, body) {
-  return axios.put(endpoint + url, body);
+export async function put(url, body) {
+  const authService = new AuthService();
+  const user = await authService.getUser();
+  const headers = {
+    Accept: 'application/json',
+    Authorization: 'Bearer ' + user.access_token
+  };
+  return axios.put(endpoint + url, body,{
+    headers
+  });
 }
 
-export function post(url, body) {
-  return axios.post(endpoint + url, body);
-}
-export function postWithFile(url, body) {
+export async function post(url, body) {
+  const authService = new AuthService();
+  const user = await authService.getUser();
+  const headers = {
+    Accept: 'application/json',
+    Authorization: 'Bearer ' + user.access_token
+  };
   return axios.post(endpoint + url, body,{
+      headers
+  });
+}
+export async function postWithFile(url, body) {
+  const authService = new AuthService();
+  const user = await authService.getUser();
+  return axios.post(endpoint + url, body, {
     headers: {
       'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + user.access_token
     }
   });
 }
-export function del(url) {
-  return axios.delete(endpoint +  url);
+export async function del(url) {
+  const authService = new AuthService();
+  const user = await authService.getUser();
+  const headers = {
+    Accept: 'application/json',
+    Authorization: 'Bearer ' + user.access_token
+  };
+  return axios.delete(endpoint + url,{
+    headers
+  });
 }
