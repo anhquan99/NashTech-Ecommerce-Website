@@ -44,12 +44,12 @@ const submenus = [
   ],
   [
     {
-      title: "List",
+      title: "List User",
       target: "getUser",
     },
     {
-      title: "Add",
-      target: "addUser",
+      title: "List Admin",
+      target: "getAdmin",
     },
   ],
 ];

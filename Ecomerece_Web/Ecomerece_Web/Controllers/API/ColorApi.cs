@@ -19,36 +19,13 @@ namespace Ecomerece_Web.Controllers.API
         {
             this.colorService = service;
         }
+
+
         // GET: api/<SilHoutteApi>
         [HttpGet]
         public IEnumerable<Color> Get()
         {
             return colorService.findAll();
-        }
-
-        // GET api/<ColorApi>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ColorApi>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ColorApi>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ColorApi>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

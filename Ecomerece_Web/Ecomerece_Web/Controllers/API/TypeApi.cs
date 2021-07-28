@@ -18,36 +18,13 @@ namespace Ecomerece_Web.Controllers.API
         {
             this.typeService = service;
         }
+
+
         // GET: api/<SilHoutteApi>
         [HttpGet]
         public IEnumerable<Ecomerece_Web.Data.Type> Get()
         {
             return typeService.findAll();
-        }
-
-        // GET api/<TypeApi>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<TypeApi>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<TypeApi>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<TypeApi>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

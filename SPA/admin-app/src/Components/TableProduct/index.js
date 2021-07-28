@@ -14,6 +14,7 @@ export default class index extends Component {
         this.fetchProductList();
     }
     fetchProductList() {
+        console.log(process.env.REACT_APP_LOCAL_SCOPE);
         get("/api/Product").then((response) => {
             if (response.status === 200) {
                 this.setState({ productList: response.data });

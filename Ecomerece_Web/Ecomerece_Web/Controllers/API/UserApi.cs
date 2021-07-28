@@ -2,7 +2,9 @@
 using Ecomerece_Web.Data.Prototype;
 using Ecomerece_Web.Services.Adapter;
 using Ecomerece_Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ecomerece_Web.Controllers.API
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserApi : ControllerBase
@@ -34,7 +37,17 @@ namespace Ecomerece_Web.Controllers.API
             }
             return data;
         }
-
+        [HttpGet]
+        [Route("getadmin")]
+        public IEnumerable<UserPrototype> GetAdmin()
+        {
+            List<UserPrototype> data = new List<UserPrototype>();
+            foreach (var i in userService.findAllAdmin())
+            {
+                data.Add(userAdapter.convertFromOriginToProtoType(i));
+            }
+            return data;
+        }
         // GET api/<UserApi>/5
         //[HttpGet("{id}")]
         //public string Get(int id)

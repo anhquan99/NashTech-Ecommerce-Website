@@ -25,16 +25,37 @@ namespace Ecomerece_Web.Services.Implements
         {
             var deleteUser = objectSet.Where(p => p.Email == email).SingleOrDefault();
             this.objectSet.Remove(deleteUser);
+            dbContext.SaveChanges();
             return true;
         }
 
         public List<User> findAll()
         {
-            return dbContext.Users.Where(p => p == dbContext.UserRoles.Where(i => i == dbContext.Roles.Where(x => x.Name == "user"))).ToList();
+            var roleId = (from p in dbContext.Roles where p.Name == "user" select p).SingleOrDefault();
+            var userRoles = dbContext.UserRoles.Where(a => a.RoleId == roleId.Id).ToList();
+            List<User> user = new List<User>();
+            foreach(var i in userRoles)
+            {
+                var temp = (from p in dbContext.Users where p.Id == i.UserId select p).SingleOrDefault();
+                user.Add(temp);
+            }
+            //var user = dbContext.Users.Where(a => userRoles.All(i => i.UserId == a.Id)).ToList();
+            return user;
         }
         public List<User> findAllAdmin()
         {
-            return dbContext.Users.Where(p => p == dbContext.UserRoles.Where(i => i == dbContext.Roles.Where(x => x.Name == "admin"))).ToList();
+            //var roleId = (from p in dbContext.Roles where p.Name == "admin" select p).AsEnumerable();
+            //var userRoles = dbContext.UserRoles.Where(a => roleId.All(i => i.Id == a.RoleId)).AsEnumerable();
+            //var user = dbContext.Users.Where(a => roleId.All(i => i.Id == a.Id)).ToList();
+            var roleId = (from p in dbContext.Roles where p.Name == "admin" select p).SingleOrDefault();
+            var userRoles = dbContext.UserRoles.Where(a => a.RoleId == roleId.Id).ToList();
+            List<User> user = new List<User>();
+            foreach (var i in userRoles)
+            {
+                var temp = (from p in dbContext.Users where p.Id == i.UserId select p).SingleOrDefault();
+                user.Add(temp);
+            }
+            return user;
         }
         public User findByID(String email)
         {
@@ -43,7 +64,9 @@ namespace Ecomerece_Web.Services.Implements
 
         public bool update(User t)
         {
-            userManager.AddToRoleAsync(t, "admin");
+            var temp = userManager.AddToRoleAsync(t, "admin").Result;
+            var temp2 = userManager.RemoveFromRoleAsync(t, "user").Result;
+            dbContext.SaveChanges();
             return true;
         }
     }

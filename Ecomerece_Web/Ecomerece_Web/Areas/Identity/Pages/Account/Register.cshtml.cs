@@ -89,6 +89,7 @@ namespace Ecomerece_Web.Areas.Identity.Pages.Account
             {
                 var user = new User { UserName = Input.Email, Email = Input.Email, fullName = Input.fullName, address = Input.address };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userManager.AddToRoleAsync(user, "user");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

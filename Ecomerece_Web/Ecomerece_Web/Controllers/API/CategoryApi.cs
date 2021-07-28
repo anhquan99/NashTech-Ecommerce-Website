@@ -19,6 +19,7 @@ namespace Ecomerece_Web.Controllers.API
         {
             this.categoryService = service;
         }
+
         // GET: api/<SilHoutteApi>
         [HttpGet]
         public IEnumerable<Category> Get()
@@ -26,29 +27,5 @@ namespace Ecomerece_Web.Controllers.API
             return categoryService.findAll();
         }
 
-        // GET api/<CategoryApi>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<CategoryApi>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CategoryApi>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CategoryApi>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
