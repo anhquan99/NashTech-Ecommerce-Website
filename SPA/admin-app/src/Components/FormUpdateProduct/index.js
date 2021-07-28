@@ -235,7 +235,7 @@ class index extends Component {
         put(`/api/Product/${this.props.match.params.product}`, formData).then((response) => {
             if (response.status === 200) {
                 alert("Success");
-                window.location = "/";
+                window.location = "/getProduct";
             }
         }).catch(function (error) {
             alert("PUT Product field");

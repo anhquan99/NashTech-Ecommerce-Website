@@ -58,19 +58,24 @@ namespace Ecomerece_Web.Controllers.API
         [HttpPost]
         public void Post([FromForm] ProductPrototype product)
         {
+            if (productService.findByID(product.productNameID) != null) return;
+
             Product newProduct = productAdapter.convertFromProtoTypeToOriginal(product);
+
+            // handle coverImg
             product.coverImg = product.coverImagePost.FileName;
+            fileService.uploadFile(product.coverImagePost).Wait();
+
             product.images = new List<Image>();
-            product.images.Add(new Image { imageNameID = product.coverImg });
             foreach (var i in product.imagesPost)
             {
                 product.images.Add(new Image { imageNameID = i.FileName });
             }
-            fileService.uploadMultiFile(product.imagesPost);
+            fileService.uploadMultiFile(product.imagesPost).Wait();
             if (product.wallpaperImagePost != null)
             {
                 product.wallpaper = product.wallpaperImagePost.FileName;
-                fileService.uploadFile(product.wallpaperImagePost);
+                fileService.uploadFile(product.wallpaperImagePost).Wait();
 
             }
             newProduct = productAdapter.convertFromProtoTypeToOriginal(product);
@@ -83,36 +88,40 @@ namespace Ecomerece_Web.Controllers.API
         {
             var oldProduct = productService.findByID(id);
             List<String> originOldFile = oldProduct.images.Select(x => x.imageNameID).ToList();
-            List<String> deleteFile = originOldFile.Where(p => !oldFiles.All(i => i == p)).ToList();
+            List<String> deleteFile = originOldFile.Where(p => oldFiles.All(i => i == p)).ToList();
             // delete old file has been removed
             foreach (var i in deleteFile)
             {
-                fileService.deleteFile(i);
+                fileService.deleteFile(i).Wait();
             }
+            productService.updateDeletImage(deleteFile, oldProduct.productNameID);
             // if cover img is changed
-            if (product.coverImagePost.FileName != null)
+            if (product.coverImagePost != null)
             {
                 product.coverImg = product.coverImagePost.FileName;
-                fileService.deleteFile(oldProduct.coverImg);
-                product.images.Add(new Image { imageNameID = product.coverImg });
+                fileService.deleteFile(oldProduct.coverImg).Wait();
+                fileService.uploadFile(product.coverImagePost).Wait();
             }
             // if wallpaper is changed
-            if (product.wallpaperImagePost.FileName != null)
+            if (product.wallpaperImagePost != null)
             {
                 if (!String.IsNullOrEmpty(oldProduct.wallpaper))
                 {
-                    fileService.deleteFile(oldProduct.wallpaper);
+                    fileService.deleteFile(oldProduct.wallpaper).Wait();
                 }
-                fileService.uploadFile(product.wallpaperImagePost);
+                fileService.uploadFile(product.wallpaperImagePost).Wait();
                 product.wallpaper = product.wallpaperImagePost.FileName;
             }
-
-            foreach (var i in product.imagesPost)
+            product.images = new List<Image>();
+            if (product.imagesPost != null)
             {
-                product.images.Add(new Image { imageNameID = i.FileName });
+                foreach (var i in product.imagesPost)
+                {
+                    product.images.Add(new Image { imageNameID = i.FileName });
+                }
+                fileService.uploadMultiFile(product.imagesPost).Wait();
+
             }
-            fileService.uploadMultiFile(product.imagesPost);
-            fileService.uploadFile(product.coverImagePost);
             var tempOriginal = productAdapter.convertFromProtoTypeToOriginal(product);
             productService.update(tempOriginal);
         }
@@ -124,11 +133,11 @@ namespace Ecomerece_Web.Controllers.API
             var product = productService.findByID(id);
             foreach (var i in product.images)
             {
-                fileService.deleteFile(i.imageNameID);
+                fileService.deleteFile(i.imageNameID).Wait();
             }
             if (!String.IsNullOrEmpty(product.wallpaper))
             {
-                fileService.deleteFile(product.wallpaper);
+                fileService.deleteFile(product.wallpaper).Wait();
             }
 
             productService.delete(id);

@@ -1,5 +1,6 @@
 using Ecomerece_Web.Data;
 using Ecomerece_Web.Data.Prototype;
+using Ecomerece_Web.Extension;
 using Ecomerece_Web.Models;
 using Ecomerece_Web.Services;
 using Ecomerece_Web.Services.Adapter;
@@ -47,6 +48,7 @@ namespace Ecomerece_Web
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddStorageServices(Configuration);
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             //enable lazy load

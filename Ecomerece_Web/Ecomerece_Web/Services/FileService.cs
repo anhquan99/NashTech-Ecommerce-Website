@@ -1,99 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecomerece_Web.Services
 {
+
     public class FileService
     {
-        static String path = Path.Combine(Environment.CurrentDirectory, "image");
-        public static FileStream loadImg(String imageFile)
+        private readonly BlobContainerClient containerClient;
+
+        public FileService([NotNull] BlobServiceClient serviceClient, [NotNull] AzureStorageOption option)
         {
-            String imagePath = Path.Combine(path, imageFile);
-            try
+            if (serviceClient is null)
             {
-                return System.IO.File.OpenRead(imagePath);
+                throw new ArgumentNullException(nameof(serviceClient));
             }
-            catch (FileNotFoundException)
+
+            if (option is null)
             {
-                throw;
+                throw new ArgumentNullException(nameof(option));
+            }
+
+            this.containerClient = serviceClient.GetBlobContainerClient(option.ContainerName);
+        }
+
+        public async Task<Stream> loadImg(string fileName, CancellationToken cancellationToken = default)
+        {
+            var blobClient = containerClient.GetBlobClient(fileName);
+            var response = await blobClient.DownloadStreamingAsync(cancellationToken: cancellationToken);
+
+            return response.Value.Content;
+        }
+        public async Task uploadFile(IFormFile file, CancellationToken cancellationToken = default)
+        {
+            if (!containerClient.GetBlobClient(file.FileName).Exists())
+            {
+                using var stream = file.OpenReadStream();
+
+                await containerClient.UploadBlobAsync(file.FileName, stream, cancellationToken);
+
             }
         }
-        public Boolean uploadFile(IFormFile file)
+        public async Task uploadMultiFile(IEnumerable<IFormFile> files, CancellationToken cancellationToken = default)
         {
-            try
+            foreach (var i in files)
             {
-                // if folder not exist
-                FileInfo folder = new FileInfo(path);
-                folder.Directory.Create();
-
-                using (var stream = new FileStream(path, FileMode.Create))
+                if (!containerClient.GetBlobClient(i.FileName).Exists())
                 {
-                    file.CopyTo(stream);
+                    using var stream = i.OpenReadStream();
+
+                    await containerClient.UploadBlobAsync(i.FileName, stream, cancellationToken);
+
+                    stream.Dispose();
                 }
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e.Message);
-                throw;
+
             }
         }
-        public Boolean uploadMultiFile(IEnumerable<IFormFile> files)
+        public async Task deleteFile(string fileName, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                // if folder not exist
-                FileInfo folder = new FileInfo(path);
-                folder.Directory.Create();
-
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    foreach (var i in files)
-                    {
-                        i.CopyTo(stream);
-                    }
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e.Message);
-                throw;
-            }
+            await containerClient.DeleteBlobIfExistsAsync(fileName, cancellationToken: cancellationToken);
         }
-        public Boolean deleteFile(String file)
+        public string GetContainerUrl()
         {
-            try
-            {
-                // if folder not exist
-                FileInfo folder = new FileInfo(path);
-                folder.Directory.Create();
-
-                if (File.Exists(Path.Combine(path, file)))
-                {
-                    File.Delete(Path.Combine(path, file));
-                }
-                else
-                {
-                    throw new FileNotFoundException();
-                }
-                return true;
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("FILE NOT FOUND");
-                return false;
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e.Message);
-                throw;
-            }
+            return containerClient.Uri.AbsoluteUri;
         }
     }
 }

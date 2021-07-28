@@ -30,5 +30,7 @@ namespace Ecomerece_Web.Services.Interfaces
         // clothing 
         public IQueryable<T> findByBrandWithTypeAndReleaseDateOrderDesc(String brand);
 
+        public void updateDeletImage(List<String> deletedImage, String id);
+
     }
 }

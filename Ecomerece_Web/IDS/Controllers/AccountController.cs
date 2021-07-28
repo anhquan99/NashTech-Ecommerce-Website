@@ -93,39 +93,39 @@ namespace IDS.Controllers
             return Redirect(logout.PostLogoutRedirectUri);
         }
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            var user = new IdentityUser
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                EmailConfirmed = true,
-            };
+        //[HttpPost]
+        //public async Task<IActionResult> Register(RegisterViewModel model)
+        //{
+        //    var user = new IdentityUser
+        //    {
+        //        UserName = model.Email,
+        //        Email = model.Email,
+        //        EmailConfirmed = true,
+        //    };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
+        //    var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
-            {
-                throw new Exception(result.Errors.First().Description);
-            }
+        //    if (!result.Succeeded)
+        //    {
+        //        throw new Exception(result.Errors.First().Description);
+        //    }
 
-            result = await _userManager.AddClaimsAsync(user, new Claim[]{
-                            new Claim(JwtClaimTypes.Email, model.Email)
-                        });
+        //    result = await _userManager.AddClaimsAsync(user, new Claim[]{
+        //                    new Claim(JwtClaimTypes.Email, model.Email)
+        //                });
 
-            if (!result.Succeeded)
-            {
-                throw new Exception(result.Errors.First().Description);
-            }
+        //    if (!result.Succeeded)
+        //    {
+        //        throw new Exception(result.Errors.First().Description);
+        //    }
 
-            return View("RegistrationSuccess");
-        }
+        //    return View("RegistrationSuccess");
+        //}
     }
 }

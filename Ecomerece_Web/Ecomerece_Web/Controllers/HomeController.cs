@@ -39,7 +39,7 @@ namespace Ecomerece_Web.Controllers
         public IActionResult TimeLine()
         {
             Seed.SeedProduct(productService);
-            return View();
+            return Redirect("/");
         }
         [Route("/Home/ShopAll")]
         public IActionResult ShopAll()

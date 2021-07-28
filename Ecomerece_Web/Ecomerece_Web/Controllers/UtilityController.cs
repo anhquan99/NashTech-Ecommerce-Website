@@ -13,9 +13,10 @@ namespace Ecomerece_Web.Controllers
 {
     public class UtilityController : Controller
     {
-        public UtilityController()
+        private readonly FileService fileService;
+        public UtilityController(FileService fileService)
         {
-
+            this.fileService = fileService ?? throw new System.ArgumentNullException(nameof(fileService));
         }
         [HttpGet]
         [Route("[controller]/{imageFile}")]
@@ -23,7 +24,7 @@ namespace Ecomerece_Web.Controllers
         {
             try
             {
-                return File(FileService.loadImg(imageFile), "image/jpeg");
+                return File(fileService.loadImg(imageFile).Result, "image/jpeg");
             }
             catch (FileNotFoundException)
             {

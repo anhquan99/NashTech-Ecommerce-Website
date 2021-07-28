@@ -47,6 +47,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.9.1, )"
+            },
             "IdentityServer4.AccessTokenValidation": {
               "target": "Package",
               "version": "[3.0.1, )"
@@ -84,6 +88,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.8, )"
+            },
+            "Microsoft.Extensions.Azure": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",

@@ -226,7 +226,7 @@ namespace Ecomerece_Web.Services.Implements
         {
             try
             {
-                var item = objectSet.Single(x => x.productNameID == t.productNameID);
+                var item = objectSet.includeAll().Single(x => x.productNameID == t.productNameID);
 
                 item.releaseDate = t.releaseDate;
                 item.upperMaterial = t.upperMaterial;
@@ -235,14 +235,20 @@ namespace Ecomerece_Web.Services.Implements
                 item.price = t.price;
                 item.usedPrice = t.usedPrice;
                 item.wallpaper = t.wallpaper;
-                item.brand = t.brand;
-                item.color = t.color;
-                item.category = t.category;
-                item.type = t.type;
-                item.silhouette = t.silhouette;
+
+                if (item.brand.brandNameID != t.brand.brandNameID) item.brand.brandNameID = t.brand.brandNameID;
+                if (item.color.colorNameID != t.color.colorNameID) item.color.colorNameID = t.color.colorNameID;
+                if (item.category.categoryNameID != t.category.categoryNameID) item.category.categoryNameID = t.category.categoryNameID;
+                if (item.type.typeNameID != t.type.typeNameID) item.type.typeNameID = t.type.typeNameID;
+                if (item.silhouette.silhouetteNameID != t.silhouette.silhouetteNameID) item.silhouette.silhouetteNameID = t.silhouette.silhouetteNameID;
+
                 item.rating = t.rating;
                 item.view = t.view;
                 item.coverImg = t.coverImg;
+                foreach (var i in t.images)
+                {
+                    item.images.Add(i);
+                }
 
                 dbContext.SaveChanges();
                 return true;
@@ -352,7 +358,7 @@ namespace Ecomerece_Web.Services.Implements
         {
             try
             {
-                var temp = objectSet.Where(p => !String.IsNullOrEmpty(p.wallpaper))
+                var temp = objectSet.Where(p => !String.IsNullOrEmpty(p.wallpaper)).OrderByDescending(p => p.releaseDate)
                     .Where(IQueryableExtensions.isSneaker())
                     .FirstOrDefault();
                 return temp;
@@ -394,6 +400,16 @@ namespace Ecomerece_Web.Services.Implements
                 Console.Error.WriteLine(e.Message);
                 throw;
             }
+        }
+
+        public void updateDeletImage(List<string> deletedImage, string id)
+        {
+            var product = objectSet.includeAll().Where(i => i.productNameID == id).SingleOrDefault();
+            foreach (var i in deletedImage)
+            {
+                dbContext.images.Remove(dbContext.images.Where(img => img.imageNameID == i).SingleOrDefault());
+            }
+            dbContext.SaveChanges();
         }
     }
 }
