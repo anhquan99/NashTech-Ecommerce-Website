@@ -24,7 +24,7 @@ namespace IDS.Data
                 AllowedScopes = { "identity-server-demo-api", "write", "read", "openid", "profile", "email" },
                 AllowedCorsOrigins = new List<string>
                 {
-                    ConfigurationManager.AppSetting["SPAClient:AllowedCorsOrigins"],
+                    "https://nash-spa.azurewebsites.net"
                 },
                 AccessTokenLifetime = 86400
                 }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace IDS
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -48,6 +50,41 @@ namespace IDS
                 .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
             services.AddControllersWithViews();
 
+            //CORS
+            //services.AddCors(options =>
+            //{
+            //    options.AddDefaultPolicy(
+            //        builder =>
+            //        {
+            //            builder
+            //            .WithOrigins(Configuration["SPAClient:URL"])
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod()
+            //            .AllowCredentials();
+            //        });
+            //});
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins(Configuration["SPAClient:URL"])
+                                      .AllowAnyHeader()
+                                      .AllowCredentials()
+                                      .AllowAnyMethod();
+                                  });
+            });
+
+            //services.AddSingleton<ICorsPolicyService>((container) =>
+            //{
+            //    var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+            //    return new DefaultCorsPolicyService(logger)
+            //    {
+            //        AllowedOrigins = { Configuration["SPAClient:URL"] }
+            //    };
+            //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +109,8 @@ namespace IDS
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseEndpoints(endpoints =>
             {

@@ -23,6 +23,7 @@ namespace Ecomerece_Web
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -64,15 +65,14 @@ namespace Ecomerece_Web
             //CORS
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder
-                        .WithOrigins(Configuration["SPAClient:URL"])
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                    });
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://nash-spa.azurewebsites.net")
+                                      .AllowAnyHeader()
+                                      .AllowCredentials()
+                                      .AllowAnyMethod();
+                                  });
             });
 
             services.AddAuthentication()
@@ -158,7 +158,6 @@ namespace Ecomerece_Web
             services.AddScoped<IRepository<Silhouette>, SilhouetteService>();
             services.AddScoped<IRepository<Ecomerece_Web.Data.Type>, TypeService>();
             services.AddScoped<IRepository<Color>, ColorService>();
-            //services.AddScoped<IUserRepository<User>, UserService>();
 
         }
 
@@ -186,7 +185,7 @@ namespace Ecomerece_Web
             app.UseStaticFiles();
 
             //CORS
-            app.UseCors();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 
